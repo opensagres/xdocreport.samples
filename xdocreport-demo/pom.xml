@@ -4,7 +4,92 @@
   <artifactId>xdocreport-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+  <build>
+		<!-- compatibility with existing project structure -->
+		<defaultGoal>install</defaultGoal>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<configuration>
+					<basedir>${basedir}</basedir>
+					<header>license.txt</header>
+					<includes>
+						<include>src/**</include>
+						<include>**/test/**</include>
+						<include>build.properties</include>
+						<include>plugin.xml</include>
+					</includes>
+					<excludes>
+						<exclude>target/**</exclude>
+						<exclude>**/*.txt</exclude>
+						<exclude>**/*.xml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.mycila.maven-license-plugin</groupId>
+					<artifactId>maven-license-plugin</artifactId>
+					<version>1.9.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<developers>
+		<developer>
+			<id>angelozerr</id>
+			<name>Angelo Zerr</name>
+			<email>angelo.zerr@gmail.com</email>
+			<roles>
+				<role>architect</role>
+				<role>developper</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>pascalleclercq</id>
+			<name>Pascal Leclercq</name>
+			<email>pascal.leclercq@gmail.com</email>
+			<roles>
+				<role>developper</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
   	<dependencies>
 
 		<dependency>
