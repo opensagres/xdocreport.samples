@@ -122,7 +122,12 @@
 			<artifactId>fr.opensagres.xdocreport.converter.odt.odfdom</artifactId>
 			<version>0.9.0-SNAPSHOT</version>
 		</dependency>
-
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+			
+		</dependency>
 
 		<!-- test dependencies -->
 		<dependency>
