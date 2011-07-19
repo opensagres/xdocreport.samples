@@ -184,6 +184,7 @@ import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.dispatcher.IXDocReportDispatcher;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.document.web.dispatcher.ProcessDispatcherXDocReportServlet;
+import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.ITemplateEngine;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportRegistry;
@@ -311,6 +312,20 @@ public class ProcessXDocReportServlet extends
 		return report;
 	}
 
+	@Override
+    protected void populateContext(IContext context, IXDocReport report,
+            HttpServletRequest request) {
+        Boolean defaultReport = report.getData(DEFAULT_REPORT_KEY);
+        if (defaultReport != null && defaultReport.booleanValue() == false) {
+            MetaDataModel dataModelForm = report.getData(DATA_MODEL_REPORT_KEY);
+            if (dataModelForm != null) {
+                dataModelForm.populateContext(context, request);
+            }
+        }
+        else {
+            super.populateContext(context, report, request);
+        }
+    }
 	// @Override
 	// protected void populateContext(IContext context, String reportId,
 	// HttpServletRequest request) throws IOException, XDocReportException {

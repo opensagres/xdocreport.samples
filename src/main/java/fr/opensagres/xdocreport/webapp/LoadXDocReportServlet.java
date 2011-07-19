@@ -179,14 +179,11 @@ import org.apache.commons.io.IOUtils;
 
 import fr.opensagres.xdocreport.converter.MimeMapping;
 import fr.opensagres.xdocreport.core.XDocReportException;
-import fr.opensagres.xdocreport.core.document.DocumentKind;
 import fr.opensagres.xdocreport.core.utils.StringUtils;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.document.web.UploadXDocReportServlet;
 import fr.opensagres.xdocreport.template.ITemplateEngine;
-import fr.opensagres.xdocreport.template.TemplateEngineKind;
-import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModelField;
 import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportController;
@@ -261,29 +258,12 @@ public class LoadXDocReportServlet extends UploadXDocReportServlet implements
 					report.setData(SAVED_REPORT_KEY, true);
 					report.setData(LOADED_REPORT_DATE_KEY, Calendar
 							.getInstance().getTime());
-//					try {
-//				//		 Register the report in global registry
-//						getRegistry(request).registerReport(report);
-//					} catch (XDocReportException e) {
-//					throw new ServletException(e);
-//				}
-					//FIXME : must talk with Angelo about this bug.
-					//	Le code précédent ne traitait pas proprement les tags des docs uploadés....	
-						final		IXDocReport report2=report;
-						DefaultReportRegistry.INSTANCE.register(report.getId(), new DefaultReportController(report.getId(), TemplateEngineKind.valueOf(report.getTemplateEngine().getKind()), DocumentKind.valueOf(report.getKind())) {
-							
-							@Override
-							protected FieldsMetadata createFieldsMetadata() {
-								return FieldsMetadata.EMPTY;
-							}
-							
-							@Override
-							protected MetaDataModel createMetaDataModel() {
-							
-								return (MetaDataModel)report2.getData(DATA_MODEL_REPORT_KEY);
-							}
-						});
-
+					try {
+						// Register the report in global registry
+						getRegistry(request).registerReport(report);
+					} catch (XDocReportException e) {
+						throw new ServletException(e);
+					}
 				}
 			}
 		}
