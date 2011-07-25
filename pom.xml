@@ -87,40 +87,40 @@
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.document.odt</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>0.9.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>0.9.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>0.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>0.9.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.template.freemarker</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.document.ods</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>0.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.odt.odfdom</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>0.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
