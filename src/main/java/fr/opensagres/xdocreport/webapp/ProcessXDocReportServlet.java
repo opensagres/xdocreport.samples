@@ -175,6 +175,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.opensagres.xdocreport.converter.ConverterFrom;
 import fr.opensagres.xdocreport.converter.ConverterRegistry;
 import fr.opensagres.xdocreport.core.XDocReportException;
@@ -201,9 +204,10 @@ public class ProcessXDocReportServlet extends
 	// Dispatch values
 	protected static final String LOAD_DISPATCH = "load";
 	private static final String ENTRIES_DISPATCH = "entries";
-
+private static final Logger LOGGER = LoggerFactory.getLogger(ProcessXDocReportServlet.class);
 	@Override
 	public void init(ServletConfig config) throws ServletException {
+		LOGGER.error("Just a test");
 		super.registerDispatcher(DefaultReportRegistry.INSTANCE);
 		super.init(config);
 	}
