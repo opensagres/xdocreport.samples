@@ -7,6 +7,7 @@
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<xdocreport.version>0.9.1-SNAPSHOT</xdocreport.version>
 	</properties>
 	<build>
 		<plugins>
@@ -87,49 +88,69 @@
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.document.odt</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>${xdocreport.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>${xdocreport.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>${xdocreport.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>${xdocreport.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.template.freemarker</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${xdocreport.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.document.ods</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>${xdocreport.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.odt.odfdom</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>${xdocreport.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.1</version>
-			
+		</dependency>
+		<dependency>
+			<!-- under MPL license -->
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcmail-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bcprov-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bctsp-jdk14</artifactId>
+					<groupId>org.bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
-		<!-- test dependencies -->
+
+		<!-- test dependencies (for EmbeddedServer)-->
 		<dependency>
 			<groupId>org.mortbay.jetty</groupId>
 			<artifactId>jetty-embedded</artifactId>
@@ -151,12 +172,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<!-- under MPL license -->
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-			<version>2.1.7</version>
-		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
@@ -167,8 +182,5 @@
 			<name>OSS</name>
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</repository>
-
-
-
 	</repositories>
 </project>
