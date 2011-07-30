@@ -1,9 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 	<groupId>fr.opensagres</groupId>
 	<artifactId>xdocreport-demo</artifactId>
-	<version>0.9.0-SNAPSHOT</version>
+	<version>0.9.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,6 +22,12 @@
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -88,39 +98,46 @@
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.document.odt</artifactId>
+
 			<version>${xdocreport.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
+
 			<version>${xdocreport.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
+
 			<version>${xdocreport.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
+
 			<version>${xdocreport.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.template.freemarker</artifactId>
+
 			<version>${xdocreport.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.document.ods</artifactId>
+
 			<version>${xdocreport.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.odt.odfdom</artifactId>
+
 			<version>${xdocreport.version}</version>
 		</dependency>
 		<dependency>
@@ -183,4 +200,9 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</repository>
 	</repositories>
+	<scm>
+		<developerConnection>scm:git:git@github.com:pascalleclercq/xdocreport-demo.git</developerConnection>
+		<connection>https://pascalleclercq@github.com/pascalleclercq/xdocreport-demo.git</connection>
+	</scm>
+	
 </project>
