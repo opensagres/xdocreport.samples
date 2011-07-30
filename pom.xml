@@ -182,4 +182,8 @@
 
 
 	</repositories>
+	<scm>
+		<developerConnection>git@github.com:pascalleclercq/xdocreport-demo.git</developerConnection>
+		<connection>https://pascalleclercq@github.com/pascalleclercq/xdocreport-demo.git</connection>
+	</scm>
 </project>
