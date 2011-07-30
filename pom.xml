@@ -7,7 +7,7 @@
 	</parent>
 	<groupId>fr.opensagres</groupId>
 	<artifactId>xdocreport-demo</artifactId>
-	<version>0.9.0</version>
+	<version>0.9.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
