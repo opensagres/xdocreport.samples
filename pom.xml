@@ -89,11 +89,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>0.9.28</version>
-		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres</groupId>
@@ -196,6 +191,21 @@
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
 		</dependency> -->
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jul-to-slf4j</artifactId>
+		<version>1.6.1</version>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>log4j-over-slf4j</artifactId>
+		<version>1.6.1</version>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jcl-over-slf4j</artifactId>
+		<version>1.6.1</version>
+	</dependency>
 	</dependencies>
 	<repositories>
 		<repository>

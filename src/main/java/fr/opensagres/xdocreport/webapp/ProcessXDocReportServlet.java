@@ -169,14 +169,12 @@ package fr.opensagres.xdocreport.webapp;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import fr.opensagres.xdocreport.converter.ConverterFrom;
 import fr.opensagres.xdocreport.converter.ConverterRegistry;
@@ -194,6 +192,10 @@ import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportRegistry;
 
 public class ProcessXDocReportServlet extends
 		ProcessDispatcherXDocReportServlet implements WebAppXDocReportConstants {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger LOGGER = Logger.getLogger(ProcessXDocReportServlet.class.getName());
 
 	private static final String XDOC_ARCHIVE = "XDocArchive";
 	private static final String PREPROCESSED = "Preprocessed";
@@ -204,10 +206,10 @@ public class ProcessXDocReportServlet extends
 	// Dispatch values
 	protected static final String LOAD_DISPATCH = "load";
 	private static final String ENTRIES_DISPATCH = "entries";
-private static final Logger LOGGER = LoggerFactory.getLogger(ProcessXDocReportServlet.class);
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		LOGGER.error("Just a test");
+		LOGGER.info("*****************************************");
 		super.registerDispatcher(DefaultReportRegistry.INSTANCE);
 		super.init(config);
 	}
