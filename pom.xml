@@ -165,7 +165,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		<!-- commons io is marked as "optional" in "commons-fileupload" -->
+<dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.3.2</version>
+      
+    </dependency>
 
 		<!-- test dependencies (for EmbeddedServer)-->
 		<dependency>
