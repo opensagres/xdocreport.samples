@@ -24,7 +24,6 @@
 			<unpack>false</unpack>
 			<excludes>
 				<exclude>com.lowagie:*</exclude>
-				<exclude>bouncycastle:*</exclude>
 			</excludes>		
 		</dependencySet>
 	</dependencySets>
