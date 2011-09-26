@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>samples</artifactId>
@@ -18,14 +19,14 @@
 				<dependencies>
 					<dependency>
 						<groupId>fr.opensagres.xdocreport.samples</groupId>
-						<version>0.9.1-SNAPSHOT</version>
+						<version>0.9.2-SNAPSHOT</version>
 						<artifactId>sample-assembly-descriptor</artifactId>
 					</dependency>
 				</dependencies>
-				
-				<!-- uncomment to bind to the "package" phase 
-				on invoke mvn assembly:single on xdocreport/samples folder
-				 <executions>
+
+				<!-- uncomment to bind to the "package" phase on invoke mvn assembly:single 
+					on xdocreport/samples folder -->
+				<!-- <executions>
 					<execution>
 						<phase>package</phase>
 						<goals>
@@ -40,11 +41,20 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-deploy-plugin</artifactId>
+				<groupId>fr.opensagres.maven.plugins</groupId>
+				<artifactId>gcupload-maven-plugin</artifactId>
+				<inherited>true</inherited>
 				<configuration>
-					<skip>true</skip>
+					<projectName>xdocreport</projectName>
+					<uploads>
+						<upload>
+							<classifier>sample</classifier>
+							<labels>OpSys-All,Type-Source,Featured</labels>
+						</upload>
+					</uploads>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 	<modules>
@@ -59,6 +69,7 @@
 		<module>fr.opensagres.xdocreport.samples.docxandfreemarker</module>
 		<module>fr.opensagres.xdocreport.samples.odtandfreemarker</module>
 	</modules>
+
 
 
 </project>
