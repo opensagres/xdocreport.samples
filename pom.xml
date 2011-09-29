@@ -25,6 +25,16 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
+		
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<inherited>false</inherited>
+				<configuration>
+					<skipAssembly>true</skipAssembly>
+				</configuration>
+			</plugin>
+		
+			
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<configuration>
