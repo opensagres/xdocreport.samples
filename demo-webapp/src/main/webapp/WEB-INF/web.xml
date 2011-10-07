@@ -75,6 +75,22 @@
 		<servlet-class>fr.opensagres.xdocreport.webapp.LoadXDocReportServlet</servlet-class>
 	</servlet>
 
+	<!-- Servlet used to generate report with TextStyling.docx -->
+	<servlet>
+		<servlet-name>TextStyling</servlet-name>
+		<servlet-class>
+			fr.opensagres.xdocreport.webapp.TextStylingReportServlet</servlet-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>HelloWorldReportServlet</servlet-name>
 		<url-pattern>/helloworld/*</url-pattern>
@@ -95,6 +111,11 @@
 		<url-pattern>/loadReport/*</url-pattern>
 	</servlet-mapping>
 
+	<servlet-mapping>
+		<servlet-name>TextStyling</servlet-name>
+		<url-pattern>/textstyling/*</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
