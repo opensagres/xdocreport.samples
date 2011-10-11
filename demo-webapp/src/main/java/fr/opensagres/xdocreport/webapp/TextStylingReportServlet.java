@@ -182,7 +182,6 @@ import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
 
 	private static final long serialVersionUID = 2014224300818715224L;
-	private static final String TEXT_STYLING_WITH_VELOCITY = "TextStyling";
 
 	@Override
 	protected InputStream getSourceStream(String reportId,
@@ -194,8 +193,10 @@ public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
 	@Override
 	protected void populateContext(IContext context, String reportId,
 			HttpServletRequest req) throws XDocReportException {
-		String comments = req.getParameter("comments");
-		context.put("comments", comments);
+		String comments_html = req.getParameter("comments_html");
+		context.put("comments_html", comments_html);
+		String comments_gwiki = req.getParameter("comments_gwiki");
+		context.put("comments_gwiki", comments_gwiki);
 	}
 
 	@Override
@@ -208,7 +209,8 @@ public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
 	protected FieldsMetadata getFieldsMetadata(String reportId,
 			HttpServletRequest request) {
 		FieldsMetadata metadata = new FieldsMetadata();
-		metadata.addFieldAsTextStyling("comments", TextStylingKind.Html);
+		metadata.addFieldAsTextStyling("comments_html", TextStylingKind.Html);
+		metadata.addFieldAsTextStyling("comments_gwiki", TextStylingKind.GWiki);
 		return metadata;
 	}
 

@@ -190,6 +190,7 @@ public class HTMLUtils implements XDocBaseServletConstants {
 	private static final String INDEX_JSP = "index.jsp";
 	private static final String LOADREPORT_JSP = "loadReport.jsp";
 	private static final String PROCESSREPORT_JSP = "processReport.jsp";
+	private static final String TEXTSTYLING_JSP = "textStyling.jsp";
 	private static final String DOCUMENT_ARCHIVE_JSP = "documentArchive.jsp";
 
 	public static final String DEFAULT_DATE_PATTERN = "dd/MM/yyyy HH:mm";
@@ -409,6 +410,26 @@ public class HTMLUtils implements XDocBaseServletConstants {
 		href.append(PROCESSREPORT_JSP);
 		return href.toString();
 	}
+
+	/**
+	 * Generate URL to call textStyling.jsp.
+	 * 
+	 * <pre>
+	 *  ex : http://localhost:8080/xdocreport-webapp/processReport.jsp
+	 * </pre>
+	 * 
+	 * @param request
+	 * @param reportId
+	 * @param dispatch
+	 * @return
+	 */
+	public static String generateTextStylingJSPURL(HttpServletRequest request) {
+		StringBuilder href = new StringBuilder(request.getContextPath());
+		href.append('/');
+		href.append(TEXTSTYLING_JSP);
+		return href.toString();
+	}
+	
 
 	/**
 	 * Generate URL to call processReport servlet to remove from the report from

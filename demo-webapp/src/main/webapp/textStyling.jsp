@@ -170,23 +170,40 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<%@page import="fr.opensagres.xdocreport.webapp.utils.HTMLUtils"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>XDocReport - Text styling with Wikipedia syntax</title>
+<title>XDocReport - Text styling with HTML syntax</title>
 </head>
 <link href="styles/xdocreport.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="scripts/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+	window.onload = function()
+	{
+		CKEDITOR.replace( 'editor1',
+	    {
+	        toolbar : 'Basic',
+	        uiColor : '#9AB8F3'
+	    });
+	};
+</script>
 <body>
 
-<fieldset><legend>Wikipedia Styling text</legend>
+<a href="<%=HTMLUtils.generateIndexJSPURL(request)%>">&lt;&lt; Home</a>
+
+<fieldset><legend>Text styling</legend>
 <form name="helloWorldForm"
-	action="<%=request.getContextPath()%>/textstyling?reportId=TextStylingWithWikipedia"
+	action="<%=request.getContextPath()%>/textstyling?reportId=TextStylingWithHTML"
 	method="post">
 <table>
 	<tr>
-		<td valign="top" >Comments :</td>
-		<td><textarea name="comments">Initial value</textarea></td>
+		<td valign="top" >HTML Comments :</td>
+		<td><textarea id="editor1" name="comments_html">&lt;p&gt;Here a &lt;strong&gt;bold&lt;/strong&gt; text and &lt;em&gt;italic&lt;/em&gt; text.&lt;/p&gt;</textarea></td>
+	</tr>
+	<tr>
+		<td valign="top" >Google Wiki Comments :</td>
+		<td><textarea name="comments_gwiki" style="height:200px" >Here a *Bold* text and _Italic_ text and both _*BoldItalic*_ text.</textarea></td>
 	</tr>
 	<tr>
 		<td colspan="2"><input type="submit" value="Generate Docx Report"></td>

@@ -209,13 +209,16 @@
 			hierarchy of the archive with links to download content of each
 			entries.
 			<li><a href="<%=HTMLUtils.generateHelloWorldJSPURL(request)%>">Hello
-			world!</a> sample explains how generate odt report by using odt file
+			world!</a> sample explains how to generate odt report by using odt file
 			source. This source document contains "Hello $name!" and use Velocity
 			syntax to replace $name field and generate odt report.</li>
 			<li><a href="<%=HTMLUtils.generateHelloWorldDispatcherJSPURL(request)%>">Hello
-			world! (with Dispatcher/Controler)</a> sample explains how generate odt report by using odt file
+			world! (with Dispatcher/Controler)</a> sample explains how to generate odt report by using odt file
 			source. This source document contains "Hello $name!" and use Velocity
 			syntax to replace $name field and generate odt report.</li>
+			<li><a href="<%=HTMLUtils.generateTextStylingJSPURL(request)%>">Text styling</a> 
+			sample shows you how to style (bold, italic, ...) the values to replace by using several syntax like HTML, Google Wiki, etc...
+			</li>							
 		</ul>
 		</p>
 		<p>Please visit <a href="http://code.google.com/p/xdocreport/">http://code.google.com/p/xdocreport/</a>
