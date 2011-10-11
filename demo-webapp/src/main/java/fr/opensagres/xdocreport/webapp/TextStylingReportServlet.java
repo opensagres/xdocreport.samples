@@ -197,6 +197,8 @@ public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
 		context.put("comments_html", comments_html);
 		String comments_gwiki = req.getParameter("comments_gwiki");
 		context.put("comments_gwiki", comments_gwiki);
+		String comments_mediawiki = req.getParameter("comments_mediawiki");
+		context.put("comments_mediawiki", comments_mediawiki);
 	}
 
 	@Override
@@ -211,6 +213,7 @@ public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
 		FieldsMetadata metadata = new FieldsMetadata();
 		metadata.addFieldAsTextStyling("comments_html", TextStylingKind.Html);
 		metadata.addFieldAsTextStyling("comments_gwiki", TextStylingKind.GWiki);
+		metadata.addFieldAsTextStyling("comments_mediawiki", TextStylingKind.MediaWiki);
 		return metadata;
 	}
 

@@ -206,6 +206,10 @@
 		<td><textarea name="comments_gwiki" style="height:200px" >Here a *Bold* text and _Italic_ text and both _*BoldItalic*_ text.</textarea></td>
 	</tr>
 	<tr>
+		<td valign="top" ><a href="http://meta.wikimedia.org/wiki/Wiki_text_formatting_help" >MediaWiki</a> Comments :</td>
+		<td><textarea name="comments_mediawiki" style="height:200px" >Here a '''Bold''' text and ''Italic'' text and both '''''BoldItalic''''' text.</textarea></td>
+	</tr>	
+	<tr>
 		<td colspan="2"><input type="submit" value="Generate Docx Report"></td>
 	</tr>
 </table>
