@@ -197,6 +197,8 @@ public class ODTTextStylingWithVelocity {
 			FieldsMetadata metadata = new FieldsMetadata();
 			metadata.addFieldAsTextStyling("comments_odt",
 					TextStylingKind.NoEscape);
+			metadata.addFieldAsTextStyling("comments_html",
+					TextStylingKind.Html);
 			report.setFieldsMetadata(metadata);
 			
 			// 3) Create context Java model
@@ -207,7 +209,9 @@ public class ODTTextStylingWithVelocity {
 			context.put("comments_odt",  "Here a" 
 					+ "<text:span text:style-name=\"T2\">bold</text:span>"
 					+ " text.");
-
+			context.put("comments_html",
+					"<p>Here a <strong>bold</strong> text.</p>");
+			
 			// 4) Generate report by merging Java model with the ODT
 			OutputStream out = new FileOutputStream(new File(
 					"ODTTextStylingWithVelocity_Out.odt"));

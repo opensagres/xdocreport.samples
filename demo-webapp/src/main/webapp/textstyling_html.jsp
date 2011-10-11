@@ -199,7 +199,7 @@
 <table>
 	<tr>
 		<td valign="top" >Comments :</td>
-		<td><textarea id="editor1" name="comments">&lt;p&gt;Initial value.&lt;/p&gt;</textarea></td>
+		<td><textarea id="editor1" name="comments">&lt;p&gt;Here a &lt;strong&gt;bold&lt;/strong&gt; text.&lt;/p&gt;</textarea></td>
 	</tr>
 	<tr>
 		<td colspan="2"><input type="submit" value="Generate Docx Report"></td>

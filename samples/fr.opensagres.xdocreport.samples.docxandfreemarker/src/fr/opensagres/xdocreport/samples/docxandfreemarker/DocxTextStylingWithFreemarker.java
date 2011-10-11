@@ -197,8 +197,10 @@ public class DocxTextStylingWithFreemarker {
 			FieldsMetadata metadata = new FieldsMetadata();
 			metadata.addFieldAsTextStyling("comments_docx",
 					TextStylingKind.NoEscape);
+			metadata.addFieldAsTextStyling("comments_html",
+					TextStylingKind.Html);
 			report.setFieldsMetadata(metadata);
-			
+
 			// 3) Create context Java model
 			IContext context = report.createContext();
 			Project project = new Project("XDocReport");
@@ -209,6 +211,9 @@ public class DocxTextStylingWithFreemarker {
 					+ "<w:r w:rsidRPr=\"0070620D\">" + "<w:rPr>" + "<w:b />"
 					+ "</w:rPr>" + "<w:t>bold</w:t>" + "</w:r>" + "<w:r>"
 					+ "<w:t xml:space=\"preserve\"> text.</w:t>" + "</w:r>");
+
+			context.put("comments_html",
+					"<p>Here a <strong>bold</strong> text.</p>");
 
 			// 4) Generate report by merging Java model with the Docx
 			OutputStream out = new FileOutputStream(new File(

@@ -176,6 +176,7 @@ import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.web.AbstractProcessXDocReportServlet;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import fr.opensagres.xdocreport.template.TextStylingKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
 public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
@@ -206,8 +207,9 @@ public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
 	@Override
 	protected FieldsMetadata getFieldsMetadata(String reportId,
 			HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return super.getFieldsMetadata(reportId, request);
+		FieldsMetadata metadata = new FieldsMetadata();
+		metadata.addFieldAsTextStyling("comments", TextStylingKind.Html);
+		return metadata;
 	}
 
 }
