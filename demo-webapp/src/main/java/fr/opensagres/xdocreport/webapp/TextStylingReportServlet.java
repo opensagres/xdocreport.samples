@@ -176,8 +176,8 @@ import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.web.AbstractProcessXDocReportServlet;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
-import fr.opensagres.xdocreport.template.TextStylingKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import fr.opensagres.xdocreport.template.textstyling.SyntaxKind;
 
 public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
 
@@ -211,9 +211,9 @@ public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
 	protected FieldsMetadata getFieldsMetadata(String reportId,
 			HttpServletRequest request) {
 		FieldsMetadata metadata = new FieldsMetadata();
-		metadata.addFieldAsTextStyling("comments_html", TextStylingKind.Html);
-		metadata.addFieldAsTextStyling("comments_gwiki", TextStylingKind.GWiki);
-		metadata.addFieldAsTextStyling("comments_mediawiki", TextStylingKind.MediaWiki);
+		metadata.addFieldAsTextStyling("comments_html", SyntaxKind.Html);
+		metadata.addFieldAsTextStyling("comments_gwiki", SyntaxKind.GWiki);
+		metadata.addFieldAsTextStyling("comments_mediawiki", SyntaxKind.MediaWiki);
 		return metadata;
 	}
 

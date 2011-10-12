@@ -179,8 +179,8 @@ import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.samples.docxandfreemarker.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
-import fr.opensagres.xdocreport.template.TextStylingKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import fr.opensagres.xdocreport.template.textstyling.SyntaxKind;
 
 public class DocxTextStylingWithFreemarker {
 
@@ -196,9 +196,9 @@ public class DocxTextStylingWithFreemarker {
 			// 2) Create fields metadata to manage text styling
 			FieldsMetadata metadata = new FieldsMetadata();
 			metadata.addFieldAsTextStyling("comments_docx",
-					TextStylingKind.NoEscape);
+					SyntaxKind.NoEscape);
 			metadata.addFieldAsTextStyling("comments_html",
-					TextStylingKind.Html);
+					SyntaxKind.Html);
 			report.setFieldsMetadata(metadata);
 
 			// 3) Create context Java model
