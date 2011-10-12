@@ -199,15 +199,58 @@
 <table>
 	<tr>
 		<td valign="top" >HTML Comments :</td>
-		<td><textarea id="editor1" name="comments_html">&lt;p&gt;Here a &lt;strong&gt;bold&lt;/strong&gt; text and &lt;em&gt;italic&lt;/em&gt; text.&lt;/p&gt;</textarea></td>
+		<td>
+<textarea id="editor1" name="comments_html">Here are severals styles : 
+&lt;ul&gt;
+	&lt;li&gt;&lt;strong&gt;Bold&lt;/strong&gt; style.&lt;/li&gt;
+	&lt;li&gt;&lt;em&gt;Italic&lt;/em&gt; style.&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;&lt;em&gt;BoldAndItalic&lt;/em&gt;&lt;/strong&gt; style.&lt;/li&gt;
+&lt;/ul&gt;
+Here are 3 styles : 
+
+&lt;ol&gt;
+	&lt;li&gt;&lt;strong&gt;Bold&lt;/strong&gt; style.&lt;/li&gt;
+	&lt;li&gt;&lt;em&gt;Italic&lt;/em&gt; style.&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;&lt;em&gt;BoldAndItalic&lt;/em&gt;&lt;/strong&gt; style.&lt;/li&gt;
+&lt;/ol&gt;
+
+XDocReport can manage thoses styles.
+</textarea>
+		</td>
 	</tr>
 	<tr>
 		<td valign="top" >Google Wiki Comments :</td>
-		<td><textarea name="comments_gwiki" style="height:200px" >Here a *Bold* text and _Italic_ text and both _*BoldItalic*_ text.</textarea></td>
+		<td>
+<textarea name="comments_gwiki" style="height:200px" >Here are severals styles : 
+ * *Bold* style.
+ * _Italic_ style.
+ * _*BoldAndItalic*_ style.
+
+Here are 3 styles : 
+
+ # *Bold* style.
+ # _Italic_ style.
+ # _*BoldAndItalic*_ style.
+
+XDocReport can manage thoses styles.
+</textarea></td>
 	</tr>
 	<tr>
 		<td valign="top" ><a href="http://meta.wikimedia.org/wiki/Wiki_text_formatting_help" >MediaWiki</a> Comments :</td>
-		<td><textarea name="comments_mediawiki" style="height:200px" >Here a '''Bold''' text and ''Italic'' text and both '''''BoldItalic''''' text.</textarea></td>
+		<td>
+<textarea name="comments_mediawiki" style="height:200px" >Here are severals styles : 
+* '''Bold''' style.
+* ''Italic'' style.
+* '''''BoldAndItalic''''' style.
+
+Here are 3 styles : 
+
+# '''Bold''' style.
+# ''Italic'' style.
+# '''''BoldAndItalic''''' style.
+
+XDocReport can manage thoses styles.
+</textarea></td>		
 	</tr>	
 	<tr>
 		<td colspan="2"><input type="submit" value="Generate Docx Report"></td>
