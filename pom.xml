@@ -2,12 +2,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.opensagres.xdocreport.samples</groupId>
 	<artifactId>xdocreport-samples</artifactId>
-	<version>0.9.4-SNAPSHOT</version>
+	<version>0.9.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<url>https://xdocreport.googlecode.com/files</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<xdocreport.version>0.9.3</xdocreport.version>
+		<xdocreport.version>0.9.3-SNAPSHOT</xdocreport.version>
 	</properties>
 	<modules>
 		<module>sample-assembly-descriptor</module>
