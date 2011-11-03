@@ -205,7 +205,7 @@ public class DocxProjectWithFreemarkerAndImageList {
 			metadata.addFieldAsList("developers.lastName");
 			metadata.addFieldAsList("developers.mail");
 			metadata.addFieldAsList("developers.photo");
-			
+
 			// image
 			metadata.addFieldAsImage("logo");
 			metadata.addFieldAsImage("photo", "developers.photo");
@@ -216,7 +216,8 @@ public class DocxProjectWithFreemarkerAndImageList {
 			Project project = new Project("XDocReport");
 			project.setURL("http://code.google.com/p/xdocreport/");
 			context.put("project", project);
-			IImageProvider logo = new ClassPathImageProvider("logo.png");
+			IImageProvider logo = new ClassPathImageProvider(
+					DocxProjectWithFreemarkerAndImageList.class, "logo.png");
 			context.put("logo", logo);
 
 			// Register developers list

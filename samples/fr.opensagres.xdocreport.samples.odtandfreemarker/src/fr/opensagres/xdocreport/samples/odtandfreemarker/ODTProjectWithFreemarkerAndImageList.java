@@ -214,7 +214,8 @@ public class ODTProjectWithFreemarkerAndImageList {
 			IContext context = report.createContext();
 			Project project = new Project("XDocReport");
 			context.put("project", project);
-			IImageProvider logo = new ClassPathImageProvider("logo.png");
+			IImageProvider logo = new ClassPathImageProvider(
+					ODTProjectWithFreemarkerAndImageList.class, "logo.png");
 			context.put("logo", logo);
 
 			// Register developers list

@@ -215,7 +215,8 @@ public class DocxProjectWithVelocityAndImageList {
 			Project project = new Project("XDocReport");
 			project.setURL("http://code.google.com/p/xdocreport/");
 			context.put("project", project);
-			IImageProvider logo = new ClassPathImageProvider("logo.png");
+			IImageProvider logo = new ClassPathImageProvider(
+					DocxProjectWithVelocityAndImageList.class, "logo.png");
 			context.put("logo", logo);
 
 			// Register developers list

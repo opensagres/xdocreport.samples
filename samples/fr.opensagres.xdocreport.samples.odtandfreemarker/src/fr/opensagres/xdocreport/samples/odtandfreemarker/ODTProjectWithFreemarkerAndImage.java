@@ -208,10 +208,10 @@ public class ODTProjectWithFreemarkerAndImage {
 					ODTProjectWithFreemarkerAndImage.class, "logo.png");
 			context.put("logo", logo);
 
-			boolean keepTemplateImageSize = false;
+			boolean useImageSize = true;
 			IImageProvider originalSizeLogo = new ClassPathImageProvider(
 					ODTProjectWithFreemarkerAndImage.class, "logo.png",
-					keepTemplateImageSize);
+					useImageSize);
 			context.put("originalSizeLogo", originalSizeLogo);
 			
 			// 4) Generate report by merging Java model with the ODT
