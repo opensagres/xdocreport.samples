@@ -197,6 +197,7 @@ public class ODTProjectWithFreemarkerAndImage {
 			// 2) Create fields metadata to manage image
 			FieldsMetadata metadata = new FieldsMetadata();
 			metadata.addFieldAsImage("logo");
+			metadata.addFieldAsImage("originalSizeLogo");
 			report.setFieldsMetadata(metadata);
 
 			// 3) Create context Java model
@@ -207,6 +208,12 @@ public class ODTProjectWithFreemarkerAndImage {
 					ODTProjectWithFreemarkerAndImage.class, "logo.png");
 			context.put("logo", logo);
 
+			boolean keepTemplateImageSize = false;
+			IImageProvider originalSizeLogo = new ClassPathImageProvider(
+					ODTProjectWithFreemarkerAndImage.class, "logo.png",
+					keepTemplateImageSize);
+			context.put("originalSizeLogo", originalSizeLogo);
+			
 			// 4) Generate report by merging Java model with the ODT
 			OutputStream out = new FileOutputStream(new File(
 					"ODTProjectWithFreemarkerAndImage_Out.odt"));
