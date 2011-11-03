@@ -198,6 +198,8 @@ public class ODTProjectWithFreemarkerAndImage {
 			FieldsMetadata metadata = new FieldsMetadata();
 			metadata.addFieldAsImage("logo");
 			metadata.addFieldAsImage("originalSizeLogo");
+			metadata.addFieldAsImage("forcedSizeLogo");
+			metadata.addFieldAsImage("ratioSizeLogo");
 			report.setFieldsMetadata(metadata);
 
 			// 3) Create context Java model
@@ -213,7 +215,21 @@ public class ODTProjectWithFreemarkerAndImage {
 					ODTProjectWithFreemarkerAndImage.class, "logo.png",
 					useImageSize);
 			context.put("originalSizeLogo", originalSizeLogo);
-			
+
+			// Image with width/height forced
+			IImageProvider forcedSizeLogo = new ClassPathImageProvider(
+					ODTProjectWithFreemarkerAndImage.class, "logo.png");
+			forcedSizeLogo.setSize(400f, 100f);
+			context.put("forcedSizeLogo", forcedSizeLogo);
+
+			// Image with width forced and height computed with ratio
+			IImageProvider ratioSizeLogo = new ClassPathImageProvider(
+					ODTProjectWithFreemarkerAndImage.class, "logo.png");
+			ratioSizeLogo.setUseImageSize(true);
+			ratioSizeLogo.setWidth(400f);
+			ratioSizeLogo.setResize(true);
+			context.put("ratioSizeLogo", ratioSizeLogo);
+
 			// 4) Generate report by merging Java model with the ODT
 			OutputStream out = new FileOutputStream(new File(
 					"ODTProjectWithFreemarkerAndImage_Out.odt"));
