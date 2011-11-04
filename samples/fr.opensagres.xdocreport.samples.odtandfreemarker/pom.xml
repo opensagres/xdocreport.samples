@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>fr.opensagres.xdocreport.samples</groupId>
 		<artifactId>samples</artifactId>
-		<version>0.9.3</version>
+		<version>0.9.4-SNAPSHOT</version>
 	</parent>
 	<description>ODT (Open Office) document, templating based on Freemarker.</description>
 	<artifactId>odtandfreemarker</artifactId>
