@@ -206,7 +206,7 @@ public class ODTTextStylingWithFreemarker {
 			Project project = new Project("XDocReport");
 			context.put("project", project);
 
-			context.put("comments_odt",  "Here a" 
+			context.put("comments_odt",  "Here a " 
 					+ "<text:span text:style-name=\"T2\">bold</text:span>"
 					+ " text.");
 			context.put("comments_html",
