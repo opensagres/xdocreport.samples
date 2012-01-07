@@ -182,6 +182,7 @@ import fr.opensagres.xdocreport.samples.pptxandvelocity.model.Developer;
 import fr.opensagres.xdocreport.samples.pptxandvelocity.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
 public class PPTXProject {
 
@@ -194,16 +195,21 @@ public class PPTXProject {
 			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
 					in, TemplateEngineKind.Velocity);
 
+			FieldsMetadata metadata= new FieldsMetadata();
+			metadata.addFieldAsList("developers.Name");					
+			report.setFieldsMetadata(metadata);
+			
 			// 2) Create context Java model
 			IContext context = report.createContext();
 			Project project = new Project("XDocReport");
 			context.put("project", project);
 
 			List<Developer> developers = new ArrayList<Developer>();
-			for (int i = 0; i < 10; i++) {
-				developers.add(new Developer("Name" + i, "lastName" + i, null));
-			}
-			context.put("slide1", developers);
+			developers.add(new Developer("ZERR", "Angelo",
+					"angelo.zerr@gmail.com"));
+			developers.add(new Developer("Leclercq", "Pascal",
+					"pascal.leclercq@gmail.com"));
+			context.put("developers", developers);
 
 			// 3) Generate report by merging Java model with the PPTX
 			OutputStream out = new FileOutputStream(new File(
