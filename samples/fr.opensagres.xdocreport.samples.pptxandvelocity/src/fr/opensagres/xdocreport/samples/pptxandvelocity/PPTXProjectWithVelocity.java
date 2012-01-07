@@ -172,13 +172,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
+import fr.opensagres.xdocreport.samples.pptxandvelocity.model.Developer;
 import fr.opensagres.xdocreport.samples.pptxandvelocity.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
 public class PPTXProjectWithVelocity {
 
@@ -191,10 +195,22 @@ public class PPTXProjectWithVelocity {
 			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
 					in, TemplateEngineKind.Velocity);
 
+			FieldsMetadata metadata= new FieldsMetadata();
+			metadata.addFieldAsList("developers.Name");
+			metadata.addFieldAsList("developers.LastName");	
+			report.setFieldsMetadata(metadata);
+			
 			// 2) Create context Java model
 			IContext context = report.createContext();
 			Project project = new Project("XDocReport");
 			context.put("project", project);
+
+			List<Developer> developers = new ArrayList<Developer>();
+			developers.add(new Developer("ZERR", "Angelo",
+					"angelo.zerr@gmail.com"));
+			developers.add(new Developer("Leclercq", "Pascal",
+					"pascal.leclercq@gmail.com"));
+			context.put("developers", developers);
 
 			// 3) Generate report by merging Java model with the PPTX
 			OutputStream out = new FileOutputStream(new File(
