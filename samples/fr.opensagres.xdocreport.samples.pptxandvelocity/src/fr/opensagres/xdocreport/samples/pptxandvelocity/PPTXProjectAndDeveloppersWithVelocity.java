@@ -198,6 +198,7 @@ public class PPTXProjectAndDeveloppersWithVelocity {
 			FieldsMetadata metadata= new FieldsMetadata();
 			metadata.addFieldAsList("developers.Name");
 			metadata.addFieldAsList("developers.LastName");	
+			metadata.addFieldAsList("developers.Mail");
 			report.setFieldsMetadata(metadata);
 			
 			// 2) Create context Java model
