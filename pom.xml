@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.opensagres.xdocreport.samples</groupId>
 	<artifactId>xdocreport-samples</artifactId>
-	<version>0.9.4</version>
+	<version>0.9.5-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<url>https://xdocreport.googlecode.com/files</url>
 	<properties>
