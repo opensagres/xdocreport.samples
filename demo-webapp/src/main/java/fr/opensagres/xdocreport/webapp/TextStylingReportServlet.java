@@ -173,11 +173,11 @@ import java.io.InputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
+import fr.opensagres.xdocreport.core.document.SyntaxKind;
 import fr.opensagres.xdocreport.document.web.AbstractProcessXDocReportServlet;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
-import fr.opensagres.xdocreport.template.textstyling.SyntaxKind;
 
 public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
 

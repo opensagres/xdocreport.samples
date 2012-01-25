@@ -174,13 +174,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
+import fr.opensagres.xdocreport.core.document.SyntaxKind;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.samples.odtandfreemarker.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
-import fr.opensagres.xdocreport.template.textstyling.SyntaxKind;
 
 public class ODTTextStylingWithFreemarker {
 
