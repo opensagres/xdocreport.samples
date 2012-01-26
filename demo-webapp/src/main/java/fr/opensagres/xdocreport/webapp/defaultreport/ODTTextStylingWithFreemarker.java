@@ -167,70 +167,30 @@
  */
 package fr.opensagres.xdocreport.webapp.defaultreport;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Collection;
-
-import javax.servlet.ServletRequest;
-
-import fr.opensagres.xdocreport.document.dispatcher.BasicXDocReportDispatcher;
+import fr.opensagres.xdocreport.core.document.DocumentKind;
+import fr.opensagres.xdocreport.core.document.SyntaxKind;
+import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
-import fr.opensagres.xdocreport.webapp.utils.HTMLUtils;
 
-public class DefaultReportRegistry extends
-		BasicXDocReportDispatcher<DefaultReportController> {
+public class ODTTextStylingWithFreemarker extends DefaultReportController {
 
-	public static DefaultReportRegistry INSTANCE = new DefaultReportRegistry();
-
-	public DefaultReportRegistry() {
-		register(new DocXHelloWorldWithVelocity());
-		register(new DocXHelloWorldWithFreemarker());
-		register(new DocxLettreRelance());
-		register(new DocxCV());
-		register(new DocxStructures());
-		register(new DocxBig());
-		register(new ODTHelloWorldWithVelocity());
-		register(new ODTHelloWorldWithFreemarker());
-		register(new ODTProjectWithVelocity());
-		register(new ODTProjectWithFreemarker());
-		register(new ODTStructures());
-		register(new ODTLettreRelance());
-		register(new ODTCV());
-		register(new ODTBig());
-		register(new ODTTextStylingWithFreemarker());
+	public ODTTextStylingWithFreemarker() {
+		super("ODTTextStylingWithFreemarker.odt", TemplateEngineKind.Velocity,
+				DocumentKind.ODT);
 	}
 
-	private void register(DefaultReportController controler) {
-		super.register(controler.getReportId(), controler);
+	@Override
+	protected MetaDataModel createMetaDataModel() {
+		MetaDataModel model = new MetaDataModel();
+		model.addSimpleField("comments", "<h1>Title1</h1>Here some <strong>bold text</strong><h2>Title2</h2>Here some <em>italic text</em>");
+		return model;
 	}
 
-	public MetaDataModel getMetaDataModel(String reportId) {
-		DefaultReportController defaultReport = getReportController(reportId);
-		if (defaultReport != null) {
-			return defaultReport.getMetaDataModel();
-		}
-		return null;
+	@Override
+	protected FieldsMetadata createFieldsMetadata() {
+		FieldsMetadata fieldsMetadata = new FieldsMetadata();
+		fieldsMetadata.addFieldAsTextStyling("comments", SyntaxKind.Html);
+		return fieldsMetadata;
 	}
-
-	public void toHTMLOptions(ServletRequest request, Writer writer)
-			throws IOException {
-		Collection<DefaultReportController> reports = super.getControllers();
-		for (DefaultReportController defaultReport : reports) {
-			HTMLUtils.generateHTMLOption(defaultReport.getReportId(), request,
-					writer, "reportId");
-		}
-	}
-
-	public Collection<DefaultReportController> getDefaultReports() {
-		return super.getControllers();
-	}
-
-	public String getConverterTypeFrom(String reportId) {
-		DefaultReportController controler = getReportController(reportId);
-		if (controler != null) {
-			return controler.getConverterTypeFrom();
-		}
-		return null;
-	}
-
 }
