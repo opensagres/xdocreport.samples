@@ -197,6 +197,7 @@ public class DefaultReportRegistry extends
 		register(new ODTLettreRelance());
 		register(new ODTCV());
 		register(new ODTBig());
+		register(new ODTTextStylingWithFreemarker());
 	}
 
 	private void register(DefaultReportController controler) {
