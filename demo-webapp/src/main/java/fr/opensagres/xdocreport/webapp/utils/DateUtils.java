@@ -171,25 +171,30 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateUtils {
+public class DateUtils
+{
 
-	// public static final String DEFAULT_DATE_PATTERN = "dd/MM/yyyy HH:mm";
-	public static final String DEFAULT_DATE_PATTERN = "dd/MM/yyyy";
+    // public static final String DEFAULT_DATE_PATTERN = "dd/MM/yyyy HH:mm";
+    public static final String DEFAULT_DATE_PATTERN = "dd/MM/yyyy";
 
-	public static Date getToday() {
-		return Calendar.getInstance().getTime();
-	}
+    public static Date getToday()
+    {
+        return Calendar.getInstance().getTime();
+    }
 
-	public static String formatDate(Date date) {
-		return formatDate(date, DEFAULT_DATE_PATTERN);
-	}
+    public static String formatDate( Date date )
+    {
+        return formatDate( date, DEFAULT_DATE_PATTERN );
+    }
 
-	public static String formatDate(Date date, String outputPattern) {
-		if (date == null) {
-			return null;
-		}
+    public static String formatDate( Date date, String outputPattern )
+    {
+        if ( date == null )
+        {
+            return null;
+        }
 
-		SimpleDateFormat sdf = new SimpleDateFormat(outputPattern);
-		return sdf.format(date);
-	}
+        SimpleDateFormat sdf = new SimpleDateFormat( outputPattern );
+        return sdf.format( date );
+    }
 }

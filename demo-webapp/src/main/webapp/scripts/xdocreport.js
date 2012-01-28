@@ -166,96 +166,96 @@
  * Library.
  */
 function submitForm(dispatch, target) {
-	var dispatchHTMLInputHidden = document.getElementById('dispatch');
-	dispatchHTMLInputHidden.value = dispatch;
-	var form = dispatchHTMLInputHidden.form;
-	if (target != null) {
-		form.target = target;
-	}
-	form.submit();
+  var dispatchHTMLInputHidden = document.getElementById('dispatch');
+  dispatchHTMLInputHidden.value = dispatch;
+  var form = dispatchHTMLInputHidden.form;
+  if (target != null) {
+    form.target = target;
+  }
+  form.submit();
 }
 
 function processReport(baseURL, fieldTextarea) {
-	var previewFrame = document.getElementById('previewFrame');
-	if (previewFrame == null) {
-		return true;
-	}
+  var previewFrame = document.getElementById('previewFrame');
+  if (previewFrame == null) {
+    return true;
+  }
 
-	// Is textarea changed?
-	if (fieldTextarea != null) {
-		var oldValue = fieldTextarea.getAttribute('oldValue');
-		var newValue = fieldTextarea.value;
-		if (oldValue == newValue) {
-			return true;
-		}
-		// textarea change, iframe must be refreshed.
-		fieldTextarea.setAttribute('oldValue', newValue)
-	}
+  // Is textarea changed?
+  if (fieldTextarea != null) {
+    var oldValue = fieldTextarea.getAttribute('oldValue');
+    var newValue = fieldTextarea.value;
+    if (oldValue == newValue) {
+      return true;
+    }
+    // textarea change, iframe must be refreshed.
+    fieldTextarea.setAttribute('oldValue', newValue)
+  }
 
-	// Build URL
-	var url = baseURL;
-	var dataModel = document.getElementById('dataModel');
-	var textareas = dataModel.getElementsByTagName('textarea');
-	for ( var i = 0; i < textareas.length; i++) {
-		var textarea = textareas.item(i);
-		url += '&';
-		url += textarea.name;
-		url += '=';
-		url += textarea.value.replace('&', '%26').replace('\n', '%0D%0A');
-	}
-	previewFrame.src = url;
-	return true;
+  // Build URL
+  var url = baseURL;
+  var dataModel = document.getElementById('dataModel');
+  var textareas = dataModel.getElementsByTagName('textarea');
+  for ( var i = 0; i < textareas.length; i++) {
+    var textarea = textareas.item(i);
+    url += '&';
+    url += textarea.name;
+    url += '=';
+    url += textarea.value.replace('&', '%26').replace('\n', '%0D%0A');
+  }
+  previewFrame.src = url;
+  return true;
 }
 
 var firstRow = null;
 function add(baseURL, tableId) {
-	var table = document.getElementById(tableId);
-	if (table == null) {
-		return;
-	}
+  var table = document.getElementById(tableId);
+  if (table == null) {
+    return;
+  }
 
-	var newTR = null;
-	if (firstRow != null) {
-		// At this step, no row in the table , use the global first row.
-		newTR = firstRow;
-		firstRow = null;
-	} else {
-		// get last row of the table
-		var rows = table.rows;
-		var lastRow = rows[rows.length - 1];
+  var newTR = null;
+  if (firstRow != null) {
+    // At this step, no row in the table , use the global first row.
+    newTR = firstRow;
+    firstRow = null;
+  } else {
+    // get last row of the table
+    var rows = table.rows;
+    var lastRow = rows[rows.length - 1];
 
-		// Copy last row line of the data model table
-		newTR = lastRow.cloneNode(true)
-	}
+    // Copy last row line of the data model table
+    newTR = lastRow.cloneNode(true)
+  }
 
-	// Add the copied line to the table
-	table.appendChild(newTR);
+  // Add the copied line to the table
+  table.appendChild(newTR);
 
-	// Refresh iframe preview
-	processReport(baseURL, null);
+  // Refresh iframe preview
+  processReport(baseURL, null);
 }
 
 function remove(baseURL, tableId) {
-	var table = document.getElementById(tableId);
-	if (table == null) {
-		return;
-	}
+  var table = document.getElementById(tableId);
+  if (table == null) {
+    return;
+  }
 
-	// get last row of the table
-	var rows = table.rows;
-	var index = rows.length - 1;
-	if (index < 2) {
-		// No row to delete (row1 = a href Add+Remove), row2 = table header
-		return;
-	}
+  // get last row of the table
+  var rows = table.rows;
+  var index = rows.length - 1;
+  if (index < 2) {
+    // No row to delete (row1 = a href Add+Remove), row2 = table header
+    return;
+  }
 
-	if (index == 2) {
-		// One row, store it in the global variable
-		firstRow = rows[index];
-	}
-	// Remove last row
-	table.deleteRow(index);
+  if (index == 2) {
+    // One row, store it in the global variable
+    firstRow = rows[index];
+  }
+  // Remove last row
+  table.deleteRow(index);
 
-	// Refresh iframe preview
-	processReport(baseURL, null);
+  // Refresh iframe preview
+  processReport(baseURL, null);
 }

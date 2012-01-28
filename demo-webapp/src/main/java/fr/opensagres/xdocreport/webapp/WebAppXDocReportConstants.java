@@ -167,15 +167,19 @@
  */
 package fr.opensagres.xdocreport.webapp;
 
-public interface WebAppXDocReportConstants {
+public interface WebAppXDocReportConstants
+{
 
-	
-	String DEFAULT_REPORT_KEY = "default";
-	String DATA_MODEL_REPORT_KEY = "dataModel";
-	String SAVED_REPORT_KEY = "saved";
-	String LOADED_REPORT_DATE_KEY = "loadedReportDate";
-	String ORIGINAL_XDOCARCHIVE_DATA_KEY = "orginalXDocArchive";
-	
-	String FROM_CONVERTER_ATTR_REQUEST = "fromConverter";
-	
+    String DEFAULT_REPORT_KEY = "default";
+
+    String DATA_MODEL_REPORT_KEY = "dataModel";
+
+    String SAVED_REPORT_KEY = "saved";
+
+    String LOADED_REPORT_DATE_KEY = "loadedReportDate";
+
+    String ORIGINAL_XDOCARCHIVE_DATA_KEY = "orginalXDocArchive";
+
+    String FROM_CONVERTER_ATTR_REQUEST = "fromConverter";
+
 }

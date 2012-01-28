@@ -174,56 +174,60 @@ import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModelListField;
 import fr.opensagres.xdocreport.webapp.utils.DateUtils;
 
-public class DocxLettreRelance extends DefaultReportController {
+public class DocxLettreRelance
+    extends DefaultReportController
+{
 
-	public DocxLettreRelance() {
-		super("DocxLettreRelance.docx", TemplateEngineKind.Velocity,
-				DocumentKind.DOCX);
-	}
+    public DocxLettreRelance()
+    {
+        super( "DocxLettreRelance.docx", TemplateEngineKind.Velocity, DocumentKind.DOCX );
+    }
 
-	@Override
-	protected MetaDataModel createMetaDataModel() {
-		MetaDataModel model = new MetaDataModel();
+    @Override
+    protected MetaDataModel createMetaDataModel()
+    {
+        MetaDataModel model = new MetaDataModel();
 
-		// User
-		model.addSimpleField("user.name", "ZERR");
-		model.addSimpleField("user.lastName", "Angelo");
+        // User
+        model.addSimpleField( "user.name", "ZERR" );
+        model.addSimpleField( "user.lastName", "Angelo" );
 
-		// User Adress
-		model.addSimpleField("user.adress.street", "6 rue de l'espace");
-		model.addSimpleField("user.adress.codePostal", "59000");
-		model.addSimpleField("user.adress.city", "Villeneuve d'Ascq");
+        // User Adress
+        model.addSimpleField( "user.adress.street", "6 rue de l'espace" );
+        model.addSimpleField( "user.adress.codePostal", "59000" );
+        model.addSimpleField( "user.adress.city", "Villeneuve d'Ascq" );
 
-		// Company
-		model.addSimpleField("company.name", "OpenSagres");
+        // Company
+        model.addSimpleField( "company.name", "OpenSagres" );
 
-		// Company Adress
-		model.addSimpleField("company.adress.street", "4 rue de la liberté");
-		model.addSimpleField("company.adress.codePostal", "59000");
-		model.addSimpleField("company.adress.city", "Lille");
+        // Company Adress
+        model.addSimpleField( "company.adress.street", "4 rue de la liberté" );
+        model.addSimpleField( "company.adress.codePostal", "59000" );
+        model.addSimpleField( "company.adress.city", "Lille" );
 
-		// Date
-		model.addSimpleField("date", DateUtils.formatDate(DateUtils.getToday()));
-		
-		// Commands list
-		MetaDataModelListField listField = model.addListField("cds");
-		listField.addSimpleField("reference", "95856512568");
-		listField.addSimpleField("description", "Tournevis");
-		listField.addSimpleField("prixUnit", "20.15 €");
-		listField.addSimpleField("quantite", "2");
-		listField.addSimpleField("prixTotal", "40.30 €");
-		
-		return model;
-	}
+        // Date
+        model.addSimpleField( "date", DateUtils.formatDate( DateUtils.getToday() ) );
 
-	@Override
-	protected FieldsMetadata createFieldsMetadata() {
-		FieldsMetadata fieldsMetadata = new FieldsMetadata();
-		fieldsMetadata.addFieldAsList("cds.reference");
-		fieldsMetadata.addFieldAsList("cds.description");
-		fieldsMetadata.addFieldAsList("cds.prixUnit");
-		fieldsMetadata.addFieldAsList("cds.quantite");
-		fieldsMetadata.addFieldAsList("cds.prixTotal");
-		return fieldsMetadata;
-	}
+        // Commands list
+        MetaDataModelListField listField = model.addListField( "cds" );
+        listField.addSimpleField( "reference", "95856512568" );
+        listField.addSimpleField( "description", "Tournevis" );
+        listField.addSimpleField( "prixUnit", "20.15 €" );
+        listField.addSimpleField( "quantite", "2" );
+        listField.addSimpleField( "prixTotal", "40.30 €" );
+
+        return model;
+    }
+
+    @Override
+    protected FieldsMetadata createFieldsMetadata()
+    {
+        FieldsMetadata fieldsMetadata = new FieldsMetadata();
+        fieldsMetadata.addFieldAsList( "cds.reference" );
+        fieldsMetadata.addFieldAsList( "cds.description" );
+        fieldsMetadata.addFieldAsList( "cds.prixUnit" );
+        fieldsMetadata.addFieldAsList( "cds.quantite" );
+        fieldsMetadata.addFieldAsList( "cds.prixTotal" );
+        return fieldsMetadata;
+    }
 }

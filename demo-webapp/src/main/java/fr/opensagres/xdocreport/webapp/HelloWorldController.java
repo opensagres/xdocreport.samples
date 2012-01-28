@@ -178,28 +178,32 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class HelloWorldController extends AbstractXDocReportWEBController {
+public class HelloWorldController
+    extends AbstractXDocReportWEBController
+{
 
-	public static final String REPORT_ID = "ODTHelloWorldWithVelocity";
+    public static final String REPORT_ID = "ODTHelloWorldWithVelocity";
 
-	public HelloWorldController() {
-		super(TemplateEngineKind.Velocity, DocumentKind.ODT);
-	}
+    public HelloWorldController()
+    {
+        super( TemplateEngineKind.Velocity, DocumentKind.ODT );
+    }
 
-	public InputStream getSourceStream() {
-		return HelloWorldController.class
-		.getResourceAsStream("ODTHelloWorldWithVelocity.odt");
-	}
-	
-	@Override
-	protected FieldsMetadata createFieldsMetadata() {		
-		return null;
-	}
-	
-	public void populateContext(IContext context, IXDocReport report,
-			HttpServletRequest request) {
-		String name = request.getParameter("name");
-		context.put("name", name);		
-	}
-	
+    public InputStream getSourceStream()
+    {
+        return HelloWorldController.class.getResourceAsStream( "ODTHelloWorldWithVelocity.odt" );
+    }
+
+    @Override
+    protected FieldsMetadata createFieldsMetadata()
+    {
+        return null;
+    }
+
+    public void populateContext( IContext context, IXDocReport report, HttpServletRequest request )
+    {
+        String name = request.getParameter( "name" );
+        context.put( "name", name );
+    }
+
 }

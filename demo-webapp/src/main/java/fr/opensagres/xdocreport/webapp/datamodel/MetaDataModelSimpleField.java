@@ -176,75 +176,85 @@ import fr.opensagres.xdocreport.core.utils.StringUtils;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.webapp.utils.StringEscapeUtils;
 
-public class MetaDataModelSimpleField extends MetaDataModelField {
+public class MetaDataModelSimpleField
+    extends MetaDataModelField
+{
 
-	private String defaultValue;
-	private String label;
+    private String defaultValue;
 
-	public MetaDataModelSimpleField(String name, String defaultValue,
-			String label) {
-		super(name);
-		setDefaultValue(defaultValue);
-		this.label = label;
-	}
+    private String label;
 
-	public String getLabel() {
-		return label;
-	}
+    public MetaDataModelSimpleField( String name, String defaultValue, String label )
+    {
+        super( name );
+        setDefaultValue( defaultValue );
+        this.label = label;
+    }
 
-	public String getDefaultValue() {
-		return defaultValue;
-	}
+    public String getLabel()
+    {
+        return label;
+    }
 
-	public void populateContext(IContext context, HttpServletRequest request) {
-		String value = request.getParameter(super.getName());
-		if (value != null) {
-			context.put(super.getName(), value);
-		}
-	}
+    public String getDefaultValue()
+    {
+        return defaultValue;
+    }
 
-	public void toHTML(Writer writer, HttpServletRequest request,
-			boolean useDefaultValue, boolean showLabel, boolean preview)
-			throws IOException {
-		if (showLabel) {
-			writer.write("<td>");
-			writer.write(label);
-			writer.write("</td>");
-		}
-		writer.write("<td>");
-		writer.write("<textarea  name=\"");
-		writer.write(super.getName());
-		writer.write("\"");
-		String value = useDefaultValue ? defaultValue : request
-				.getParameter(super.getName());
-		if (StringUtils.isEmpty(value)) {
-			value = defaultValue;
-		}
+    public void populateContext( IContext context, HttpServletRequest request )
+    {
+        String value = request.getParameter( super.getName() );
+        if ( value != null )
+        {
+            context.put( super.getName(), value );
+        }
+    }
 
-		String converter = getConverter(request);
-		if (preview && StringUtils.isNotEmpty(converter)) {
-			String reportId = getReportId(request);
-			writer.write(" onkeyup=\"javascript:processReport('");
-			writeBaseURL(writer, request, reportId, converter);
-			writer.write("', this);\" ");
-		}
-		writer.write(" oldValue=\"");
-		writer.write(value);
-		writer.write("\" ");
+    public void toHTML( Writer writer, HttpServletRequest request, boolean useDefaultValue, boolean showLabel,
+                        boolean preview )
+        throws IOException
+    {
+        if ( showLabel )
+        {
+            writer.write( "<td>" );
+            writer.write( label );
+            writer.write( "</td>" );
+        }
+        writer.write( "<td>" );
+        writer.write( "<textarea  name=\"" );
+        writer.write( super.getName() );
+        writer.write( "\"" );
+        String value = useDefaultValue ? defaultValue : request.getParameter( super.getName() );
+        if ( StringUtils.isEmpty( value ) )
+        {
+            value = defaultValue;
+        }
 
-		writer.write(">");
-		writer.write(value);
-		writer.write("</textarea></td>");
-		
-		
-		
-	}
+        String converter = getConverter( request );
+        if ( preview && StringUtils.isNotEmpty( converter ) )
+        {
+            String reportId = getReportId( request );
+            writer.write( " onkeyup=\"javascript:processReport('" );
+            writeBaseURL( writer, request, reportId, converter );
+            writer.write( "', this);\" " );
+        }
+        writer.write( " oldValue=\"" );
+        writer.write( value );
+        writer.write( "\" " );
 
-	public void setDefaultValue(String defaultValue) {
-		this.defaultValue = StringEscapeUtils.escapeHtml(defaultValue);
-	}
+        writer.write( ">" );
+        writer.write( value );
+        writer.write( "</textarea></td>" );
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    }
+
+    public void setDefaultValue( String defaultValue )
+    {
+        this.defaultValue = StringEscapeUtils.escapeHtml( defaultValue );
+    }
+
+    public void setLabel( String label )
+    {
+        this.label = label;
+    }
 }

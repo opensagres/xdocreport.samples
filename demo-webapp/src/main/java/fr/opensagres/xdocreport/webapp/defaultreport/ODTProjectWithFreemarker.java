@@ -172,23 +172,27 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 
-public class ODTProjectWithFreemarker extends DefaultReportController {
+public class ODTProjectWithFreemarker
+    extends DefaultReportController
+{
 
-	public ODTProjectWithFreemarker() {
-		super("ODTProjectWithFreemarker.odt", TemplateEngineKind.Freemarker,
-				DocumentKind.ODT);
-	}
+    public ODTProjectWithFreemarker()
+    {
+        super( "ODTProjectWithFreemarker.odt", TemplateEngineKind.Freemarker, DocumentKind.ODT );
+    }
 
-	@Override
-	protected MetaDataModel createMetaDataModel() {
-		MetaDataModel model = new MetaDataModel();
-		model.addSimpleField("project.name", "XDocReport");
-		return model;
-	}
-	
-	@Override
-	protected FieldsMetadata createFieldsMetadata() {	
-		return FieldsMetadata.EMPTY;
-	}
+    @Override
+    protected MetaDataModel createMetaDataModel()
+    {
+        MetaDataModel model = new MetaDataModel();
+        model.addSimpleField( "project.name", "XDocReport" );
+        return model;
+    }
+
+    @Override
+    protected FieldsMetadata createFieldsMetadata()
+    {
+        return FieldsMetadata.EMPTY;
+    }
 
 }

@@ -173,60 +173,60 @@ import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModelListField;
 
-public class ODTCV extends DefaultReportController {
+public class ODTCV
+    extends DefaultReportController
+{
 
-	public ODTCV() {
-		super("ODTCV.odt", TemplateEngineKind.Velocity, DocumentKind.ODT);
-	}
+    public ODTCV()
+    {
+        super( "ODTCV.odt", TemplateEngineKind.Velocity, DocumentKind.ODT );
+    }
 
-	@Override
-	protected MetaDataModel createMetaDataModel() {
-		MetaDataModel model = new MetaDataModel();
-		model.addSimpleField("user.name", "ZERR");
-		model.addSimpleField("user.lastName", "Angelo");
-		model.addSimpleField("user.function", "Ingénieur JEE – Eclipse RCP");
-		model.addSimpleField("user.experienceYear", "10");
+    @Override
+    protected MetaDataModel createMetaDataModel()
+    {
+        MetaDataModel model = new MetaDataModel();
+        model.addSimpleField( "user.name", "ZERR" );
+        model.addSimpleField( "user.lastName", "Angelo" );
+        model.addSimpleField( "user.function", "Ingénieur JEE – Eclipse RCP" );
+        model.addSimpleField( "user.experienceYear", "10" );
 
-		MetaDataModelListField formations = model.addListField("formations");
-		formations.addSimpleField("year", "2001");
-		formations.addSimpleField("description", "Diplôme d’ingénieur en informatique à l’INSA de Lyon (69).");		
-		
-		MetaDataModelListField references = model.addListField("refs");
-		references.addSimpleField("date", "2009");
-		references
-				.addSimpleField(
-						"description",
-						"Commiteur Eclipse depuis janvier 2009. Participe à la future version de l'IDE Eclipse E4 (IBM).  Créateur du moteur CSS de E4.");
+        MetaDataModelListField formations = model.addListField( "formations" );
+        formations.addSimpleField( "year", "2001" );
+        formations.addSimpleField( "description", "Diplôme d’ingénieur en informatique à l’INSA de Lyon (69)." );
 
-		MetaDataModelListField languages = model.addListField("langs");
-		languages.addSimpleField("name", "Anglais");
-		languages.addSimpleField("level", "Niveau Technique");
+        MetaDataModelListField references = model.addListField( "refs" );
+        references.addSimpleField( "date", "2009" );
+        references.addSimpleField( "description",
+                                   "Commiteur Eclipse depuis janvier 2009. Participe à la future version de l'IDE Eclipse E4 (IBM).  Créateur du moteur CSS de E4." );
 
-		MetaDataModelListField experiences = model.addListField("experiences");
-		experiences.addSimpleField("date", "Avril 2009 - Aujourd'hui");
-		experiences.addSimpleField("client", "CAF");
-		experiences.addSimpleField("project", "Projet SIDoc");
-		experiences.addSimpleField("mission", "Conception / Développement");
-		experiences
-				.addSimpleField("envTech",
-						"Java JVM Sun (JDK 6), JEE\nbase XML X-DB, XQuery, XSL.\nAjax (Dojo Toolkit)");
-		experiences.addSimpleField("envFonc", "Gestion documentaire.");
-		experiences
-				.addSimpleField(
-						"detail",
-						"Mise en place de l'application WEB de diffusion (qui sera accéssible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
+        MetaDataModelListField languages = model.addListField( "langs" );
+        languages.addSimpleField( "name", "Anglais" );
+        languages.addSimpleField( "level", "Niveau Technique" );
 
-		return model;
-	}
+        MetaDataModelListField experiences = model.addListField( "experiences" );
+        experiences.addSimpleField( "date", "Avril 2009 - Aujourd'hui" );
+        experiences.addSimpleField( "client", "CAF" );
+        experiences.addSimpleField( "project", "Projet SIDoc" );
+        experiences.addSimpleField( "mission", "Conception / Développement" );
+        experiences.addSimpleField( "envTech",
+                                    "Java JVM Sun (JDK 6), JEE\nbase XML X-DB, XQuery, XSL.\nAjax (Dojo Toolkit)" );
+        experiences.addSimpleField( "envFonc", "Gestion documentaire." );
+        experiences.addSimpleField( "detail",
+                                    "Mise en place de l'application WEB de diffusion (qui sera accéssible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production." );
 
-	@Override
-	protected FieldsMetadata createFieldsMetadata() {
-		FieldsMetadata fieldsMetadata = new FieldsMetadata();
-		fieldsMetadata.addFieldAsList("refs.date");
-		fieldsMetadata.addFieldAsList("refs.description");
-		fieldsMetadata.addFieldAsList("langs.name");
-		fieldsMetadata.addFieldAsList("langs.level");
-		return fieldsMetadata;
-	}
+        return model;
+    }
+
+    @Override
+    protected FieldsMetadata createFieldsMetadata()
+    {
+        FieldsMetadata fieldsMetadata = new FieldsMetadata();
+        fieldsMetadata.addFieldAsList( "refs.date" );
+        fieldsMetadata.addFieldAsList( "refs.description" );
+        fieldsMetadata.addFieldAsList( "langs.name" );
+        fieldsMetadata.addFieldAsList( "langs.level" );
+        return fieldsMetadata;
+    }
 
 }

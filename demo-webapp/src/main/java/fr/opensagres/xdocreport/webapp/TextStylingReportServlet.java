@@ -179,42 +179,45 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class TextStylingReportServlet extends AbstractProcessXDocReportServlet {
+public class TextStylingReportServlet
+    extends AbstractProcessXDocReportServlet
+{
 
-	private static final long serialVersionUID = 2014224300818715224L;
+    private static final long serialVersionUID = 2014224300818715224L;
 
-	@Override
-	protected InputStream getSourceStream(String reportId,
-			HttpServletRequest request) throws IOException, XDocReportException {
-		return TextStylingReportServlet.class
-				.getResourceAsStream("TextStyling.docx");
-	}
+    @Override
+    protected InputStream getSourceStream( String reportId, HttpServletRequest request )
+        throws IOException, XDocReportException
+    {
+        return TextStylingReportServlet.class.getResourceAsStream( "TextStyling.docx" );
+    }
 
-	@Override
-	protected void populateContext(IContext context, String reportId,
-			HttpServletRequest req) throws XDocReportException {
-		String comments_html = req.getParameter("comments_html");
-		context.put("comments_html", comments_html);
-		String comments_gwiki = req.getParameter("comments_gwiki");
-		context.put("comments_gwiki", comments_gwiki);
-		String comments_mediawiki = req.getParameter("comments_mediawiki");
-		context.put("comments_mediawiki", comments_mediawiki);
-	}
+    @Override
+    protected void populateContext( IContext context, String reportId, HttpServletRequest req )
+        throws XDocReportException
+    {
+        String comments_html = req.getParameter( "comments_html" );
+        context.put( "comments_html", comments_html );
+        String comments_gwiki = req.getParameter( "comments_gwiki" );
+        context.put( "comments_gwiki", comments_gwiki );
+        String comments_mediawiki = req.getParameter( "comments_mediawiki" );
+        context.put( "comments_mediawiki", comments_mediawiki );
+    }
 
-	@Override
-	protected String getTemplateEngineKind(String reportId,
-			HttpServletRequest request) {
-		return TemplateEngineKind.Velocity.name();
-	}
+    @Override
+    protected String getTemplateEngineKind( String reportId, HttpServletRequest request )
+    {
+        return TemplateEngineKind.Velocity.name();
+    }
 
-	@Override
-	protected FieldsMetadata getFieldsMetadata(String reportId,
-			HttpServletRequest request) {
-		FieldsMetadata metadata = new FieldsMetadata();
-		metadata.addFieldAsTextStyling("comments_html", SyntaxKind.Html);
-		metadata.addFieldAsTextStyling("comments_gwiki", SyntaxKind.GWiki);
-		metadata.addFieldAsTextStyling("comments_mediawiki", SyntaxKind.MediaWiki);
-		return metadata;
-	}
+    @Override
+    protected FieldsMetadata getFieldsMetadata( String reportId, HttpServletRequest request )
+    {
+        FieldsMetadata metadata = new FieldsMetadata();
+        metadata.addFieldAsTextStyling( "comments_html", SyntaxKind.Html );
+        metadata.addFieldAsTextStyling( "comments_gwiki", SyntaxKind.GWiki );
+        metadata.addFieldAsTextStyling( "comments_mediawiki", SyntaxKind.MediaWiki );
+        return metadata;
+    }
 
 }

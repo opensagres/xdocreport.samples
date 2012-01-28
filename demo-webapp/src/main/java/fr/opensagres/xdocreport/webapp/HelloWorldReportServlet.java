@@ -179,49 +179,57 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 
 /**
- * Hello world sample wich works ODTHelloWorldWithVelocity.odt ODT document
- * which contains content with velocity variable name :
+ * Hello world sample wich works ODTHelloWorldWithVelocity.odt ODT document which contains content with velocity
+ * variable name :
  * 
  * <pre>
  * Hello $name!
  * </pre>
- * 
  */
-public class HelloWorldReportServlet extends AbstractProcessXDocReportServlet {
+public class HelloWorldReportServlet
+    extends AbstractProcessXDocReportServlet
+{
 
-	private static final long serialVersionUID = 3993221341284875152L;
-	private static final String ODT_HELLO_WORD_WITH_VELOCITY = "ODTHelloWorldWithVelocity";
+    private static final long serialVersionUID = 3993221341284875152L;
 
-	@Override
-	protected InputStream getSourceStream(String reportId,
-			HttpServletRequest request) throws IOException, XDocReportException {
-		if (ODT_HELLO_WORD_WITH_VELOCITY.equals(reportId)) {
-			// reportId = ODTHelloWorldWithVelocity, returns stream of the ODT
-			return HelloWorldReportServlet.class
-					.getResourceAsStream("ODTHelloWorldWithVelocity.odt");
-		}
-		throw new XDocReportNotFoundException(reportId);
-	}
+    private static final String ODT_HELLO_WORD_WITH_VELOCITY = "ODTHelloWorldWithVelocity";
 
-	@Override
-	protected void populateContext(IContext context, String reportId,
-			HttpServletRequest req) throws XDocReportException {
-		if (reportId.equals(ODT_HELLO_WORD_WITH_VELOCITY)) {
-			// reportId = ODTHelloWorldWithVelocity, prepare context with name
-			String name = req.getParameter("name");
-			context.put("name", name);
-		} else {
-			throw new XDocReportNotFoundException(reportId);
-		}
-	}
+    @Override
+    protected InputStream getSourceStream( String reportId, HttpServletRequest request )
+        throws IOException, XDocReportException
+    {
+        if ( ODT_HELLO_WORD_WITH_VELOCITY.equals( reportId ) )
+        {
+            // reportId = ODTHelloWorldWithVelocity, returns stream of the ODT
+            return HelloWorldReportServlet.class.getResourceAsStream( "ODTHelloWorldWithVelocity.odt" );
+        }
+        throw new XDocReportNotFoundException( reportId );
+    }
 
-	@Override
-	protected String getTemplateEngineKind(String reportId,
-			HttpServletRequest request) {
-		if (ODT_HELLO_WORD_WITH_VELOCITY.equals(reportId)) {
-			return TemplateEngineKind.Velocity.name();
-		}
-		return super.getTemplateEngineKind(reportId, request);
-	}
+    @Override
+    protected void populateContext( IContext context, String reportId, HttpServletRequest req )
+        throws XDocReportException
+    {
+        if ( reportId.equals( ODT_HELLO_WORD_WITH_VELOCITY ) )
+        {
+            // reportId = ODTHelloWorldWithVelocity, prepare context with name
+            String name = req.getParameter( "name" );
+            context.put( "name", name );
+        }
+        else
+        {
+            throw new XDocReportNotFoundException( reportId );
+        }
+    }
+
+    @Override
+    protected String getTemplateEngineKind( String reportId, HttpServletRequest request )
+    {
+        if ( ODT_HELLO_WORD_WITH_VELOCITY.equals( reportId ) )
+        {
+            return TemplateEngineKind.Velocity.name();
+        }
+        return super.getTemplateEngineKind( reportId, request );
+    }
 
 }

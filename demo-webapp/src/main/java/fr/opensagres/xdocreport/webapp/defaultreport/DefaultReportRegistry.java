@@ -177,60 +177,69 @@ import fr.opensagres.xdocreport.document.dispatcher.BasicXDocReportDispatcher;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 import fr.opensagres.xdocreport.webapp.utils.HTMLUtils;
 
-public class DefaultReportRegistry extends
-		BasicXDocReportDispatcher<DefaultReportController> {
+public class DefaultReportRegistry
+    extends BasicXDocReportDispatcher<DefaultReportController>
+{
 
-	public static DefaultReportRegistry INSTANCE = new DefaultReportRegistry();
+    public static DefaultReportRegistry INSTANCE = new DefaultReportRegistry();
 
-	public DefaultReportRegistry() {
-		register(new DocXHelloWorldWithVelocity());
-		register(new DocXHelloWorldWithFreemarker());
-		register(new DocxLettreRelance());
-		register(new DocxCV());
-		register(new DocxStructures());
-		register(new DocxBig());
-		register(new ODTHelloWorldWithVelocity());
-		register(new ODTHelloWorldWithFreemarker());
-		register(new ODTProjectWithVelocity());
-		register(new ODTProjectWithFreemarker());
-		register(new ODTStructures());
-		register(new ODTLettreRelance());
-		register(new ODTCV());
-		register(new ODTBig());
-		register(new ODTTextStylingWithFreemarker());
-	}
+    public DefaultReportRegistry()
+    {
+        register( new DocXHelloWorldWithVelocity() );
+        register( new DocXHelloWorldWithFreemarker() );
+        register( new DocxLettreRelance() );
+        register( new DocxCV() );
+        register( new DocxStructures() );
+        register( new DocxBig() );
+        register( new ODTHelloWorldWithVelocity() );
+        register( new ODTHelloWorldWithFreemarker() );
+        register( new ODTProjectWithVelocity() );
+        register( new ODTProjectWithFreemarker() );
+        register( new ODTStructures() );
+        register( new ODTLettreRelance() );
+        register( new ODTCV() );
+        register( new ODTBig() );
+        register( new ODTTextStylingWithFreemarker() );
+    }
 
-	private void register(DefaultReportController controler) {
-		super.register(controler.getReportId(), controler);
-	}
+    private void register( DefaultReportController controler )
+    {
+        super.register( controler.getReportId(), controler );
+    }
 
-	public MetaDataModel getMetaDataModel(String reportId) {
-		DefaultReportController defaultReport = getReportController(reportId);
-		if (defaultReport != null) {
-			return defaultReport.getMetaDataModel();
-		}
-		return null;
-	}
+    public MetaDataModel getMetaDataModel( String reportId )
+    {
+        DefaultReportController defaultReport = getReportController( reportId );
+        if ( defaultReport != null )
+        {
+            return defaultReport.getMetaDataModel();
+        }
+        return null;
+    }
 
-	public void toHTMLOptions(ServletRequest request, Writer writer)
-			throws IOException {
-		Collection<DefaultReportController> reports = super.getControllers();
-		for (DefaultReportController defaultReport : reports) {
-			HTMLUtils.generateHTMLOption(defaultReport.getReportId(), request,
-					writer, "reportId");
-		}
-	}
+    public void toHTMLOptions( ServletRequest request, Writer writer )
+        throws IOException
+    {
+        Collection<DefaultReportController> reports = super.getControllers();
+        for ( DefaultReportController defaultReport : reports )
+        {
+            HTMLUtils.generateHTMLOption( defaultReport.getReportId(), request, writer, "reportId" );
+        }
+    }
 
-	public Collection<DefaultReportController> getDefaultReports() {
-		return super.getControllers();
-	}
+    public Collection<DefaultReportController> getDefaultReports()
+    {
+        return super.getControllers();
+    }
 
-	public String getConverterTypeFrom(String reportId) {
-		DefaultReportController controler = getReportController(reportId);
-		if (controler != null) {
-			return controler.getConverterTypeFrom();
-		}
-		return null;
-	}
+    public String getConverterTypeFrom( String reportId )
+    {
+        DefaultReportController controler = getReportController( reportId );
+        if ( controler != null )
+        {
+            return controler.getConverterTypeFrom();
+        }
+        return null;
+    }
 
 }

@@ -15,11 +15,11 @@
     <subject>[XDocreport Demo] TESTING: %logger{20} - %m</subject>
     <layout class="ch.qos.logback.classic.PatternLayout">
       <pattern>%date %-5level %logger{35} - %message%n</pattern>
-    </layout>       
+    </layout>
   </appender>
 -->
 
   <root level="ERROR">
     <appender-ref ref="STDOUT" />
-  </root>  
+  </root>
 </configuration>

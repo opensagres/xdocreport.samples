@@ -175,48 +175,56 @@ import javax.servlet.http.HttpServletRequest;
 import fr.opensagres.xdocreport.template.FieldsExtractor;
 import fr.opensagres.xdocreport.template.IContext;
 
-public class MetaDataModel extends FieldsExtractor<MetaDataModelField> {
+public class MetaDataModel
+    extends FieldsExtractor<MetaDataModelField>
+{
 
-	public void toHTML(Writer writer, HttpServletRequest request, int size,
-			boolean useDefaultValue, boolean preview) throws IOException {
-		for (MetaDataModelField field : super.getFields()) {
-			writer.write("<tr>");
-			field.toHTML(writer, request, useDefaultValue, true, preview);
-			writer.write("</tr>");
-		}
-	}
+    public void toHTML( Writer writer, HttpServletRequest request, int size, boolean useDefaultValue, boolean preview )
+        throws IOException
+    {
+        for ( MetaDataModelField field : super.getFields() )
+        {
+            writer.write( "<tr>" );
+            field.toHTML( writer, request, useDefaultValue, true, preview );
+            writer.write( "</tr>" );
+        }
+    }
 
-	public MetaDataModelSimpleField addSimpleField(String fieldName,
-			String defaultValue) {
-		return addSimpleField(fieldName, defaultValue, fieldName);
-	}
+    public MetaDataModelSimpleField addSimpleField( String fieldName, String defaultValue )
+    {
+        return addSimpleField( fieldName, defaultValue, fieldName );
+    }
 
-	public MetaDataModelSimpleField addSimpleField(String fieldName,
-			String defaultValue, String fieldLabel) {
-		MetaDataModelField field = super.addFieldName(fieldName);
-		if (field != null) {
-			field.setLabel(fieldLabel);
-			field.setDefaultValue(defaultValue);
-		}
-		return (MetaDataModelSimpleField)field;
-	}
+    public MetaDataModelSimpleField addSimpleField( String fieldName, String defaultValue, String fieldLabel )
+    {
+        MetaDataModelField field = super.addFieldName( fieldName );
+        if ( field != null )
+        {
+            field.setLabel( fieldLabel );
+            field.setDefaultValue( defaultValue );
+        }
+        return (MetaDataModelSimpleField) field;
+    }
 
-	public void populateContext(IContext context, HttpServletRequest request) {
-		for (MetaDataModelField field : super.getFields()) {
-			field.populateContext(context, request);
-		}
-	}
+    public void populateContext( IContext context, HttpServletRequest request )
+    {
+        for ( MetaDataModelField field : super.getFields() )
+        {
+            field.populateContext( context, request );
+        }
+    }
 
-	@Override
-	protected MetaDataModelField createField(String fieldName) {
-		return new MetaDataModelSimpleField(fieldName, fieldName + "_Value",
-				fieldName);
-	}
+    @Override
+    protected MetaDataModelField createField( String fieldName )
+    {
+        return new MetaDataModelSimpleField( fieldName, fieldName + "_Value", fieldName );
+    }
 
-	public MetaDataModelListField addListField(String fieldName) {
-		MetaDataModelListField list = new MetaDataModelListField(fieldName);
-		list.setLabel(fieldName);
-		super.getFields().add(list);
-		return list;
-	}
+    public MetaDataModelListField addListField( String fieldName )
+    {
+        MetaDataModelListField list = new MetaDataModelListField( fieldName );
+        list.setLabel( fieldName );
+        super.getFields().add( list );
+        return list;
+    }
 }

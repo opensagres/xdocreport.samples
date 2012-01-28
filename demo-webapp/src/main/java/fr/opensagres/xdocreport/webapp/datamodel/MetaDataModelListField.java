@@ -180,142 +180,162 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.internal.DynamicBean;
 import fr.opensagres.xdocreport.webapp.utils.StringEscapeUtils;
 
-public class MetaDataModelListField extends MetaDataModelField {
+public class MetaDataModelListField
+    extends MetaDataModelField
+{
 
-	private List<MetaDataModelSimpleField> fields = new ArrayList<MetaDataModelSimpleField>();
-	private String defaultValue;
-	private String label;
+    private List<MetaDataModelSimpleField> fields = new ArrayList<MetaDataModelSimpleField>();
 
-	public MetaDataModelListField(String name) {
-		super(name);
-	}
+    private String defaultValue;
 
-	public String getLabel() {
-		return label;
-	}
+    private String label;
 
-	public String getDefaultValue() {
-		return defaultValue;
-	}
+    public MetaDataModelListField( String name )
+    {
+        super( name );
+    }
 
-	@Override
-	public void populateContext(IContext context, HttpServletRequest request) {
+    public String getLabel()
+    {
+        return label;
+    }
 
-		List<DynamicBean> dataModelList = new ArrayList<DynamicBean>();
-		for (MetaDataModelSimpleField field : fields) {
-			String name = field.getName();
-			String[] values = request.getParameterValues(name);
-			if (values != null) {
-				for (int i = 0; i < values.length; i++) {
-					DynamicBean bean = null;
-					if (dataModelList.size() >= i + 1) {
-						bean = dataModelList.get(i);
-					} else {
-						bean = new DynamicBean();
-						dataModelList.add(bean);
-					}
-					String value = values[i];
-					String key = name.substring(super.getName().length() + 1,
-							name.length());
-					bean.setValue(key.split("[.]"), value, 0);
-				}
-			}
-		}
-		context.put(super.getName(), dataModelList);
-	}
+    public String getDefaultValue()
+    {
+        return defaultValue;
+    }
 
-	@Override
-	public void toHTML(Writer writer, HttpServletRequest request,
-			boolean useDefaultValue, boolean showLabel, boolean preview)
-			throws IOException {
-		String reportId = getReportId(request);
-		String converter = getConverter(request);		
-		String tableId = super.getName() + "Table";
-		
-		writer.write("<td valign=\"top\" >");
-		writer.write(label);
-		writer.write("</td>");
-		writer.write("<td>");
-		writer.write("<fieldset><legend>");
-		writer.write(label);
-		writer.write(" list</legend>");
-		writer.write("<table width=\"100%\" ");
-		writer.write("id=\"");
-		writer.write(tableId);
-		writer.write("\" >");
+    @Override
+    public void populateContext( IContext context, HttpServletRequest request )
+    {
 
-		writer.write("<tr>");
-		writer.write("<td colspan=\"");
-		writer.write(String.valueOf(fields.size()));
-		writer.write("\" >");
-		writer.write("<a href=\"javascript:add('");		
-		writeBaseURL(writer, request, reportId, converter);
-		writer.write("','");
-		writer.write(tableId);
-		writer.write("');\">Add</a>");
-		writer.write(" <a href=\"javascript:remove('");
-		writeBaseURL(writer, request, reportId, converter);
-		writer.write("','");
-		writer.write(tableId);
-		writer.write("');\">Remove</a>");
-		writer.write("</tr>");
+        List<DynamicBean> dataModelList = new ArrayList<DynamicBean>();
+        for ( MetaDataModelSimpleField field : fields )
+        {
+            String name = field.getName();
+            String[] values = request.getParameterValues( name );
+            if ( values != null )
+            {
+                for ( int i = 0; i < values.length; i++ )
+                {
+                    DynamicBean bean = null;
+                    if ( dataModelList.size() >= i + 1 )
+                    {
+                        bean = dataModelList.get( i );
+                    }
+                    else
+                    {
+                        bean = new DynamicBean();
+                        dataModelList.add( bean );
+                    }
+                    String value = values[i];
+                    String key = name.substring( super.getName().length() + 1, name.length() );
+                    bean.setValue( key.split( "[.]" ), value, 0 );
+                }
+            }
+        }
+        context.put( super.getName(), dataModelList );
+    }
 
-		writer.write("<tr>");
-		for (MetaDataModelSimpleField field : fields) {
-			String name = field.getName();
-			writer.write("<th>");
-			writer.write(name);
-			writer.write("</th>");
-		}
-		writer.write("</tr>");
+    @Override
+    public void toHTML( Writer writer, HttpServletRequest request, boolean useDefaultValue, boolean showLabel,
+                        boolean preview )
+        throws IOException
+    {
+        String reportId = getReportId( request );
+        String converter = getConverter( request );
+        String tableId = super.getName() + "Table";
 
-		writer.write("<tr>");
-		for (MetaDataModelSimpleField field : fields) {
-			field.toHTML(writer, request, useDefaultValue, false, preview);
-		}
-		writer.write("</tr>");
+        writer.write( "<td valign=\"top\" >" );
+        writer.write( label );
+        writer.write( "</td>" );
+        writer.write( "<td>" );
+        writer.write( "<fieldset><legend>" );
+        writer.write( label );
+        writer.write( " list</legend>" );
+        writer.write( "<table width=\"100%\" " );
+        writer.write( "id=\"" );
+        writer.write( tableId );
+        writer.write( "\" >" );
 
-		writer.write("</table>");
-		writer.write("</fieldset>");
-		writer.write("</td>");
-	}
+        writer.write( "<tr>" );
+        writer.write( "<td colspan=\"" );
+        writer.write( String.valueOf( fields.size() ) );
+        writer.write( "\" >" );
+        writer.write( "<a href=\"javascript:add('" );
+        writeBaseURL( writer, request, reportId, converter );
+        writer.write( "','" );
+        writer.write( tableId );
+        writer.write( "');\">Add</a>" );
+        writer.write( " <a href=\"javascript:remove('" );
+        writeBaseURL( writer, request, reportId, converter );
+        writer.write( "','" );
+        writer.write( tableId );
+        writer.write( "');\">Remove</a>" );
+        writer.write( "</tr>" );
 
-	public void toURLParameter(Writer writer, ServletRequest request,
-			boolean useDefaultValue) throws IOException {
-		writer.write(super.getName());
-		writer.write("=");
-		String value = useDefaultValue ? defaultValue : request
-				.getParameter(super.getName());
-		if (StringUtils.isEmpty(value)) {
-			value = defaultValue;
-		}
-		writer.write(value);
-	}
+        writer.write( "<tr>" );
+        for ( MetaDataModelSimpleField field : fields )
+        {
+            String name = field.getName();
+            writer.write( "<th>" );
+            writer.write( name );
+            writer.write( "</th>" );
+        }
+        writer.write( "</tr>" );
 
-	public void setDefaultValue(String defaultValue) {
-		this.defaultValue = StringEscapeUtils.escapeHtml(defaultValue);
-	}
+        writer.write( "<tr>" );
+        for ( MetaDataModelSimpleField field : fields )
+        {
+            field.toHTML( writer, request, useDefaultValue, false, preview );
+        }
+        writer.write( "</tr>" );
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+        writer.write( "</table>" );
+        writer.write( "</fieldset>" );
+        writer.write( "</td>" );
+    }
 
-	public MetaDataModelSimpleField addSimpleField(String fieldName,
-			String fieldValue) {
-		fieldName = super.getName() + "." + fieldName;
-		MetaDataModelSimpleField field = addFieldName(fieldName);
-		if (field != null) {
-			field.setLabel(fieldName);
-			field.setDefaultValue(fieldValue);
-		}
-		return field;
+    public void toURLParameter( Writer writer, ServletRequest request, boolean useDefaultValue )
+        throws IOException
+    {
+        writer.write( super.getName() );
+        writer.write( "=" );
+        String value = useDefaultValue ? defaultValue : request.getParameter( super.getName() );
+        if ( StringUtils.isEmpty( value ) )
+        {
+            value = defaultValue;
+        }
+        writer.write( value );
+    }
 
-	}
+    public void setDefaultValue( String defaultValue )
+    {
+        this.defaultValue = StringEscapeUtils.escapeHtml( defaultValue );
+    }
 
-	private MetaDataModelSimpleField addFieldName(String fieldName) {
-		MetaDataModelSimpleField field = new MetaDataModelSimpleField(
-				fieldName, "", fieldName);
-		fields.add(field);
-		return field;
-	}
+    public void setLabel( String label )
+    {
+        this.label = label;
+    }
+
+    public MetaDataModelSimpleField addSimpleField( String fieldName, String fieldValue )
+    {
+        fieldName = super.getName() + "." + fieldName;
+        MetaDataModelSimpleField field = addFieldName( fieldName );
+        if ( field != null )
+        {
+            field.setLabel( fieldName );
+            field.setDefaultValue( fieldValue );
+        }
+        return field;
+
+    }
+
+    private MetaDataModelSimpleField addFieldName( String fieldName )
+    {
+        MetaDataModelSimpleField field = new MetaDataModelSimpleField( fieldName, "", fieldName );
+        fields.add( field );
+        return field;
+    }
 }

@@ -180,52 +180,61 @@ import fr.opensagres.xdocreport.webapp.ProcessXDocReportServlet;
 import fr.opensagres.xdocreport.webapp.WebAppXDocReportConstants;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 
-public abstract class DefaultReportController extends
-		AbstractXDocReportWEBController implements WebAppXDocReportConstants {
+public abstract class DefaultReportController
+    extends AbstractXDocReportWEBController
+    implements WebAppXDocReportConstants
+{
 
-	private MetaDataModel dataModel;
-	private final String reportId;
+    private MetaDataModel dataModel;
 
-	public DefaultReportController(String reportId,
-			TemplateEngineKind templateEngineKind,
-			DocumentKind converterTypeFrom) {
-		super(templateEngineKind, converterTypeFrom);
-		this.reportId = reportId;
-	}
+    private final String reportId;
 
-	public String getReportId() {
-		return reportId;
-	}
+    public DefaultReportController( String reportId, TemplateEngineKind templateEngineKind,
+                                    DocumentKind converterTypeFrom )
+    {
+        super( templateEngineKind, converterTypeFrom );
+        this.reportId = reportId;
+    }
 
-	public MetaDataModel getMetaDataModel() {
-		if (dataModel == null) {
-			dataModel = createMetaDataModel();
-		}
-		return dataModel;
-	}
+    public String getReportId()
+    {
+        return reportId;
+    }
 
-	public InputStream getSourceStream() {
-		return ProcessXDocReportServlet.class
-				.getResourceAsStream(getReportId());
-	}
+    public MetaDataModel getMetaDataModel()
+    {
+        if ( dataModel == null )
+        {
+            dataModel = createMetaDataModel();
+        }
+        return dataModel;
+    }
 
-	public void populateContext(IContext context, IXDocReport report,
-			HttpServletRequest request) {
-		MetaDataModel dataModelForm = report.getData(DATA_MODEL_REPORT_KEY);
-		if (dataModelForm == null) {
-			// If report was not already loaded (default report) , create
-			// default data model
-			dataModelForm = getMetaDataModel();
-			if (dataModelForm != null) {
-				// It's a default report, store the data model in the report
-				report.setData(DATA_MODEL_REPORT_KEY, dataModelForm);
-			}
-		}
-		if (dataModelForm != null) {
-			dataModelForm.populateContext(context, request);
-		}
+    public InputStream getSourceStream()
+    {
+        return ProcessXDocReportServlet.class.getResourceAsStream( getReportId() );
+    }
 
-	}
+    public void populateContext( IContext context, IXDocReport report, HttpServletRequest request )
+    {
+        MetaDataModel dataModelForm = report.getData( DATA_MODEL_REPORT_KEY );
+        if ( dataModelForm == null )
+        {
+            // If report was not already loaded (default report) , create
+            // default data model
+            dataModelForm = getMetaDataModel();
+            if ( dataModelForm != null )
+            {
+                // It's a default report, store the data model in the report
+                report.setData( DATA_MODEL_REPORT_KEY, dataModelForm );
+            }
+        }
+        if ( dataModelForm != null )
+        {
+            dataModelForm.populateContext( context, request );
+        }
 
-	protected abstract MetaDataModel createMetaDataModel();
+    }
+
+    protected abstract MetaDataModel createMetaDataModel();
 }

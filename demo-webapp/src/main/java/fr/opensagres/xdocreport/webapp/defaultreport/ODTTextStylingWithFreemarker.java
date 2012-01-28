@@ -173,24 +173,29 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 
-public class ODTTextStylingWithFreemarker extends DefaultReportController {
+public class ODTTextStylingWithFreemarker
+    extends DefaultReportController
+{
 
-	public ODTTextStylingWithFreemarker() {
-		super("ODTTextStylingWithFreemarker.odt", TemplateEngineKind.Velocity,
-				DocumentKind.ODT);
-	}
+    public ODTTextStylingWithFreemarker()
+    {
+        super( "ODTTextStylingWithFreemarker.odt", TemplateEngineKind.Velocity, DocumentKind.ODT );
+    }
 
-	@Override
-	protected MetaDataModel createMetaDataModel() {
-		MetaDataModel model = new MetaDataModel();
-		model.addSimpleField("comments", "<h1>Title1</h1>Here some <strong>bold text</strong><h2>Title2</h2>Here some <em>italic text</em>");
-		return model;
-	}
+    @Override
+    protected MetaDataModel createMetaDataModel()
+    {
+        MetaDataModel model = new MetaDataModel();
+        model.addSimpleField( "comments",
+                              "<h1>Title1</h1>Here some <strong>bold text</strong><h2>Title2</h2>Here some <em>italic text</em>" );
+        return model;
+    }
 
-	@Override
-	protected FieldsMetadata createFieldsMetadata() {
-		FieldsMetadata fieldsMetadata = new FieldsMetadata();
-		fieldsMetadata.addFieldAsTextStyling("comments", SyntaxKind.Html);
-		return fieldsMetadata;
-	}
+    @Override
+    protected FieldsMetadata createFieldsMetadata()
+    {
+        FieldsMetadata fieldsMetadata = new FieldsMetadata();
+        fieldsMetadata.addFieldAsTextStyling( "comments", SyntaxKind.Html );
+        return fieldsMetadata;
+    }
 }

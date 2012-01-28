@@ -172,22 +172,26 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 
-public class DocXHelloWorldWithVelocity extends DefaultReportController {
+public class DocXHelloWorldWithVelocity
+    extends DefaultReportController
+{
 
-	public DocXHelloWorldWithVelocity() {
-		super("DocXHelloWorldWithVelocity.docx", TemplateEngineKind.Velocity,
-				DocumentKind.DOCX);
-	}
+    public DocXHelloWorldWithVelocity()
+    {
+        super( "DocXHelloWorldWithVelocity.docx", TemplateEngineKind.Velocity, DocumentKind.DOCX );
+    }
 
-	@Override
-	protected MetaDataModel createMetaDataModel() {
-		MetaDataModel model = new MetaDataModel(); 
-		model.addSimpleField("name", "world");
-		return model;
-	}
+    @Override
+    protected MetaDataModel createMetaDataModel()
+    {
+        MetaDataModel model = new MetaDataModel();
+        model.addSimpleField( "name", "world" );
+        return model;
+    }
 
-	@Override
-	protected FieldsMetadata createFieldsMetadata() {		
-		return FieldsMetadata.EMPTY;
-	}
+    @Override
+    protected FieldsMetadata createFieldsMetadata()
+    {
+        return FieldsMetadata.EMPTY;
+    }
 }

@@ -177,52 +177,61 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.webapp.utils.HTMLUtils;
 import fr.opensagres.xdocreport.webapp.utils.StringEscapeUtils;
 
-public abstract class MetaDataModelField extends FieldExtractor {
+public abstract class MetaDataModelField
+    extends FieldExtractor
+{
 
-	private String defaultValue;
-	private String label;
+    private String defaultValue;
 
-	public MetaDataModelField(String name) {
-		super(name);
-	}
+    private String label;
 
-	public String getLabel() {
-		return label;
-	}
+    public MetaDataModelField( String name )
+    {
+        super( name );
+    }
 
-	public String getDefaultValue() {
-		return defaultValue;
-	}
+    public String getLabel()
+    {
+        return label;
+    }
 
-	public void setDefaultValue(String defaultValue) {
-		this.defaultValue = StringEscapeUtils.escapeHtml(defaultValue);
-	}
+    public String getDefaultValue()
+    {
+        return defaultValue;
+    }
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    public void setDefaultValue( String defaultValue )
+    {
+        this.defaultValue = StringEscapeUtils.escapeHtml( defaultValue );
+    }
 
-	protected void writeBaseURL(Writer writer, HttpServletRequest request,
-			String reportId, String converter) throws IOException {
-		writer.write(HTMLUtils.generateProcessReportURL(request, reportId,
-				null, null, "view"));
-		writer.write("&converter=");
-		writer.write(converter);
-	}
+    public void setLabel( String label )
+    {
+        this.label = label;
+    }
 
-	protected String getConverter(HttpServletRequest request) {
-		return request.getParameter("converter");
-	}
+    protected void writeBaseURL( Writer writer, HttpServletRequest request, String reportId, String converter )
+        throws IOException
+    {
+        writer.write( HTMLUtils.generateProcessReportURL( request, reportId, null, null, "view" ) );
+        writer.write( "&converter=" );
+        writer.write( converter );
+    }
 
-	protected String getReportId(HttpServletRequest request) {
-		return request.getParameter("reportId");
-	}
+    protected String getConverter( HttpServletRequest request )
+    {
+        return request.getParameter( "converter" );
+    }
 
-	public abstract void populateContext(IContext context,
-			HttpServletRequest request);
+    protected String getReportId( HttpServletRequest request )
+    {
+        return request.getParameter( "reportId" );
+    }
 
-	public abstract void toHTML(Writer writer, HttpServletRequest request,
-			boolean useDefaultValue, boolean showLabel, boolean preview)
-			throws IOException;
+    public abstract void populateContext( IContext context, HttpServletRequest request );
+
+    public abstract void toHTML( Writer writer, HttpServletRequest request, boolean useDefaultValue, boolean showLabel,
+                                 boolean preview )
+        throws IOException;
 
 }

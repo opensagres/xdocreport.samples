@@ -170,10 +170,12 @@ package fr.opensagres.xdocreport.webapp;
 import fr.opensagres.xdocreport.document.dispatcher.BasicXDocReportDispatcher;
 import fr.opensagres.xdocreport.document.web.dispatcher.IXDocReportWEBController;
 
-public class HelloWorldDispatcher extends
-		BasicXDocReportDispatcher<IXDocReportWEBController> {
+public class HelloWorldDispatcher
+    extends BasicXDocReportDispatcher<IXDocReportWEBController>
+{
 
-	public HelloWorldDispatcher() {
-		super.register(HelloWorldController.REPORT_ID, new HelloWorldController());
-	}
+    public HelloWorldDispatcher()
+    {
+        super.register( HelloWorldController.REPORT_ID, new HelloWorldController() );
+    }
 }

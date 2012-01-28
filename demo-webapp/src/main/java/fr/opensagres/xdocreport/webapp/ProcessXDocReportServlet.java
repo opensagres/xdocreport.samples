@@ -190,184 +190,225 @@ import fr.opensagres.xdocreport.template.ITemplateEngine;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportRegistry;
 
-public class ProcessXDocReportServlet extends
-		ProcessDispatcherXDocReportServlet implements WebAppXDocReportConstants {
-	/**
-	 * Logger for this class
-	 */
-	private static final Logger LOGGER = Logger.getLogger(ProcessXDocReportServlet.class.getName());
+public class ProcessXDocReportServlet
+    extends ProcessDispatcherXDocReportServlet
+    implements WebAppXDocReportConstants
+{
+    /**
+     * Logger for this class
+     */
+    private static final Logger LOGGER = Logger.getLogger( ProcessXDocReportServlet.class.getName() );
 
-	private static final String XDOC_ARCHIVE = "XDocArchive";
-	private static final String PREPROCESSED = "Preprocessed";
-	private static final long serialVersionUID = 3993221341284875152L;
-	private static final String PROCESSREPORT_JSP = "processReport.jsp";
-	private static final String DOCUMENT_ARCHIVE_JSP = "documentArchive.jsp";
+    private static final String XDOC_ARCHIVE = "XDocArchive";
 
-	// Dispatch values
-	protected static final String LOAD_DISPATCH = "load";
-	private static final String ENTRIES_DISPATCH = "entries";
+    private static final String PREPROCESSED = "Preprocessed";
 
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		LOGGER.info("*****************************************");
-		super.registerDispatcher(DefaultReportRegistry.INSTANCE);
-		super.init(config);
-	}
+    private static final long serialVersionUID = 3993221341284875152L;
 
-	@Override
-	protected void processRequest(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String dispatch = super.getDispatchParameter(request);
-		if (LOAD_DISPATCH.equals(dispatch)) {
-			doLoad(request, response);
-		} else if (ENTRIES_DISPATCH.equals(dispatch)) {
-			doEntries(request, response);
-		} else {
-			super.processRequest(request, response);
-		}
-	}
+    private static final String PROCESSREPORT_JSP = "processReport.jsp";
 
-	private void doLoad(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-			registerReportInfos(getReportId(request), request);
-		} catch (XDocReportException e) {
-			throw new ServletException(e);
-		}
-		request.getRequestDispatcher(PROCESSREPORT_JSP).forward(request,
-				response);
-	}
+    private static final String DOCUMENT_ARCHIVE_JSP = "documentArchive.jsp";
 
-	private void registerReportInfos(String reportId, HttpServletRequest request)
-			throws IOException, XDocReportException {
-		if (StringUtils.isEmpty(reportId)) {
-			return;
-		}
-		MetaDataModel dataModelForm = null;
-		ITemplateEngine templateEngine = null;
-		IXDocReport report = super.getRegistry(request).getReport(reportId);
-		if (report != null) {
-			dataModelForm = report.getData(DATA_MODEL_REPORT_KEY);
-			templateEngine = report.getTemplateEngine();
-		} else {
-			dataModelForm = getMetaDataModel(reportId);
-			templateEngine = getTemplateEngine(reportId, request);
-		}
+    // Dispatch values
+    protected static final String LOAD_DISPATCH = "load";
 
-		if (dataModelForm != null) {
-			request.setAttribute("HTMLDataModelForm", dataModelForm);
-		}
-		if (templateEngine != null) {
-			request.setAttribute("TemplateEngine", templateEngine);
-		}
+    private static final String ENTRIES_DISPATCH = "entries";
 
-		// Register converter type from in request attributes
-		String from = getConverterTypeFrom(report, reportId, request);
-		if (StringUtils.isNotEmpty(from)) {
-			ConverterFrom converterFrom = ConverterRegistry.getRegistry()
-					.getConverterFrom(from);
-			if (converterFrom != null) {
-				request.setAttribute(FROM_CONVERTER_ATTR_REQUEST, converterFrom);
-			}
-		}
-	}
+    @Override
+    public void init( ServletConfig config )
+        throws ServletException
+    {
+        LOGGER.info( "*****************************************" );
+        super.registerDispatcher( DefaultReportRegistry.INSTANCE );
+        super.init( config );
+    }
 
-	private MetaDataModel getMetaDataModel(String reportId) {
-		for (IXDocReportDispatcher<?> dispatcher : dispatchers) {
-			MetaDataModel metaDataModel = ((DefaultReportRegistry) dispatcher)
-					.getMetaDataModel(reportId);
-			if (metaDataModel != null) {
-				return metaDataModel;
-			}
-		}
-		return null;
-	}
-
-	private void doEntries(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		try {
-			IXDocReport report = super.getReport(request);
-			if (report != null) {
-				XDocArchive archive = report.getPreprocessedDocumentArchive();
-				request.setAttribute(XDOC_ARCHIVE, archive);
-				request.setAttribute(PREPROCESSED, report.isPreprocessed());
-			}
-		} catch (XDocReportException e) {
-			throw new ServletException(e);
-		}
-		request.getRequestDispatcher(DOCUMENT_ARCHIVE_JSP).forward(request,
-				response);
-	}
-
-	@Override
-	protected IXDocReport getReport(HttpServletRequest request)
-			throws IOException, XDocReportException {
-		IXDocReport report = super.getReport(request);
-		if (report != null) {
-			registerReportInfos(report.getId(), request);
-		}
-		return report;
-	}
-
-	@Override
-	protected IXDocReport loadReport(String reportId,
-			XDocReportRegistry registry, HttpServletRequest request)
-			throws IOException, XDocReportException {
-		IXDocReport report = super.loadReport(reportId, registry, request);
-		report.setData(LOADED_REPORT_DATE_KEY, Calendar.getInstance().getTime());
-		return report;
-	}
-
-	@Override
-    protected void populateContext(IContext context, IXDocReport report,
-            HttpServletRequest request) {
-        Boolean defaultReport = report.getData(DEFAULT_REPORT_KEY);
-        if (defaultReport != null && defaultReport.booleanValue() == false) {
-            MetaDataModel dataModelForm = report.getData(DATA_MODEL_REPORT_KEY);
-            if (dataModelForm != null) {
-                dataModelForm.populateContext(context, request);
-            }
+    @Override
+    protected void processRequest( HttpServletRequest request, HttpServletResponse response )
+        throws ServletException, IOException
+    {
+        String dispatch = super.getDispatchParameter( request );
+        if ( LOAD_DISPATCH.equals( dispatch ) )
+        {
+            doLoad( request, response );
         }
-        else {
-            super.populateContext(context, report, request);
+        else if ( ENTRIES_DISPATCH.equals( dispatch ) )
+        {
+            doEntries( request, response );
+        }
+        else
+        {
+            super.processRequest( request, response );
         }
     }
-	// @Override
-	// protected void populateContext(IContext context, String reportId,
-	// HttpServletRequest request) throws IOException, XDocReportException {
-	// IXDocReport report = super.getRegistry(request).getReport(reportId);
-	// if (report != null) {
-	// MetaDataModel dataModelForm = report.getData(DATA_MODEL_REPORT_KEY);
-	// if (dataModelForm == null) {
-	// // If report was not already loaded (default report) , create
-	// // default data model
-	// dataModelForm = getMetaDataModel(reportId);
-	// if (dataModelForm != null) {
-	// // It's a default report, store the data model in the report
-	// report.setData(DATA_MODEL_REPORT_KEY, dataModelForm);
-	// }
-	// }
-	// if (dataModelForm != null) {
-	// dataModelForm.populateContext(context, request);
-	// }
-	// }
-	// }
 
-	private String getConverterTypeFrom(IXDocReport report, String reportId,
-			HttpServletRequest request) throws IOException, XDocReportException {
-		if (report != null) {
-			return report.getKind();
-		}
-		return getConverterTypeFrom(reportId, request);
-	}
+    private void doLoad( HttpServletRequest request, HttpServletResponse response )
+        throws ServletException, IOException
+    {
+        try
+        {
+            registerReportInfos( getReportId( request ), request );
+        }
+        catch ( XDocReportException e )
+        {
+            throw new ServletException( e );
+        }
+        request.getRequestDispatcher( PROCESSREPORT_JSP ).forward( request, response );
+    }
 
-	protected String getConverterTypeFrom(String reportId,
-			HttpServletRequest request) throws IOException, XDocReportException {
-		String converterTypeFrom = DefaultReportRegistry.INSTANCE
-				.getConverterTypeFrom(reportId);
-		if (StringUtils.isNotEmpty(converterTypeFrom)) {
-			return converterTypeFrom;
-		}
-		return null;
-	}
+    private void registerReportInfos( String reportId, HttpServletRequest request )
+        throws IOException, XDocReportException
+    {
+        if ( StringUtils.isEmpty( reportId ) )
+        {
+            return;
+        }
+        MetaDataModel dataModelForm = null;
+        ITemplateEngine templateEngine = null;
+        IXDocReport report = super.getRegistry( request ).getReport( reportId );
+        if ( report != null )
+        {
+            dataModelForm = report.getData( DATA_MODEL_REPORT_KEY );
+            templateEngine = report.getTemplateEngine();
+        }
+        else
+        {
+            dataModelForm = getMetaDataModel( reportId );
+            templateEngine = getTemplateEngine( reportId, request );
+        }
+
+        if ( dataModelForm != null )
+        {
+            request.setAttribute( "HTMLDataModelForm", dataModelForm );
+        }
+        if ( templateEngine != null )
+        {
+            request.setAttribute( "TemplateEngine", templateEngine );
+        }
+
+        // Register converter type from in request attributes
+        String from = getConverterTypeFrom( report, reportId, request );
+        if ( StringUtils.isNotEmpty( from ) )
+        {
+            ConverterFrom converterFrom = ConverterRegistry.getRegistry().getConverterFrom( from );
+            if ( converterFrom != null )
+            {
+                request.setAttribute( FROM_CONVERTER_ATTR_REQUEST, converterFrom );
+            }
+        }
+    }
+
+    private MetaDataModel getMetaDataModel( String reportId )
+    {
+        for ( IXDocReportDispatcher<?> dispatcher : dispatchers )
+        {
+            MetaDataModel metaDataModel = ( (DefaultReportRegistry) dispatcher ).getMetaDataModel( reportId );
+            if ( metaDataModel != null )
+            {
+                return metaDataModel;
+            }
+        }
+        return null;
+    }
+
+    private void doEntries( HttpServletRequest request, HttpServletResponse response )
+        throws ServletException, IOException
+    {
+        try
+        {
+            IXDocReport report = super.getReport( request );
+            if ( report != null )
+            {
+                XDocArchive archive = report.getPreprocessedDocumentArchive();
+                request.setAttribute( XDOC_ARCHIVE, archive );
+                request.setAttribute( PREPROCESSED, report.isPreprocessed() );
+            }
+        }
+        catch ( XDocReportException e )
+        {
+            throw new ServletException( e );
+        }
+        request.getRequestDispatcher( DOCUMENT_ARCHIVE_JSP ).forward( request, response );
+    }
+
+    @Override
+    protected IXDocReport getReport( HttpServletRequest request )
+        throws IOException, XDocReportException
+    {
+        IXDocReport report = super.getReport( request );
+        if ( report != null )
+        {
+            registerReportInfos( report.getId(), request );
+        }
+        return report;
+    }
+
+    @Override
+    protected IXDocReport loadReport( String reportId, XDocReportRegistry registry, HttpServletRequest request )
+        throws IOException, XDocReportException
+    {
+        IXDocReport report = super.loadReport( reportId, registry, request );
+        report.setData( LOADED_REPORT_DATE_KEY, Calendar.getInstance().getTime() );
+        return report;
+    }
+
+    @Override
+    protected void populateContext( IContext context, IXDocReport report, HttpServletRequest request )
+    {
+        Boolean defaultReport = report.getData( DEFAULT_REPORT_KEY );
+        if ( defaultReport != null && defaultReport.booleanValue() == false )
+        {
+            MetaDataModel dataModelForm = report.getData( DATA_MODEL_REPORT_KEY );
+            if ( dataModelForm != null )
+            {
+                dataModelForm.populateContext( context, request );
+            }
+        }
+        else
+        {
+            super.populateContext( context, report, request );
+        }
+    }
+
+    // @Override
+    // protected void populateContext(IContext context, String reportId,
+    // HttpServletRequest request) throws IOException, XDocReportException {
+    // IXDocReport report = super.getRegistry(request).getReport(reportId);
+    // if (report != null) {
+    // MetaDataModel dataModelForm = report.getData(DATA_MODEL_REPORT_KEY);
+    // if (dataModelForm == null) {
+    // // If report was not already loaded (default report) , create
+    // // default data model
+    // dataModelForm = getMetaDataModel(reportId);
+    // if (dataModelForm != null) {
+    // // It's a default report, store the data model in the report
+    // report.setData(DATA_MODEL_REPORT_KEY, dataModelForm);
+    // }
+    // }
+    // if (dataModelForm != null) {
+    // dataModelForm.populateContext(context, request);
+    // }
+    // }
+    // }
+
+    private String getConverterTypeFrom( IXDocReport report, String reportId, HttpServletRequest request )
+        throws IOException, XDocReportException
+    {
+        if ( report != null )
+        {
+            return report.getKind();
+        }
+        return getConverterTypeFrom( reportId, request );
+    }
+
+    protected String getConverterTypeFrom( String reportId, HttpServletRequest request )
+        throws IOException, XDocReportException
+    {
+        String converterTypeFrom = DefaultReportRegistry.INSTANCE.getConverterTypeFrom( reportId );
+        if ( StringUtils.isNotEmpty( converterTypeFrom ) )
+        {
+            return converterTypeFrom;
+        }
+        return null;
+    }
 }
