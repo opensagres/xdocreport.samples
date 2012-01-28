@@ -179,7 +179,9 @@ import javax.servlet.http.HttpServletResponse;
 import fr.opensagres.xdocreport.converter.ConverterFrom;
 import fr.opensagres.xdocreport.converter.ConverterRegistry;
 import fr.opensagres.xdocreport.core.XDocReportException;
+import fr.opensagres.xdocreport.core.io.IOUtils;
 import fr.opensagres.xdocreport.core.io.XDocArchive;
+import fr.opensagres.xdocreport.core.logging.LogUtils;
 import fr.opensagres.xdocreport.core.utils.StringUtils;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.dispatcher.IXDocReportDispatcher;
@@ -197,7 +199,7 @@ public class ProcessXDocReportServlet
     /**
      * Logger for this class
      */
-    private static final Logger LOGGER = Logger.getLogger( ProcessXDocReportServlet.class.getName() );
+    private static final Logger LOGGER = LogUtils.getLogger( ProcessXDocReportServlet.class.getName() );
 
     private static final String XDOC_ARCHIVE = "XDocArchive";
 
