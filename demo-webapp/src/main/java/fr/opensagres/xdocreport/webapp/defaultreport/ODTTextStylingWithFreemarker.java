@@ -173,23 +173,47 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 
-public class ODTTextStylingWithFreemarker
-    extends DefaultReportController
-{
+public class ODTTextStylingWithFreemarker extends DefaultReportController {
 
     public ODTTextStylingWithFreemarker()
     {
         super( "ODTTextStylingWithFreemarker.odt", TemplateEngineKind.Velocity, DocumentKind.ODT );
     }
 
-    @Override
-    protected MetaDataModel createMetaDataModel()
-    {
-        MetaDataModel model = new MetaDataModel();
-        model.addSimpleField( "comments",
-                              "<h1>Title1</h1>Here some <strong>bold text</strong><h2>Title2</h2>Here some <em>italic text</em>" );
-        return model;
-    }
+	@Override
+	protected MetaDataModel createMetaDataModel() {
+		MetaDataModel model = new MetaDataModel();
+		model.addSimpleField("comments", "<h1>title 1+ </h1>"
++ "<h2>title 1.1</h2>"
++ "<ul>"
+  + "<li>item 1</li>"
+  + "<li>item 2"
+    + "<ul>"
+      + "<li>item 2.1</li>"
+      + "<li>item 2.2</li>"
+    + "</ul>"
+  + "</li>"
+  + "<li>item </li>"
++ "</ul>"
+
+
++ "<ol>"
+  + "<li>Nitem 1</li>"
+  + "<li>Nitem 2"
+    + "<ol>"
+      + "<li>Nitem 2.1</li>"
+      + "<li>Nitem 2.2</li>"
+    + "</ol>"
+  + "</li>"
+  + "<li>Nitem 3</li>"
++ "</ol>"
+    
++ "<b>bold text</b>"
++ "<i>italic text</i>"
+
++ "<a href=\"http://code.google.com/p/xdocreport\" >XDocReport</a>");
+		return model;
+	}
 
     @Override
     protected FieldsMetadata createFieldsMetadata()
