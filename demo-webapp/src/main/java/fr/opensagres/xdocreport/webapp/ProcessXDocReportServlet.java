@@ -179,7 +179,6 @@ import javax.servlet.http.HttpServletResponse;
 import fr.opensagres.xdocreport.converter.ConverterFrom;
 import fr.opensagres.xdocreport.converter.ConverterRegistry;
 import fr.opensagres.xdocreport.core.XDocReportException;
-import fr.opensagres.xdocreport.core.io.IOUtils;
 import fr.opensagres.xdocreport.core.io.XDocArchive;
 import fr.opensagres.xdocreport.core.logging.LogUtils;
 import fr.opensagres.xdocreport.core.utils.StringUtils;
