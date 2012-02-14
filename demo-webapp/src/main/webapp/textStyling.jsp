@@ -183,7 +183,7 @@
 	{
 		CKEDITOR.replace( 'editor1',
 	    {
-	        toolbar : 'Basic',
+	        toolbar : 'MyToolbar',
 	        uiColor : '#9AB8F3'
 	    });
 	};
@@ -200,12 +200,15 @@
 	<tr>
 		<td valign="top" >HTML Comments :</td>
 		<td>
-<textarea id="editor1" name="comments_html">Here are severals styles : 
+<textarea id="editor1" name="comments_html">
+
+Here are severals styles : 
 &lt;ul&gt;
 	&lt;li&gt;&lt;strong&gt;Bold&lt;/strong&gt; style.&lt;/li&gt;
 	&lt;li&gt;&lt;em&gt;Italic&lt;/em&gt; style.&lt;/li&gt;
 	&lt;li&gt;&lt;strong&gt;&lt;em&gt;BoldAndItalic&lt;/em&gt;&lt;/strong&gt; style.&lt;/li&gt;
 &lt;/ul&gt;
+
 Here are 3 styles : 
 
 &lt;ol&gt;
@@ -214,7 +217,17 @@ Here are 3 styles :
 	&lt;li&gt;&lt;strong&gt;&lt;em&gt;BoldAndItalic&lt;/em&gt;&lt;/strong&gt; style.&lt;/li&gt;
 &lt;/ol&gt;
 
-XDocReport can manage thoses styles.
+&lt;a href="http://code.google.com/p/xdocreport/"&gt;XDocReport&lt/a&gt; can manage thoses styles. Now some &lt;strong&gt;headers&lt;/strong&gt;:
+
+&lt;h1&gt;Title 1&lt;/h1&gt;
+Some text...
+
+&lt;h2&gt;Title 2&lt;/h2&gt;
+Some text...
+
+&lt;h3&gt;Title 3&lt;/h3&gt;
+Some text...
+
 </textarea>
 		</td>
 	</tr>
@@ -249,7 +262,7 @@ Here are 3 styles :
 # ''Italic'' style.
 # '''''BoldAndItalic''''' style.
 
-XDocReport can manage thoses styles.
+[http://code.google.com/p/xdocreport/ XDocReport] can manage thoses styles.
 </textarea></td>		
 	</tr>	
 	<tr>
