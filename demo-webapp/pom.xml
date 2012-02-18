@@ -145,7 +145,6 @@
     <dependency>
       <groupId>fr.opensagres.xdocreport</groupId>
       <artifactId>fr.opensagres.xdocreport.remoting.rest</artifactId>
-      <version>0.9.6-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.apache.cxf</groupId>
