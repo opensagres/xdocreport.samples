@@ -167,12 +167,15 @@
  */
 package fr.opensagres.xdocreport.webapp.defaultreport;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.core.document.DocumentKind;
 import fr.opensagres.xdocreport.document.IXDocReport;
+import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.document.web.dispatcher.AbstractXDocReportWEBController;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
@@ -194,6 +197,23 @@ public abstract class DefaultReportController
     {
         super( templateEngineKind, converterTypeFrom );
         this.reportId = reportId;
+        //PLQ... I must add this to have sample data for REST service...
+        try
+        {
+
+            XDocReportRegistry.getRegistry().loadReport( ProcessXDocReportServlet.class.getResourceAsStream( reportId ),reportId,templateEngineKind,true);
+        }
+        catch ( IOException e )
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //PLQ... I must add this to have sample data for REST service...
     }
 
     public String getReportId()
