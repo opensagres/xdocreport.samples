@@ -331,7 +331,7 @@ Here are 3 styles :
 					<img src="images/ODTTextStyling.png" />
 					</p>
 					<p>
-						This docx document contains 3 input fields which will be replaced with styled text :
+						This odt document contains 3 input fields which will be replaced with styled text :
 						<ul>
 							<li><b>$comments_html</b> will be replaced by HTML content from the "HTML Comments" textarea.
 							</li>
