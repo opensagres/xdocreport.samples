@@ -187,6 +187,16 @@
 	        uiColor : '#9AB8F3'
 	    });
 	};
+	function select(select) {
+		if (select.value == "odt") {
+			document.getElementById('odtExplanation').style.display = 'block';
+			document.getElementById('docxExplanation').style.display = 'none';
+		}
+		else {
+			document.getElementById('odtExplanation').style.display = 'none';
+			document.getElementById('docxExplanation').style.display = 'block';
+		}
+	};
 </script>
 <body>
 
@@ -194,9 +204,20 @@
 
 <fieldset><legend>Text styling</legend>
 <form name="helloWorldForm"
-	action="<%=request.getContextPath()%>/textstyling?reportId=TextStylingWithHTML"
+	action="<%=request.getContextPath()%>/textstyling"
 	method="post">
 <table>
+	<tr>
+		<td>
+<table>
+	<tr>
+		<td>Document type : <select name="reportId" onchange="javascript:select(this)" >
+								<%
+								HTMLUtils.generateHTMLOption("docx", "docx", request, out, "reportId");
+								HTMLUtils.generateHTMLOption("odt", "odt", request, out, "reportId");
+								%>								
+							</select>
+	</tr>
 	<tr>
 		<td valign="top" >HTML Comments :</td>
 		<td>
@@ -217,7 +238,7 @@ Here are 3 styles :
 	&lt;li&gt;&lt;strong&gt;&lt;em&gt;BoldAndItalic&lt;/em&gt;&lt;/strong&gt; style.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;a href="http://code.google.com/p/xdocreport/"&gt;XDocReport&lt/a&gt; can manage thoses styles. Now some &lt;strong&gt;headers&lt;/strong&gt;:
+&lt;a href="http://code.google.com/p/xdocreport/"&gt;XDocReport&lt/a&gt; can manage those styles. Now some &lt;strong&gt;headers&lt;/strong&gt;:
 
 &lt;h1&gt;Title 1&lt;/h1&gt;
 Some text...
@@ -245,7 +266,7 @@ Here are 3 styles :
  # _Italic_ style.
  # _*BoldAndItalic*_ style.
 
-XDocReport can manage thoses styles.
+XDocReport can manage those styles.
 </textarea></td>
 	</tr>
 	<tr>
@@ -262,11 +283,73 @@ Here are 3 styles :
 # ''Italic'' style.
 # '''''BoldAndItalic''''' style.
 
-[http://code.google.com/p/xdocreport/ XDocReport] can manage thoses styles.
+[http://code.google.com/p/xdocreport/ XDocReport] can manage those styles.
 </textarea></td>		
 	</tr>	
 	<tr>
-		<td colspan="2"><input type="submit" value="Generate Docx Report"></td>
+		<td colspan="2"><input type="submit" value="Generate Report"></td>
+	</tr>
+</table>
+		</td>
+		<td valign="top" >
+			<% boolean odtExplanation = "odt".equals(request.getParameter("reportId"));%>
+			<div id="docxExplanation" <% if(odtExplanation) {%> style="display:none;"<%}%>>
+				<fieldset>
+					<legend>Explanation</legend>
+					<p>
+					In this sample text styling, the following docx document is used as "template" report :
+					</p>
+					<p>
+					<img src="images/DocxTextStyling.png" />
+					</p>
+					<p>
+						This docx document contains 3 merge fields which will be replaced with styled text :
+						<ul>
+							<li><b>$comments_html</b> will be replaced by HTML content from the "HTML Comments" textarea.
+							</li>
+							<li><b>$comments_gwiki</b> will be replaced by Google Wiki content from the "Google Wiki Comments " textarea.
+							</li>
+							<li><b>$comments_mediawiki</b> will be replaced by MediaWiki content from the "MediaWiki Comments" textarea.
+							</li>
+						</ul>
+					</p>
+					<p>
+						Fill each text area and click on <input type="submit" value="Generate Report"> to generate the report.
+					</p>
+					<p>
+						Please see <a href="http://code.google.com/p/xdocreport/wiki/DocxReportingJavaMainTextStyling" >XDocReport Wiki</a> for more information.
+					</p>					
+				</fieldset>
+			</div>
+			<div id="odtExplanation" <% if(!odtExplanation) {%> style="display:none;"<%}%> >
+				<fieldset>
+					<legend>Explanation</legend>
+					<p>
+					In this sample text styling, the following odt document is used as "template" report :
+					</p>
+					<p>
+					<img src="images/ODTTextStyling.png" />
+					</p>
+					<p>
+						This docx document contains 3 input fields which will be replaced with styled text :
+						<ul>
+							<li><b>$comments_html</b> will be replaced by HTML content from the "HTML Comments" textarea.
+							</li>
+							<li><b>$comments_gwiki</b> will be replaced by Google Wiki content from the "Google Wiki Comments " textarea.
+							</li>
+							<li><b>$comments_mediawiki</b> will be replaced by MediaWiki content from the "MediaWiki Comments" textarea.
+							</li>
+						</ul>
+					</p>
+					<p>
+						Fill each text area and click on <input type="submit" value="Generate Report"> to generate the report.
+					</p>
+					<p>
+						Please see <a href="http://code.google.com/p/xdocreport/wiki/ODTReportingJavaMainTextStyling" >XDocReport Wiki</a> for more information.
+					</p>
+				</fieldset>
+			</div>
+		</td>
 	</tr>
 </table>
 </form>

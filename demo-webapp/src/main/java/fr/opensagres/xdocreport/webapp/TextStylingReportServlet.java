@@ -189,6 +189,10 @@ public class TextStylingReportServlet
     protected InputStream getSourceStream( String reportId, HttpServletRequest request )
         throws IOException, XDocReportException
     {
+        if ( "odt".equalsIgnoreCase( getReportId( request )) )
+        {
+            return TextStylingReportServlet.class.getResourceAsStream( "TextStyling.odt" );
+        }
         return TextStylingReportServlet.class.getResourceAsStream( "TextStyling.docx" );
     }
 
