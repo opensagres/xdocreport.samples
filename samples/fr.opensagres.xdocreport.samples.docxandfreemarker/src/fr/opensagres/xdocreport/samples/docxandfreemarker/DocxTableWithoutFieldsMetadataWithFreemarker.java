@@ -183,6 +183,7 @@ import fr.opensagres.xdocreport.samples.docxandfreemarker.model.Project;
 import fr.opensagres.xdocreport.samples.docxandfreemarker.model.Role;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
 public class DocxTableWithoutFieldsMetadataWithFreemarker {
 
@@ -197,11 +198,10 @@ public class DocxTableWithoutFieldsMetadataWithFreemarker {
 
 			// 2) Create fields metadata to manage lazy loop (#forech velocity)
 			// for table row.
-			// FieldsMetadata metadata = new FieldsMetadata();
+			// FieldsMetadata metadata = report.createFieldsMetadata();
 			// metadata.addFieldAsList("developers.name");
 			// metadata.addFieldAsList("developers.lastName");
 			// metadata.addFieldAsList("developers.mail");
-			// report.setFieldsMetadata(metadata);
 
 			// 3) Create context Java model
 			IContext context = report.createContext();

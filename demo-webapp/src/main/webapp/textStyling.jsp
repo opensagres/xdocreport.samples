@@ -219,6 +219,22 @@
 							</select>
 	</tr>
 	<tr>
+		<td>
+			<fieldset>
+				<legend>Data model (used in Text Styling)</legend>
+				<table>
+					<tr>
+						<td>Project ($project):</td>
+						<td><input name="project" value="XDocReport" size="50" /></td>
+					</tr>
+					<tr>
+						<td>URL ($url):</td>
+						<td><input name="url" value="http://code.google.com/p/xdocreport/" size="50" /></td>
+					</tr>
+			</fieldset>
+		</td>
+	</tr>
+	<tr>
 		<td valign="top" >HTML Comments :</td>
 		<td>
 <textarea id="editor1" name="comments_html">
@@ -238,7 +254,11 @@ Here are 3 styles :
 	&lt;li&gt;&lt;strong&gt;&lt;em&gt;BoldAndItalic&lt;/em&gt;&lt;/strong&gt; style.&lt;/li&gt;
 &lt;/ol&gt;
 
+Here you can use Velocity syntax like &lt;a href="$url"&gt;$project&lt/a&gt;
+
+&lt;p&gt;
 &lt;a href="http://code.google.com/p/xdocreport/"&gt;XDocReport&lt/a&gt; can manage those styles. Now some &lt;strong&gt;headers&lt;/strong&gt;:
+&lt;/p&gt;
 
 &lt;h1&gt;Title 1&lt;/h1&gt;
 Some text...
@@ -282,6 +302,8 @@ Here are 3 styles :
 # '''Bold''' style.
 # ''Italic'' style.
 # '''''BoldAndItalic''''' style.
+
+Here you can use Velocity syntax like [$url $project]
 
 [http://code.google.com/p/xdocreport/ XDocReport] can manage those styles.
 </textarea></td>		

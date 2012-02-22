@@ -184,43 +184,45 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class PPTXProjectAndDeveloppersWithVelocity {
+public class PPTXProjectAndDeveloppersWithVelocity
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load PPTX file by filling Velocity template engine and cache
-			// it to the registry
-			InputStream in = PPTXProjectAndDeveloppersWithVelocity.class
-					.getResourceAsStream("PPTXProjectAndDeveloppersWithVelocity.pptx");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Velocity);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load PPTX file by filling Velocity template engine and cache
+            // it to the registry
+            InputStream in =
+                PPTXProjectAndDeveloppersWithVelocity.class.getResourceAsStream( "PPTXProjectAndDeveloppersWithVelocity.pptx" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
 
-			FieldsMetadata metadata= new FieldsMetadata();
-			metadata.addFieldAsList("developers.Name");
-			metadata.addFieldAsList("developers.LastName");	
-			metadata.addFieldAsList("developers.Mail");
-			report.setFieldsMetadata(metadata);
-			
-			// 2) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport", "XDocReport and MS PowerPoint.");
-			context.put("project", project);
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.addFieldAsList( "developers.Name" );
+            metadata.addFieldAsList( "developers.LastName" );
+            metadata.addFieldAsList( "developers.Mail" );
 
-			List<Developer> developers = new ArrayList<Developer>();
-			developers.add(new Developer("ZERR", "Angelo",
-					"angelo.zerr@gmail.com"));
-			developers.add(new Developer("Leclercq", "Pascal",
-					"pascal.leclercq@gmail.com"));
-			context.put("developers", developers);
+            // 2) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport", "XDocReport and MS PowerPoint." );
+            context.put( "project", project );
 
-			// 3) Generate report by merging Java model with the PPTX
-			OutputStream out = new FileOutputStream(new File(
-					"PPTXProjectAndDeveloppersWithVelocity_Out.pptx"));
-			report.process(context, out);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+            List<Developer> developers = new ArrayList<Developer>();
+            developers.add( new Developer( "ZERR", "Angelo", "angelo.zerr@gmail.com" ) );
+            developers.add( new Developer( "Leclercq", "Pascal", "pascal.leclercq@gmail.com" ) );
+            context.put( "developers", developers );
+
+            // 3) Generate report by merging Java model with the PPTX
+            OutputStream out = new FileOutputStream( new File( "PPTXProjectAndDeveloppersWithVelocity_Out.pptx" ) );
+            report.process( context, out );
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

@@ -200,6 +200,11 @@ public class TextStylingReportServlet
     protected void populateContext( IContext context, String reportId, HttpServletRequest req )
         throws XDocReportException
     {
+        String project = req.getParameter( "project" );
+        context.put( "project", project );
+        String url = req.getParameter( "url" );
+        context.put( "url", url );
+        
         String comments_html = req.getParameter( "comments_html" );
         context.put( "comments_html", comments_html );
         String comments_gwiki = req.getParameter( "comments_gwiki" );
@@ -218,9 +223,9 @@ public class TextStylingReportServlet
     protected FieldsMetadata getFieldsMetadata( String reportId, HttpServletRequest request )
     {
         FieldsMetadata metadata = new FieldsMetadata();
-        metadata.addFieldAsTextStyling( "comments_html", SyntaxKind.Html );
-        metadata.addFieldAsTextStyling( "comments_gwiki", SyntaxKind.GWiki );
-        metadata.addFieldAsTextStyling( "comments_mediawiki", SyntaxKind.MediaWiki );
+        metadata.addFieldAsTextStyling( "comments_html", SyntaxKind.Html, true );
+        metadata.addFieldAsTextStyling( "comments_gwiki", SyntaxKind.GWiki, true );
+        metadata.addFieldAsTextStyling( "comments_mediawiki", SyntaxKind.MediaWiki, true );
         return metadata;
     }
 

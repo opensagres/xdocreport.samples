@@ -186,60 +186,69 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class DocxProjectWithVelocityAndImageList {
+public class DocxProjectWithVelocityAndImageList
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load Docx file by filling Velocity template engine and cache
-			// it to the registry
-			InputStream in = DocxProjectWithVelocity.class
-					.getResourceAsStream("DocxProjectWithVelocityAndImageList.docx");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Velocity);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load Docx file by filling Velocity template engine and cache
+            // it to the registry
+            InputStream in =
+                DocxProjectWithVelocity.class.getResourceAsStream( "DocxProjectWithVelocityAndImageList.docx" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
 
-			// 2) Create fields metadata to manage lazy loop (#foreach velocity)
-			// for table row and manage dynamic image
-			FieldsMetadata metadata = new FieldsMetadata();
-			// list
-			metadata.addFieldAsList("developers.Name");
-			metadata.addFieldAsList("developers.LastName");
-			metadata.addFieldAsList("developers.Mail");
-			metadata.addFieldAsList("developers.Photo");
-			// image
-			metadata.addFieldAsImage("logo");
-			metadata.addFieldAsImage("photo", "developers.Photo");
-			report.setFieldsMetadata(metadata);
+            // 2) Create fields metadata to manage lazy loop (#foreach velocity)
+            // for table row and manage dynamic image
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            // list
+            metadata.addFieldAsList( "developers.Name" );
+            metadata.addFieldAsList( "developers.LastName" );
+            metadata.addFieldAsList( "developers.Mail" );
+            metadata.addFieldAsList( "developers.Photo" );
+            // image
+            metadata.addFieldAsImage( "logo" );
+            metadata.addFieldAsImage( "photo", "developers.Photo" );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			project.setURL("http://code.google.com/p/xdocreport/");
-			context.put("project", project);
-			IImageProvider logo = new ClassPathImageProvider(
-					DocxProjectWithVelocityAndImageList.class, "logo.png");
-			context.put("logo", logo);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            project.setURL( "http://code.google.com/p/xdocreport/" );
+            context.put( "project", project );
+            IImageProvider logo = new ClassPathImageProvider( DocxProjectWithVelocityAndImageList.class, "logo.png" );
+            context.put( "logo", logo );
 
-			// Register developers list
-			List<DeveloperWithImage> developers = new ArrayList<DeveloperWithImage>();
-			developers.add(new DeveloperWithImage("ZERR", "Angelo",
-					"angelo.zerr@gmail.com", new ClassPathImageProvider(
-							DocxProjectWithVelocityAndImageList.class,
-							"AngeloZERR.jpg")));
-			developers.add(new DeveloperWithImage("Leclercq", "Pascal",
-					"pascal.leclercq@gmail.com", new ClassPathImageProvider(
-							DocxProjectWithVelocityAndImageList.class,
-							"PascalLeclercq.jpg")));
-			context.put("developers", developers);
+            // Register developers list
+            List<DeveloperWithImage> developers = new ArrayList<DeveloperWithImage>();
+            developers.add( new DeveloperWithImage(
+                                                    "ZERR",
+                                                    "Angelo",
+                                                    "angelo.zerr@gmail.com",
+                                                    new ClassPathImageProvider(
+                                                                                DocxProjectWithVelocityAndImageList.class,
+                                                                                "AngeloZERR.jpg" ) ) );
+            developers.add( new DeveloperWithImage(
+                                                    "Leclercq",
+                                                    "Pascal",
+                                                    "pascal.leclercq@gmail.com",
+                                                    new ClassPathImageProvider(
+                                                                                DocxProjectWithVelocityAndImageList.class,
+                                                                                "PascalLeclercq.jpg" ) ) );
+            context.put( "developers", developers );
 
-			// 4) Generate report by merging Java model with the Docx
-			OutputStream out = new FileOutputStream(new File(
-					"DocxProjectWithVelocityAndImageList_Out.docx"));
-			report.process(context, out);
+            // 4) Generate report by merging Java model with the Docx
+            OutputStream out = new FileOutputStream( new File( "DocxProjectWithVelocityAndImageList_Out.docx" ) );
+            report.process( context, out );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

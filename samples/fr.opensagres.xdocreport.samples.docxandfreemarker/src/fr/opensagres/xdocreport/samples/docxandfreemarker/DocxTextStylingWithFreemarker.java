@@ -182,48 +182,52 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class DocxTextStylingWithFreemarker {
+public class DocxTextStylingWithFreemarker
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load Docx file by filling Freemarker template engine and cache
-			// it to the registry
-			InputStream in = DocxProjectWithFreemarker.class
-					.getResourceAsStream("DocxTextStylingWithFreemarker.docx");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Freemarker);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load Docx file by filling Freemarker template engine and cache
+            // it to the registry
+            InputStream in = DocxProjectWithFreemarker.class.getResourceAsStream( "DocxTextStylingWithFreemarker.docx" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Freemarker );
 
-			// 2) Create fields metadata to manage text styling
-			FieldsMetadata metadata = new FieldsMetadata();
-			metadata.addFieldAsTextStyling("comments_docx",
-					SyntaxKind.NoEscape);
-			metadata.addFieldAsTextStyling("comments_html",
-					SyntaxKind.Html);
-			report.setFieldsMetadata(metadata);
+            // 2) Create fields metadata to manage text styling
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.addFieldAsTextStyling( "comments_docx", SyntaxKind.NoEscape );
+            metadata.addFieldAsTextStyling( "comments_html", SyntaxKind.Html );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
 
-			context.put("comments_docx", "<w:r>"
-					+ "<w:t xml:space=\"preserve\">Here a + </w:t>" + "</w:r>"
-					+ "<w:r w:rsidRPr=\"0070620D\">" + "<w:rPr>" + "<w:b />"
-					+ "</w:rPr>" + "<w:t>bold</w:t>" + "</w:r>" + "<w:r>"
-					+ "<w:t xml:space=\"preserve\"> text.</w:t>" + "</w:r>");
+            context.put( "comments_docx", "<w:r>" + "<w:t xml:space=\"preserve\">Here a + </w:t>" + "</w:r>"
+                + "<w:r w:rsidRPr=\"0070620D\">" + "<w:rPr>" + "<w:b />" + "</w:rPr>" + "<w:t>bold</w:t>" + "</w:r>"
+                + "<w:r>" + "<w:t xml:space=\"preserve\"> text.</w:t>" + "</w:r>" );
+            context.put( "comments_html", "Here are severals styles :<ul>" + "<li><strong>Bold</strong> style.</li>"
+                + "<li><em>Italic</em> style.</li>" + "<li><strong><em>BoldAndItalic</em></strong> style.</li>"
+                + "</ul>" + "<p>Here are 3 styles :</p>" + "<ol>" + "<li><strong>Bold</strong> style.</li>"
+                + "<li><em>Italic</em> style.</li>" + "<li><strong><em>BoldAndItalic</em></strong> style.</li>"
+                + "</ol>"
+                + "<p><a href=\"http://code.google.com/p/xdocreport/\">XDocReport</a> can manage those styles. "
+                + "Now some <strong>headers</strong>:" + "</p>" + "<h1>Title 1</h1>" + "<p>Some text...</p>"
+                + "<h2>Title 2</h2>" + "<p>Some text...</p>" + "<h3>Title 3</h3>" + "<p>Some text...</p>" );
 
-			context.put("comments_html",
-					"<p>Here a <strong>bold</strong> text.</p>");
+            // 4) Generate report by merging Java model with the Docx
+            OutputStream out = new FileOutputStream( new File( "DocxTextStylingWithFreemarker_Out.docx" ) );
+            report.process( context, out );
 
-			// 4) Generate report by merging Java model with the Docx
-			OutputStream out = new FileOutputStream(new File(
-					"DocxTextStylingWithFreemarker_Out.docx"));
-			report.process(context, out);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

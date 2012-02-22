@@ -183,62 +183,64 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class ODTProjectWithFreemarkerAndImage {
+public class ODTProjectWithFreemarkerAndImage
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load ODT file by filling Freemarker template engine and cache
-			// it to the registry
-			InputStream in = ODTProjectWithFreemarkerAndImage.class
-					.getResourceAsStream("ODTProjectWithFreemarkerAndImage.odt");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Freemarker);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load ODT file by filling Freemarker template engine and cache
+            // it to the registry
+            InputStream in =
+                ODTProjectWithFreemarkerAndImage.class.getResourceAsStream( "ODTProjectWithFreemarkerAndImage.odt" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Freemarker );
 
-			// 2) Create fields metadata to manage image
-			FieldsMetadata metadata = new FieldsMetadata();
-			metadata.addFieldAsImage("logo");
-			metadata.addFieldAsImage("originalSizeLogo");
-			metadata.addFieldAsImage("forcedSizeLogo");
-			metadata.addFieldAsImage("ratioSizeLogo");
-			report.setFieldsMetadata(metadata);
+            // 2) Create fields metadata to manage image
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.addFieldAsImage( "logo" );
+            metadata.addFieldAsImage( "originalSizeLogo" );
+            metadata.addFieldAsImage( "forcedSizeLogo" );
+            metadata.addFieldAsImage( "ratioSizeLogo" );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
-			IImageProvider logo = new ClassPathImageProvider(
-					ODTProjectWithFreemarkerAndImage.class, "logo.png");
-			context.put("logo", logo);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
+            IImageProvider logo = new ClassPathImageProvider( ODTProjectWithFreemarkerAndImage.class, "logo.png" );
+            context.put( "logo", logo );
 
-			boolean useImageSize = true;
-			IImageProvider originalSizeLogo = new ClassPathImageProvider(
-					ODTProjectWithFreemarkerAndImage.class, "logo.png",
-					useImageSize);
-			context.put("originalSizeLogo", originalSizeLogo);
+            boolean useImageSize = true;
+            IImageProvider originalSizeLogo =
+                new ClassPathImageProvider( ODTProjectWithFreemarkerAndImage.class, "logo.png", useImageSize );
+            context.put( "originalSizeLogo", originalSizeLogo );
 
-			// Image with width/height forced
-			IImageProvider forcedSizeLogo = new ClassPathImageProvider(
-					ODTProjectWithFreemarkerAndImage.class, "logo.png");
-			forcedSizeLogo.setSize(400f, 100f);
-			context.put("forcedSizeLogo", forcedSizeLogo);
+            // Image with width/height forced
+            IImageProvider forcedSizeLogo =
+                new ClassPathImageProvider( ODTProjectWithFreemarkerAndImage.class, "logo.png" );
+            forcedSizeLogo.setSize( 400f, 100f );
+            context.put( "forcedSizeLogo", forcedSizeLogo );
 
-			// Image with width forced and height computed with ratio
-			IImageProvider ratioSizeLogo = new ClassPathImageProvider(
-					ODTProjectWithFreemarkerAndImage.class, "logo.png");
-			ratioSizeLogo.setUseImageSize(true);
-			ratioSizeLogo.setWidth(400f);
-			ratioSizeLogo.setResize(true);
-			context.put("ratioSizeLogo", ratioSizeLogo);
+            // Image with width forced and height computed with ratio
+            IImageProvider ratioSizeLogo =
+                new ClassPathImageProvider( ODTProjectWithFreemarkerAndImage.class, "logo.png" );
+            ratioSizeLogo.setUseImageSize( true );
+            ratioSizeLogo.setWidth( 400f );
+            ratioSizeLogo.setResize( true );
+            context.put( "ratioSizeLogo", ratioSizeLogo );
 
-			// 4) Generate report by merging Java model with the ODT
-			OutputStream out = new FileOutputStream(new File(
-					"ODTProjectWithFreemarkerAndImage_Out.odt"));
-			report.process(context, out);
+            // 4) Generate report by merging Java model with the ODT
+            OutputStream out = new FileOutputStream( new File( "ODTProjectWithFreemarkerAndImage_Out.odt" ) );
+            report.process( context, out );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

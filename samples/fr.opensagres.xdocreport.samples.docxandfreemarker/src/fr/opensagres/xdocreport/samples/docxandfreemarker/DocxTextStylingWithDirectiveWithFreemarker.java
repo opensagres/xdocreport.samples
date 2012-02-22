@@ -174,72 +174,54 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
+import fr.opensagres.xdocreport.core.document.SyntaxKind;
 import fr.opensagres.xdocreport.document.IXDocReport;
-import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
-import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.samples.docxandfreemarker.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class DocxProjectWithFreemarkerAndImage {
+public class DocxTextStylingWithDirectiveWithFreemarker
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load Docx file by filling Freemarker template engine and cache
-			// it to the registry
-			InputStream in = DocxProjectWithFreemarkerAndImage.class
-					.getResourceAsStream("DocxProjectWithFreemarkerAndImage.docx");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Freemarker);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load Docx file by filling Freemarker template engine and cache
+            // it to the registry
+            InputStream in = DocxProjectWithFreemarker.class.getResourceAsStream( "DocxTextStylingWithFreemarker.docx" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Freemarker );
 
-			// 2) Create fields metadata to manage image
-			FieldsMetadata metadata = report.createFieldsMetadata();
-			metadata.addFieldAsImage("logo");
-			metadata.addFieldAsImage("originalSizeLogo");
-			metadata.addFieldAsImage("forcedSizeLogo");
-			metadata.addFieldAsImage("ratioSizeLogo");
+            // 2) Create fields metadata to manage text styling
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.addFieldAsTextStyling( "comments_docx", SyntaxKind.NoEscape );
+            // Here addFieldAsTextStyling is called with true to use ${project.name} in the HTML content "comments_html"
+            metadata.addFieldAsTextStyling( "comments_html", SyntaxKind.Html, true );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
 
-			// Image with the "template" image size
-			IImageProvider logo = new ClassPathImageProvider(
-					DocxProjectWithFreemarkerAndImage.class, "logo.png");
-			context.put("logo", logo);
+            context.put( "comments_docx", "<w:r>" + "<w:t xml:space=\"preserve\">Here a + </w:t>" + "</w:r>"
+                + "<w:r w:rsidRPr=\"0070620D\">" + "<w:rPr>" + "<w:b />" + "</w:rPr>" + "<w:t>bold</w:t>" + "</w:r>"
+                + "<w:r>" + "<w:t xml:space=\"preserve\"> text.</w:t>" + "</w:r>" );
+            context.put( "comments_html", "Here the project name coming from the context : <b>${project.name}</b>." );
 
-			// Image with original size
-			boolean useImageSize = true;
-			IImageProvider originalSizeLogo = new ClassPathImageProvider(
-					DocxProjectWithFreemarkerAndImage.class, "logo.png",
-					useImageSize);
-			context.put("originalSizeLogo", originalSizeLogo);
+            // 4) Generate report by merging Java model with the Docx
+            OutputStream out = new FileOutputStream( new File( "DocxTextStylingWithDirectiveWithFreemarker_Out.docx" ) );
+            report.process( context, out );
 
-			// Image with width/height forced
-			IImageProvider forcedSizeLogo = new ClassPathImageProvider(
-					DocxProjectWithFreemarkerAndImage.class, "logo.png");
-			forcedSizeLogo.setSize(400f, 100f);
-			context.put("forcedSizeLogo", forcedSizeLogo);
-
-			// Image with width forced and height computed with ratio
-			IImageProvider ratioSizeLogo = new ClassPathImageProvider(
-					DocxProjectWithFreemarkerAndImage.class, "logo.png");
-			ratioSizeLogo.setUseImageSize(true);
-			ratioSizeLogo.setWidth(400f);
-			ratioSizeLogo.setResize(true);
-			context.put("ratioSizeLogo", ratioSizeLogo);
-
-			// 4) Generate report by merging Java model with the Docx
-			OutputStream out = new FileOutputStream(new File(
-					"DocxProjectWithFreemarkerAndImage_Out.docx"));
-			report.process(context, out);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

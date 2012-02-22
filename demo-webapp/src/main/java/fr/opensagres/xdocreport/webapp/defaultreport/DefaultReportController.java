@@ -197,22 +197,24 @@ public abstract class DefaultReportController
     {
         super( templateEngineKind, converterTypeFrom );
         this.reportId = reportId;
+        // This code break the fields metadata loading and data model.
+        // To have sample data, generate a report.
         //PLQ... I must add this to have sample data for REST service...
-        try
-        {
-
-            XDocReportRegistry.getRegistry().loadReport( ProcessXDocReportServlet.class.getResourceAsStream( reportId ),reportId,templateEngineKind,true);
-        }
-        catch ( IOException e )
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch ( XDocReportException e )
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        try
+//        {
+//
+//            //XDocReportRegistry.getRegistry().loadReport( ProcessXDocReportServlet.class.getResourceAsStream( reportId ),reportId,templateEngineKind,true);
+//        }
+//        catch ( IOException e )
+//        {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        catch ( XDocReportException e )
+//        {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
         //PLQ... I must add this to have sample data for REST service...
     }
 

@@ -199,7 +199,7 @@ public class DocxProjectWithFreemarkerAndImageList {
 
 			// 2) Create fields metadata to manage lazy loop (#foreach velocity)
 			// for table row and manage dynamic image
-			FieldsMetadata metadata = new FieldsMetadata();
+			FieldsMetadata metadata = report.createFieldsMetadata();
 			// list
 			metadata.addFieldAsList("developers.name");
 			metadata.addFieldAsList("developers.lastName");
@@ -209,7 +209,6 @@ public class DocxProjectWithFreemarkerAndImageList {
 			// image
 			metadata.addFieldAsImage("logo");
 			metadata.addFieldAsImage("photo", "developers.photo");
-			report.setFieldsMetadata(metadata);
 
 			// 3) Create context Java model
 			IContext context = report.createContext();

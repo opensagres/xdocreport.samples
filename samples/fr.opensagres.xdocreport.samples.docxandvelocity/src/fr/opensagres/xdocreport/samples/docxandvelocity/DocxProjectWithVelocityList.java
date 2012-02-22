@@ -184,55 +184,56 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class DocxProjectWithVelocityList {
+public class DocxProjectWithVelocityList
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load Docx file by filling Velocity template engine and cache
-			// it to the registry
-			InputStream in = DocxProjectWithVelocity.class
-					.getResourceAsStream("DocxProjectWithVelocityList.docx");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Velocity);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load Docx file by filling Velocity template engine and cache
+            // it to the registry
+            InputStream in = DocxProjectWithVelocity.class.getResourceAsStream( "DocxProjectWithVelocityList.docx" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
 
-			// 2) Create fields metadata to manage lazy loop (#forech velocity)
-			// for table row.
-			FieldsMetadata metadata = new FieldsMetadata();
-			metadata.addFieldAsList("developers.Name");
-			metadata.addFieldAsList("developers.LastName");
-			metadata.addFieldAsList("developers.Mail");
-			report.setFieldsMetadata(metadata);
+            // 2) Create fields metadata to manage lazy loop (#forech velocity)
+            // for table row.
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.addFieldAsList( "developers.Name" );
+            metadata.addFieldAsList( "developers.LastName" );
+            metadata.addFieldAsList( "developers.Mail" );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
 
-			// List<Map<String,String>> developers = new
-			// ArrayList<Map<String,String>>();
-			// Map<String,String> developer1 = new HashMap<String, String>();
-			// developer1.put("Name", "ZERR");
-			// developer1.put("LastName", "Angelo");
-			// developer1.put("Mail", "angelo.zerr@gmail.com");
-			//developers.add(developer1);
-			// Register developers list
-			
-			List<Developer> developers = new ArrayList<Developer>();
-			developers.add(new Developer("ZERR", "Angelo",
-					"angelo.zerr@gmail.com"));
-			developers.add(new Developer("Leclercq", "Pascal",
-					"pascal.leclercq@gmail.com"));
-			context.put("developers", developers);
+            // List<Map<String,String>> developers = new
+            // ArrayList<Map<String,String>>();
+            // Map<String,String> developer1 = new HashMap<String, String>();
+            // developer1.put("Name", "ZERR");
+            // developer1.put("LastName", "Angelo");
+            // developer1.put("Mail", "angelo.zerr@gmail.com");
+            // developers.add(developer1);
+            // Register developers list
 
-			// 4) Generate report by merging Java model with the Docx
-			OutputStream out = new FileOutputStream(new File(
-					"DocxProjectWithVelocityList_Out.docx"));
-			report.process(context, out);
+            List<Developer> developers = new ArrayList<Developer>();
+            developers.add( new Developer( "ZERR", "Angelo", "angelo.zerr@gmail.com" ) );
+            developers.add( new Developer( "Leclercq", "Pascal", "pascal.leclercq@gmail.com" ) );
+            context.put( "developers", developers );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+            // 4) Generate report by merging Java model with the Docx
+            OutputStream out = new FileOutputStream( new File( "DocxProjectWithVelocityList_Out.docx" ) );
+            report.process( context, out );
+
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

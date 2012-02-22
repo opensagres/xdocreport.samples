@@ -199,11 +199,10 @@ public class DocxProjectWithFreemarkerListTestPerf {
 
 			// 2) Create fields metadata to manage lazy loop (#forech velocity)
 			// for table row.
-			FieldsMetadata metadata = new FieldsMetadata();
+			FieldsMetadata metadata = report.createFieldsMetadata();
 			metadata.addFieldAsList("developers.name");
 			metadata.addFieldAsList("developers.lastName");
 			metadata.addFieldAsList("developers.mail");
-			report.setFieldsMetadata(metadata);
 
 			// 3) Create context Java model
 			IContext context = report.createContext();
