@@ -98,7 +98,7 @@ org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet
 <init-param>
 <param-name>javax.ws.rs.Application</param-name>
 <param-value>
-fr.opensagres.xdocreport.service.rest.XDocreportApplication
+fr.opensagres.xdocreport.remoting.resources.services.rest.server.JAXRSResourcesApplication
 </param-value>
 </init-param>
 <load-on-startup>1</load-on-startup>
@@ -196,4 +196,7 @@ fr.opensagres.xdocreport.service.rest.XDocreportApplication
  </init-param>
 <load-on-startup>1</load-on-startup>
 </servlet> -->
+	<listener>
+		<listener-class>fr.opensagres.xdocreport.webapp.remoting.CustomWebAppResourcesServiceListener</listener-class>
+	</listener>
 </web-app>

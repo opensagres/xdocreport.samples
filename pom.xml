@@ -7,7 +7,7 @@
   <url>https://xdocreport.googlecode.com/files</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <xdocreport.version>0.9.6</xdocreport.version>
+    <xdocreport.version>0.9.7-SNAPSHOT</xdocreport.version>
   </properties>
   <modules>
     <module>sample-assembly-descriptor</module>
@@ -186,6 +186,11 @@
         <artifactId>fr.opensagres.xdocreport.remoting.rest</artifactId>
         <version>${xdocreport.version}</version>
       </dependency>
+      <dependency>
+        <groupId>fr.opensagres.xdocreport</groupId>
+        <artifactId>fr.opensagres.xdocreport.remoting.resources</artifactId>
+        <version>${xdocreport.version}</version>
+      </dependency>      
     </dependencies>
 
   </dependencyManagement>

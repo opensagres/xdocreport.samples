@@ -179,7 +179,7 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 
 /**
- * Hello world sample wich works ODTHelloWorldWithVelocity.odt ODT document which contains content with velocity
+ * Hello world sample which works ODTHelloWorldWithVelocity.odt ODT document which contains content with velocity
  * variable name :
  * 
  * <pre>
