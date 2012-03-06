@@ -167,6 +167,7 @@
  */
 package fr.opensagres.xdocreport.webapp.defaultreport;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
@@ -182,6 +183,8 @@ public class DefaultReportRegistry
 {
 
     public static DefaultReportRegistry INSTANCE = new DefaultReportRegistry();
+
+    private File resourcesFolder;
 
     public DefaultReportRegistry()
     {
@@ -240,6 +243,16 @@ public class DefaultReportRegistry
             return controler.getConverterTypeFrom();
         }
         return null;
+    }
+
+    public void setResourcesFolder( File resourcesFolder )
+    {
+        this.resourcesFolder = resourcesFolder;
+    }
+
+    public File getResourcesFolder()
+    {
+        return resourcesFolder;
     }
 
 }

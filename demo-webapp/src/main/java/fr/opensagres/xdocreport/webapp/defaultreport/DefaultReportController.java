@@ -167,19 +167,19 @@
  */
 package fr.opensagres.xdocreport.webapp.defaultreport;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.core.document.DocumentKind;
 import fr.opensagres.xdocreport.document.IXDocReport;
-import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.document.web.dispatcher.AbstractXDocReportWEBController;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
-import fr.opensagres.xdocreport.webapp.ProcessXDocReportServlet;
 import fr.opensagres.xdocreport.webapp.WebAppXDocReportConstants;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 
@@ -192,30 +192,14 @@ public abstract class DefaultReportController
 
     private final String reportId;
 
+    private byte[] source;
+
     public DefaultReportController( String reportId, TemplateEngineKind templateEngineKind,
                                     DocumentKind converterTypeFrom )
     {
         super( templateEngineKind, converterTypeFrom );
         this.reportId = reportId;
-        // This code break the fields metadata loading and data model.
-        // To have sample data, generate a report.
-        //PLQ... I must add this to have sample data for REST service...
-//        try
-//        {
-//
-//            //XDocReportRegistry.getRegistry().loadReport( ProcessXDocReportServlet.class.getResourceAsStream( reportId ),reportId,templateEngineKind,true);
-//        }
-//        catch ( IOException e )
-//        {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//        catch ( XDocReportException e )
-//        {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-        //PLQ... I must add this to have sample data for REST service...
+        this.source = null;
     }
 
     public String getReportId()
@@ -232,9 +216,14 @@ public abstract class DefaultReportController
         return dataModel;
     }
 
-    public InputStream getSourceStream()
+    public InputStream getSourceStream() throws IOException
     {
-        return ProcessXDocReportServlet.class.getResourceAsStream( getReportId() );
+        if ( source != null )
+        {
+            return new ByteArrayInputStream( source );
+        }
+        File sourceFile = new File(DefaultReportRegistry.INSTANCE.getResourcesFolder(), "Opensagres/" + getReportId());
+        return new FileInputStream( sourceFile);
     }
 
     public void populateContext( IContext context, IXDocReport report, HttpServletRequest request )
@@ -259,4 +248,9 @@ public abstract class DefaultReportController
     }
 
     protected abstract MetaDataModel createMetaDataModel();
+
+    public void setSource( byte[] source )
+    {
+        this.source = source;
+    }
 }
