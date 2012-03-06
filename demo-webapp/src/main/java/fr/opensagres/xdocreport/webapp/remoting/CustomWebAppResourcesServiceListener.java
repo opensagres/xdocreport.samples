@@ -32,7 +32,8 @@ public class CustomWebAppResourcesServiceListener
     }
 
     @Override
-    public BinaryData download( String resourceId ) throws ResourcesException
+    public BinaryData download( String resourceId )
+        throws ResourcesException
     {
         String reportId = getReportId( resourceId );
         IXDocReport report = XDocReportRegistry.getRegistry().getReport( reportId );
@@ -45,16 +46,16 @@ public class CustomWebAppResourcesServiceListener
             }
             catch ( IOException e )
             {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new ResourcesException( e );
             }
             BinaryData data = new BinaryData();
             data.setResourceId( resourceId );
             data.setContent( out.toByteArray() );
             return data;
 
-        } 
-        else{
+        }
+        else
+        {
             DefaultReportController controller = DefaultReportRegistry.INSTANCE.getReportController( reportId );
             if ( controller != null )
             {
@@ -62,14 +63,13 @@ public class CustomWebAppResourcesServiceListener
                 data.setResourceId( resourceId );
                 try
                 {
-                    data.setContent( IOUtils.toByteArray( controller.getSourceStream() ));
+                    data.setContent( IOUtils.toByteArray( controller.getSourceStream() ) );
                 }
                 catch ( IOException e )
                 {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    throw new ResourcesException( e );
                 }
-                return data;                
+                return data;
             }
         }
         return super.download( resourceId );
@@ -77,7 +77,8 @@ public class CustomWebAppResourcesServiceListener
     }
 
     @Override
-    public void upload( BinaryData data ) throws ResourcesException
+    public void upload( BinaryData data )
+        throws ResourcesException
     {
         String resourceId = data.getResourceId();
         String reportId = getReportId( resourceId );
@@ -91,13 +92,11 @@ public class CustomWebAppResourcesServiceListener
             }
             catch ( IOException e )
             {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new ResourcesException( e );
             }
             catch ( XDocReportException e )
             {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new ResourcesException( e );
             }
         }
         else
@@ -108,7 +107,7 @@ public class CustomWebAppResourcesServiceListener
                 controller.setSource( data.getContent() );
             }
         }
-
+        throw new ResourcesException( "Impossible to find report for id=" + reportId );
     }
 
     private String getReportId( String resourceId )
