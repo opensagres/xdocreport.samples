@@ -11,6 +11,7 @@ import fr.opensagres.xdocreport.core.io.internal.ByteArrayOutputStream;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.remoting.resources.domain.BinaryData;
+import fr.opensagres.xdocreport.remoting.resources.services.ResourcesException;
 import fr.opensagres.xdocreport.remoting.resources.services.web.WebAppResourcesServiceListener;
 import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportController;
 import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportRegistry;
@@ -31,7 +32,7 @@ public class CustomWebAppResourcesServiceListener
     }
 
     @Override
-    public BinaryData download( String resourceId )
+    public BinaryData download( String resourceId ) throws ResourcesException
     {
         String reportId = getReportId( resourceId );
         IXDocReport report = XDocReportRegistry.getRegistry().getReport( reportId );
@@ -76,7 +77,7 @@ public class CustomWebAppResourcesServiceListener
     }
 
     @Override
-    public void upload( BinaryData data )
+    public void upload( BinaryData data ) throws ResourcesException
     {
         String resourceId = data.getResourceId();
         String reportId = getReportId( resourceId );
