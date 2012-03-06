@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
+import fr.opensagres.xdocreport.core.io.IOUtils;
 import fr.opensagres.xdocreport.core.io.XDocArchive;
 import fr.opensagres.xdocreport.core.io.internal.ByteArrayOutputStream;
 import fr.opensagres.xdocreport.document.IXDocReport;
@@ -51,6 +52,24 @@ public class CustomWebAppResourcesServiceListener
             data.setContent( out.toByteArray() );
             return data;
 
+        } 
+        else{
+            DefaultReportController controller = DefaultReportRegistry.INSTANCE.getReportController( reportId );
+            if ( controller != null )
+            {
+                BinaryData data = new BinaryData();
+                data.setResourceId( resourceId );
+                try
+                {
+                    data.setContent( IOUtils.toByteArray( controller.getSourceStream() ));
+                }
+                catch ( IOException e )
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                return data;                
+            }
         }
         return super.download( resourceId );
 

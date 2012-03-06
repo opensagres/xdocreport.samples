@@ -67,6 +67,7 @@
       <param-name>forceEncoding</param-name>
       <param-value>true</param-value>
     </init-param>
+	<load-on-startup>1</load-on-startup>    
   </servlet>
 
   <!-- Servlet used to upload new document -->
@@ -101,7 +102,7 @@ org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet
 fr.opensagres.xdocreport.remoting.resources.services.rest.server.JAXRSResourcesApplication
 </param-value>
 </init-param>
-<load-on-startup>1</load-on-startup>
+<load-on-startup>2</load-on-startup>
 </servlet>
 
   <servlet-mapping>
