@@ -1,203 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2011 Angelo Zerr <angelo.zerr@gmail.com>, Pascal Leclercq
-  <pascal.leclercq@gmail.com> Licensed under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with the
-  License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-  Unless required by applicable law or agreed to in writing, software distributed
-  under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-  OR CONDITIONS OF ANY KIND, either express or implied. See the License for
-  the specific language governing permissions and limitations under the License. -->
+<!-- Copyright (C) 2011 Angelo Zerr <angelo.zerr@gmail.com>, Pascal Leclercq 
+	<pascal.leclercq@gmail.com> Licensed under the Apache License, Version 2.0 
+	(the "License"); you may not use this file except in compliance with the 
+	License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-  id="WebApp_ID" version="2.5">
-  <display-name>xdocreport-webapp</display-name>
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>xdocreport-webapp</display-name>
 
-  <!-- Servlet used to generate report with ODTHelloWorldWithVelocity.odt -->
-  <servlet>
-    <servlet-name>HelloWorldReportServlet</servlet-name>
-    <servlet-class>
-      fr.opensagres.xdocreport.webapp.HelloWorldReportServlet</servlet-class>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
+	<!-- Servlet used to generate report with ODTHelloWorldWithVelocity.odt -->
+	<servlet>
+		<servlet-name>HelloWorldReportServlet</servlet-name>
+		<servlet-class>
+			fr.opensagres.xdocreport.webapp.HelloWorldReportServlet
+		</servlet-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
 
-  </servlet>
+	</servlet>
 
-  <!-- Servlet used to generate report with ODTHelloWorldWithVelocity.odt
-    with Dispatcher -->
-  <servlet>
-    <servlet-name>HelloWorldDispatcherReportServlet</servlet-name>
-    <servlet-class>fr.opensagres.xdocreport.document.web.dispatcher.ProcessDispatcherXDocReportServlet</servlet-class>
-    <init-param>
-      <param-name>dispatchers</param-name>
-      <param-value>fr.opensagres.xdocreport.webapp.HelloWorldDispatcher</param-value>
-    </init-param>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
+	<!-- Servlet used to generate report with ODTHelloWorldWithVelocity.odt 
+		with Dispatcher -->
+	<servlet>
+		<servlet-name>HelloWorldDispatcherReportServlet</servlet-name>
+		<servlet-class>fr.opensagres.xdocreport.document.web.dispatcher.ProcessDispatcherXDocReportServlet</servlet-class>
+		<init-param>
+			<param-name>dispatchers</param-name>
+			<param-value>fr.opensagres.xdocreport.webapp.HelloWorldDispatcher</param-value>
+		</init-param>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
 
-  </servlet>
+	</servlet>
 
-  <!-- Servlet used to generate report with default document and uploaded
-    document -->
-  <servlet>
-    <servlet-name>ProcessXDocReportServlet</servlet-name>
-    <servlet-class>
-      fr.opensagres.xdocreport.webapp.ProcessXDocReportServlet</servlet-class>
-    <init-param>
-      <param-name>cacheOriginalDocument</param-name>
-      <param-value>true</param-value>
-    </init-param>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
-	<load-on-startup>1</load-on-startup>    
-  </servlet>
+	<!-- Servlet used to generate report with default document and uploaded 
+		document -->
+	<servlet>
+		<servlet-name>ProcessXDocReportServlet</servlet-name>
+		<servlet-class>
+			fr.opensagres.xdocreport.webapp.ProcessXDocReportServlet
+		</servlet-class>
+		<init-param>
+			<param-name>cacheOriginalDocument</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
-  <!-- Servlet used to upload new document -->
-  <servlet>
-    <servlet-name>LoadXDocReportServlet</servlet-name>
-    <servlet-class>fr.opensagres.xdocreport.webapp.LoadXDocReportServlet</servlet-class>
-  </servlet>
+	<!-- Servlet used to upload new document -->
+	<servlet>
+		<servlet-name>LoadXDocReportServlet</servlet-name>
+		<servlet-class>fr.opensagres.xdocreport.webapp.LoadXDocReportServlet</servlet-class>
+	</servlet>
 
-  <!-- Servlet used to generate report with TextStyling.docx -->
-  <servlet>
-    <servlet-name>TextStyling</servlet-name>
-    <servlet-class>
-      fr.opensagres.xdocreport.webapp.TextStylingReportServlet</servlet-class>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
+	<!-- Servlet used to generate report with TextStyling.docx -->
+	<servlet>
+		<servlet-name>TextStyling</servlet-name>
+		<servlet-class>
+			fr.opensagres.xdocreport.webapp.TextStylingReportServlet
+		</servlet-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
 
-  </servlet>
-  <servlet>
-<servlet-name>CXFServlet</servlet-name>
-<servlet-class>
-org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet
-</servlet-class>
-<init-param>
-<param-name>javax.ws.rs.Application</param-name>
-<param-value>
-fr.opensagres.xdocreport.remoting.resources.services.rest.server.JAXRSResourcesApplication
-</param-value>
-</init-param>
-<load-on-startup>2</load-on-startup>
-</servlet>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>HelloWorldReportServlet</servlet-name>
-    <url-pattern>/helloworld/*</url-pattern>
-  </servlet-mapping>
+	<!-- Manage JAX-RS (REST)+JAX-WS (SOAP) with CXF -->
+	<servlet>
+		<description>Apache CXF REST</description>	
+		<servlet-name>JAXWSAndJAXRSCXFNonSpringServlet</servlet-name>
+		<servlet-class>fr.opensagres.xdocreport.webapp.remoting.JAXWSAndJAXRSCXFNonSpringServlet</servlet-class>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>
+				fr.opensagres.xdocreport.remoting.resources.services.rest.server.JAXRSResourcesApplication
+			</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>CXFServlet</servlet-name>
-    <url-pattern>/jaxrs/*</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HelloWorldReportServlet</servlet-name>
+		<url-pattern>/helloworld/*</url-pattern>
+	</servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>HelloWorldDispatcherReportServlet</servlet-name>
-    <url-pattern>/helloworldDispatcher/*</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JAXWSAndJAXRSCXFNonSpringServlet</servlet-name>
+		<url-pattern>/cxf/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>HelloWorldDispatcherReportServlet</servlet-name>
+		<url-pattern>/helloworldDispatcher/*</url-pattern>
+	</servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>ProcessXDocReportServlet</servlet-name>
-    <url-pattern>/processReport/*</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProcessXDocReportServlet</servlet-name>
+		<url-pattern>/processReport/*</url-pattern>
+	</servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>LoadXDocReportServlet</servlet-name>
-    <url-pattern>/loadReport/*</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LoadXDocReportServlet</servlet-name>
+		<url-pattern>/loadReport/*</url-pattern>
+	</servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>TextStyling</servlet-name>
-    <url-pattern>/textstyling/*</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TextStyling</servlet-name>
+		<url-pattern>/textstyling/*</url-pattern>
+	</servlet-mapping>
 
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 
-<!--
-<servlet>
- <servlet-name>CXFServlet</servlet-name>
- <servlet-class>
-   org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet
- </servlet-class>
- <init-param>
-  <param-name>jaxrs.serviceClasses</param-name>
-  <param-value>
-    fr.opensagres.xdocreport.service.rest.XDocReportServiceJaxRs
-  </param-value>
- </init-param>
- <init-param>
-  <param-name>jaxrs.providers</param-name>
-  <param-value>
-    fr.opensagres.xdocreport.service.rest.XDocReportServiceJaxRs
-  </param-value>
- </init-param>
- enables schema validation
- <init-param>
-  <param-name>jaxrs.schemaLocations</param-name>
-  <param-value>
-    classpath:/WEB-INF/schemas/schema1.xsd
-    classpath:/WEB-INF/schemas/schema2.xsd
-  </param-value>
- </init-param>
- registers CXF in interceptors
- <init-param>
-  <param-name>jaxrs.inInterceptors</param-name>
-  <param-value>
-    org.apache.cxf.systest.jaxrs.CustomInInterceptor
-  </param-value>
- </init-param>
- registers CXF out interceptors
- <init-param>
-  <param-name>jaxrs.outInterceptors</param-name>
-  <param-value>
-    org.apache.cxf.systest.jaxrs.CustomOutInterceptor
-  </param-value>
- </init-param>
- registers extension mappings
- <init-param>
-  <param-name>jaxrs.extensions</param-name>
-  <param-value>
-    xml=application/xml
-    json=application/json
-  </param-value>
- </init-param>
- registers contextual properties
- <init-param>
-  <param-name>jaxrs.properties</param-name>
-  <param-value>
-    property1=value
-    property2=value
-  </param-value>
- </init-param>
-<load-on-startup>1</load-on-startup>
-</servlet> -->
 	<listener>
-		<listener-class>fr.opensagres.xdocreport.webapp.remoting.CustomWebAppResourcesServiceListener</listener-class>
+		<listener-class>fr.opensagres.xdocreport.webapp.remoting.jaxrs.CustomWebAppResourcesServiceListener</listener-class>
 	</listener>
 </web-app>

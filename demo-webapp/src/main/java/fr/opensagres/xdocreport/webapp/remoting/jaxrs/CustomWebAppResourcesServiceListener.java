@@ -1,13 +1,11 @@
-package fr.opensagres.xdocreport.webapp.remoting;
+package fr.opensagres.xdocreport.webapp.remoting.jaxrs;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
-import fr.opensagres.xdocreport.core.io.IOUtils;
 import fr.opensagres.xdocreport.core.io.XDocArchive;
-import fr.opensagres.xdocreport.core.io.internal.ByteArrayOutputStream;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.remoting.resources.domain.BinaryData;
@@ -39,37 +37,34 @@ public class CustomWebAppResourcesServiceListener
         IXDocReport report = XDocReportRegistry.getRegistry().getReport( reportId );
         if ( report != null )
         {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
             try
             {
-                XDocArchive.writeZip( report.getOriginalDocumentArchive(), out );
+                BinaryData data =
+                    new BinaryData( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ), reportId );
+                data.setResourceId( resourceId );
+                return data;
             }
             catch ( IOException e )
             {
                 throw new ResourcesException( e );
             }
-            BinaryData data = new BinaryData();
-            data.setResourceId( resourceId );
-            data.setContent( out.toByteArray() );
-            return data;
-
         }
         else
         {
             DefaultReportController controller = DefaultReportRegistry.INSTANCE.getReportController( reportId );
             if ( controller != null )
             {
-                BinaryData data = new BinaryData();
-                data.setResourceId( resourceId );
                 try
                 {
-                    data.setContent( IOUtils.toByteArray( controller.getSourceStream() ) );
+                    BinaryData data = new BinaryData( controller.getSourceStream(), reportId );
+                    data.setResourceId( resourceId );
+                    return data;
                 }
                 catch ( IOException e )
                 {
                     throw new ResourcesException( e );
                 }
-                return data;
+
             }
         }
         return super.download( resourceId );
@@ -106,8 +101,11 @@ public class CustomWebAppResourcesServiceListener
             {
                 controller.setSource( data.getContent() );
             }
+            else
+            {
+                throw new ResourcesException( "Impossible to find report for id=" + reportId );
+            }
         }
-        throw new ResourcesException( "Impossible to find report for id=" + reportId );
     }
 
     private String getReportId( String resourceId )
