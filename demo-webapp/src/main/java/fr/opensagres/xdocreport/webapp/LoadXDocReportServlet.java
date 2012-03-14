@@ -241,7 +241,10 @@ public class LoadXDocReportServlet
                 MetaDataModel extractor = new MetaDataModel();
                 try
                 {
-                    report.extractFields( extractor, templateEngine );
+                    report.setCacheOriginalDocument( true );
+                    report.setTemplateEngine( templateEngine );
+                    report.preprocess();
+                    report.extractFields( extractor );
                     report.setData( DATA_MODEL_REPORT_KEY, extractor );
                 }
                 catch ( XDocReportException e )

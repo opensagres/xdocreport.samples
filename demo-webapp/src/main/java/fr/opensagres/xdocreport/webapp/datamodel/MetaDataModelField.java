@@ -185,9 +185,9 @@ public abstract class MetaDataModelField
 
     private String label;
 
-    public MetaDataModelField( String name )
+    public MetaDataModelField( String name, boolean list )
     {
-        super( name );
+        super( name, list );
     }
 
     public String getLabel()

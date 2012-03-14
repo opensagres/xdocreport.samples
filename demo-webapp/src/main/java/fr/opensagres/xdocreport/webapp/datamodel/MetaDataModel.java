@@ -197,7 +197,7 @@ public class MetaDataModel
 
     public MetaDataModelSimpleField addSimpleField( String fieldName, String defaultValue, String fieldLabel )
     {
-        MetaDataModelField field = super.addFieldName( fieldName );
+        MetaDataModelField field = super.addFieldName( fieldName, false );
         if ( field != null )
         {
             field.setLabel( fieldLabel );
@@ -215,8 +215,32 @@ public class MetaDataModel
     }
 
     @Override
-    protected MetaDataModelField createField( String fieldName )
+    protected MetaDataModelField createField( String fieldName, boolean list )
     {
+        if ( fieldName.startsWith( "___" ) || fieldName.startsWith( "{___" ) || fieldName.startsWith(  "imageRegistry" ) )
+        {
+            return null;
+        }
+
+        if ( list )
+        {
+            String firstToken = fieldName;
+            int index = firstToken.indexOf( '.' );
+            if ( index != -1 )
+            {
+                firstToken = firstToken.substring( 0, index );
+            }
+            String field = "";
+            if ( index != -1 )
+            {
+                field = fieldName.substring( index + 1, fieldName.length() );
+            }
+
+            MetaDataModelListField f = new MetaDataModelListField( firstToken );
+            f.setLabel( firstToken );
+            f.addSimpleField( field, field + "_Value" );
+            return f;
+        }
         return new MetaDataModelSimpleField( fieldName, fieldName + "_Value", fieldName );
     }
 

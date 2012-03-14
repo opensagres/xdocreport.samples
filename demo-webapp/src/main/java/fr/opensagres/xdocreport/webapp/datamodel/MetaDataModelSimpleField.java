@@ -186,7 +186,7 @@ public class MetaDataModelSimpleField
 
     public MetaDataModelSimpleField( String name, String defaultValue, String label )
     {
-        super( name );
+        super( name, false );
         setDefaultValue( defaultValue );
         this.label = label;
     }

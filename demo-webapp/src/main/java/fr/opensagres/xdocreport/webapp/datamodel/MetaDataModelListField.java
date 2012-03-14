@@ -192,7 +192,7 @@ public class MetaDataModelListField
 
     public MetaDataModelListField( String name )
     {
-        super( name );
+        super( name, false );
     }
 
     public String getLabel()
