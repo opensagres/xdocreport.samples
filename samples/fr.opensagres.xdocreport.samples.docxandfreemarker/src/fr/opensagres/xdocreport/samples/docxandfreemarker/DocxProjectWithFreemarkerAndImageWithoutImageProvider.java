@@ -165,7 +165,7 @@
  * permanent authorization for you to choose that version for the
  * Library.
  */
-package fr.opensagres.xdocreport.samples.odtandvelocity;
+package fr.opensagres.xdocreport.samples.docxandfreemarker;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -174,44 +174,57 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
-import fr.opensagres.xdocreport.core.document.SyntaxKind;
 import fr.opensagres.xdocreport.document.IXDocReport;
+import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
-import fr.opensagres.xdocreport.samples.odtandvelocity.model.Project;
+import fr.opensagres.xdocreport.samples.docxandfreemarker.model.Project;
+import fr.opensagres.xdocreport.samples.docxandfreemarker.model.ProjectWithImage;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import fr.opensagres.xdocreport.template.formatter.NullImageBehaviour;
 
-public class ODTTextStylingWithDirectiveWithVelocity
+/**
+ * Samples which uses the {@link ProjectWithImage} which contains {@link InputStream} image instead of
+ * {@link IImageProvider}.
+ */
+public class DocxProjectWithFreemarkerAndImageWithoutImageProvider
 {
 
     public static void main( String[] args )
     {
         try
         {
-            // 1) Load ODT file by filling Velocity template engine and cache
+            // 1) Load Docx file by filling Freemarker template engine and cache
             // it to the registry
-            InputStream in = ODTProjectWithVelocity.class.getResourceAsStream( "ODTTextStylingWithVelocity.odt" );
-            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
+            InputStream in =
+                DocxProjectWithFreemarkerAndImageWithoutImageProvider.class.getResourceAsStream( "DocxProjectWithFreemarkerAndImageWithoutImageProvider.docx" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Freemarker );
 
-            // 2) Create fields metadata to manage text styling
+            // 2) Create fields metadata to manage image
             FieldsMetadata metadata = report.createFieldsMetadata();
-            metadata.addFieldAsTextStyling( "comments_odt", SyntaxKind.NoEscape );
-            // Here addFieldAsTextStyling is called with true to use $project.Name in the HTML content "comments_html"
-            metadata.addFieldAsTextStyling( "comments_html", SyntaxKind.Html, true );
+            // Image from InputStream (can works too with byte[])
+            metadata.addFieldAsImage( "logo", "project.logo" );
+            metadata.addFieldAsImage( "imageNotExistsAndRemoveImageTemplate", "project.nullLogo",
+                                      NullImageBehaviour.RemoveImageTemplate );
+            metadata.addFieldAsImage( "imageNotExistsAndKeepImageTemplate", "project.nullLogo",
+                                      NullImageBehaviour.KeepImageTemplate );
+            // Image from File
+            metadata.addFieldAsImage( "logoFile", "project.logoFile" );
+            metadata.addFieldAsImage( "fileImageNotExistsAndRemoveImageTemplate", "project.nullLogoFile",
+                                      NullImageBehaviour.RemoveImageTemplate );
+            metadata.addFieldAsImage( "fileImageNotExistsAndKeepImageTemplate", "project.nullLogoFile",
+                                      NullImageBehaviour.KeepImageTemplate );
 
             // 3) Create context Java model
             IContext context = report.createContext();
-            Project project = new Project( "XDocReport" );
+            Project project = new ProjectWithImage( "XDocReport" );
             context.put( "project", project );
 
-            context.put( "comments_odt", "Here a " + "<text:span text:style-name=\"T2\">bold</text:span>" + " text." );
-            context.put( "comments_html", "Here the project name coming from the context : <b>$project.Name</b>." );
+            // 4) Generate report by merging Java model with the Docx
+            OutputStream out = new FileOutputStream( new File( "DocxProjectWithFreemarkerAndImageWithoutImageProvider_Out.docx" ) );
 
-            // 4) Generate report by merging Java model with the ODT
-            OutputStream out = new FileOutputStream( new File( "ODTTextStylingWithDirectiveWithVelocity_Out.odt" ) );
             report.process( context, out );
-
         }
         catch ( IOException e )
         {

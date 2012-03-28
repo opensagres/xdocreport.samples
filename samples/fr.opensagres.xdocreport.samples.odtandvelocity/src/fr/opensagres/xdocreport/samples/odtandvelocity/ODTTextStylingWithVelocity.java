@@ -195,10 +195,9 @@ public class ODTTextStylingWithVelocity
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
 
             // 2) Create fields metadata to manage text styling
-            FieldsMetadata metadata = new FieldsMetadata();
+            FieldsMetadata metadata = report.createFieldsMetadata();
             metadata.addFieldAsTextStyling( "comments_odt", SyntaxKind.NoEscape );
             metadata.addFieldAsTextStyling( "comments_html", SyntaxKind.Html );
-            report.setFieldsMetadata( metadata );
 
             // 3) Create context Java model
             IContext context = report.createContext();

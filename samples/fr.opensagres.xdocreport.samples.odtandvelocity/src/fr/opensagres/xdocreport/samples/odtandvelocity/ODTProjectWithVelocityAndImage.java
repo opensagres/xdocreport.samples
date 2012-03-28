@@ -182,63 +182,68 @@ import fr.opensagres.xdocreport.samples.odtandvelocity.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import fr.opensagres.xdocreport.template.formatter.NullImageBehaviour;
 
-public class ODTProjectWithVelocityAndImage {
+public class ODTProjectWithVelocityAndImage
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load ODT file by filling Velocity template engine and cache
-			// it to the registry
-			InputStream in = ODTProjectWithVelocityAndImage.class
-					.getResourceAsStream("ODTProjectWithVelocityAndImage.odt");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Velocity);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load ODT file by filling Velocity template engine and cache
+            // it to the registry
+            InputStream in =
+                ODTProjectWithVelocityAndImage.class.getResourceAsStream( "ODTProjectWithVelocityAndImage.odt" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
 
-			// 2) Create fields metadata to manage image
-			FieldsMetadata metadata = new FieldsMetadata();
-			metadata.addFieldAsImage("logo");
-			metadata.addFieldAsImage("originalSizeLogo");
-			metadata.addFieldAsImage("forcedSizeLogo");
-			metadata.addFieldAsImage("ratioSizeLogo");
-			report.setFieldsMetadata(metadata);
+            // 2) Create fields metadata to manage image
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.addFieldAsImage( "logo" );
+            metadata.addFieldAsImage( "originalSizeLogo" );
+            metadata.addFieldAsImage( "forcedSizeLogo" );
+            metadata.addFieldAsImage( "ratioSizeLogo" );
+            metadata.addFieldAsImage( "imageNotExistsAndRemoveImageTemplate", NullImageBehaviour.RemoveImageTemplate );
+            metadata.addFieldAsImage( "imageNotExistsAndKeepImageTemplate", NullImageBehaviour.KeepImageTemplate );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
-			IImageProvider logo = new ClassPathImageProvider(
-					ODTProjectWithVelocityAndImage.class, "logo.png");
-			context.put("logo", logo);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
+            IImageProvider logo = new ClassPathImageProvider( ODTProjectWithVelocityAndImage.class, "logo.png" );
+            context.put( "logo", logo );
 
-			boolean useImageSize = true;
-			IImageProvider originalSizeLogo = new ClassPathImageProvider(
-					ODTProjectWithVelocityAndImage.class, "logo.png",
-					useImageSize);
-			context.put("originalSizeLogo", originalSizeLogo);
-			
-			// Image with width/height forced
-			IImageProvider forcedSizeLogo = new ClassPathImageProvider(
-					ODTProjectWithVelocityAndImage.class, "logo.png");
-			forcedSizeLogo.setSize(400f, 100f);
-			context.put("forcedSizeLogo", forcedSizeLogo);
+            boolean useImageSize = true;
+            IImageProvider originalSizeLogo =
+                new ClassPathImageProvider( ODTProjectWithVelocityAndImage.class, "logo.png", useImageSize );
+            context.put( "originalSizeLogo", originalSizeLogo );
 
-			// Image with width forced and height computed with ratio
-			IImageProvider ratioSizeLogo = new ClassPathImageProvider(
-					ODTProjectWithVelocityAndImage.class, "logo.png");
-			ratioSizeLogo.setUseImageSize(true);
-			ratioSizeLogo.setWidth(400f);
-			ratioSizeLogo.setResize(true);
-			context.put("ratioSizeLogo", ratioSizeLogo);
-			
-			// 4) Generate report by merging Java model with the ODT
-			OutputStream out = new FileOutputStream(new File(
-					"ODTProjectWithVelocityAndImage_Out.odt"));
-			report.process(context, out);
+            // Image with width/height forced
+            IImageProvider forcedSizeLogo =
+                new ClassPathImageProvider( ODTProjectWithVelocityAndImage.class, "logo.png" );
+            forcedSizeLogo.setSize( 400f, 100f );
+            context.put( "forcedSizeLogo", forcedSizeLogo );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+            // Image with width forced and height computed with ratio
+            IImageProvider ratioSizeLogo =
+                new ClassPathImageProvider( ODTProjectWithVelocityAndImage.class, "logo.png" );
+            ratioSizeLogo.setUseImageSize( true );
+            ratioSizeLogo.setWidth( 400f );
+            ratioSizeLogo.setResize( true );
+            context.put( "ratioSizeLogo", ratioSizeLogo );
+
+            // 4) Generate report by merging Java model with the ODT
+            OutputStream out = new FileOutputStream( new File( "ODTProjectWithVelocityAndImage_Out.odt" ) );
+            report.process( context, out );
+
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

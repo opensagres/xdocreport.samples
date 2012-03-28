@@ -182,6 +182,7 @@ import fr.opensagres.xdocreport.samples.docxandfreemarker.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import fr.opensagres.xdocreport.template.formatter.NullImageBehaviour;
 
 public class DocxProjectWithFreemarkerAndImage {
 
@@ -200,7 +201,9 @@ public class DocxProjectWithFreemarkerAndImage {
 			metadata.addFieldAsImage("originalSizeLogo");
 			metadata.addFieldAsImage("forcedSizeLogo");
 			metadata.addFieldAsImage("ratioSizeLogo");
-
+            metadata.addFieldAsImage("imageNotExistsAndRemoveImageTemplate", NullImageBehaviour.RemoveImageTemplate);
+            metadata.addFieldAsImage("imageNotExistsAndKeepImageTemplate", NullImageBehaviour.KeepImageTemplate);
+            
 			// 3) Create context Java model
 			IContext context = report.createContext();
 			Project project = new Project("XDocReport");

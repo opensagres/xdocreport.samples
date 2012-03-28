@@ -186,59 +186,68 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class ODTProjectWithVelocityAndImageList {
+public class ODTProjectWithVelocityAndImageList
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load ODT file by filling Velocity template engine and cache
-			// it to the registry
-			InputStream in = ODTProjectWithVelocityAndImageList.class
-					.getResourceAsStream("ODTProjectWithVelocityAndImageList.odt");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Velocity);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load ODT file by filling Velocity template engine and cache
+            // it to the registry
+            InputStream in =
+                ODTProjectWithVelocityAndImageList.class.getResourceAsStream( "ODTProjectWithVelocityAndImageList.odt" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
 
-			// 2) Create fields metadata to manage lazy loop (#foreach velocity)
-			// for table row and manage dynamic image
-			FieldsMetadata metadata = new FieldsMetadata();
-			// list
-			metadata.addFieldAsList("developers.Name");
-			metadata.addFieldAsList("developers.LastName");
-			metadata.addFieldAsList("developers.Mail");
-			metadata.addFieldAsList("developers.Photo");
-			// image
-			metadata.addFieldAsImage("logo");
-			metadata.addFieldAsImage("developers.Photo");
-			report.setFieldsMetadata(metadata);
+            // 2) Create fields metadata to manage lazy loop (#foreach velocity)
+            // for table row and manage dynamic image
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            // list
+            metadata.addFieldAsList( "developers.Name" );
+            metadata.addFieldAsList( "developers.LastName" );
+            metadata.addFieldAsList( "developers.Mail" );
+            metadata.addFieldAsList( "developers.Photo" );
+            // image
+            metadata.addFieldAsImage( "logo" );
+            metadata.addFieldAsImage( "developers.Photo" );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
-			IImageProvider logo = new ClassPathImageProvider(
-					ODTProjectWithVelocityAndImageList.class, "logo.png");
-			context.put("logo", logo);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
+            IImageProvider logo = new ClassPathImageProvider( ODTProjectWithVelocityAndImageList.class, "logo.png" );
+            context.put( "logo", logo );
 
-			// Register developers list
-			List<DeveloperWithImage> developers = new ArrayList<DeveloperWithImage>();
-			developers.add(new DeveloperWithImage("ZERR", "Angelo",
-					"angelo.zerr@gmail.com", new ClassPathImageProvider(
-							ODTProjectWithVelocityAndImageList.class,
-							"AngeloZERR.jpg")));
-			developers.add(new DeveloperWithImage("Leclercq", "Pascal",
-					"pascal.leclercq@gmail.com", new ClassPathImageProvider(
-							ODTProjectWithVelocityAndImageList.class,
-							"PascalLeclercq.jpg")));
-			context.put("developers", developers);
+            // Register developers list
+            List<DeveloperWithImage> developers = new ArrayList<DeveloperWithImage>();
+            developers.add( new DeveloperWithImage(
+                                                    "ZERR",
+                                                    "Angelo",
+                                                    "angelo.zerr@gmail.com",
+                                                    new ClassPathImageProvider(
+                                                                                ODTProjectWithVelocityAndImageList.class,
+                                                                                "AngeloZERR.jpg" ) ) );
+            developers.add( new DeveloperWithImage(
+                                                    "Leclercq",
+                                                    "Pascal",
+                                                    "pascal.leclercq@gmail.com",
+                                                    new ClassPathImageProvider(
+                                                                                ODTProjectWithVelocityAndImageList.class,
+                                                                                "PascalLeclercq.jpg" ) ) );
+            context.put( "developers", developers );
 
-			// 4) Generate report by merging Java model with the ODT
-			OutputStream out = new FileOutputStream(new File(
-					"ODTProjectWithVelocityAndImageList_Out.odt"));
-			report.process(context, out);
+            // 4) Generate report by merging Java model with the ODT
+            OutputStream out = new FileOutputStream( new File( "ODTProjectWithVelocityAndImageList_Out.odt" ) );
+            report.process( context, out );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

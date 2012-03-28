@@ -180,31 +180,35 @@ import fr.opensagres.xdocreport.samples.odtandvelocity.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 
-public class ODTProjectWithVelocity {
+public class ODTProjectWithVelocity
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load ODT file by filling Velocity template engine and cache
-			// it to the registry
-			InputStream in = ODTProjectWithVelocity.class
-					.getResourceAsStream("ODTProjectWithVelocity.odt");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Velocity);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load ODT file by filling Velocity template engine and cache
+            // it to the registry
+            InputStream in = ODTProjectWithVelocity.class.getResourceAsStream( "ODTProjectWithVelocity.odt" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
 
-			// 2) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
+            // 2) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
 
-			// 3) Generate report by merging Java model with the ODT
-			OutputStream out = new FileOutputStream(new File(
-					"ODTProjectWithVelocity_Out.odt"));
-			report.process(context, out);
+            // 3) Generate report by merging Java model with the ODT
+            OutputStream out = new FileOutputStream( new File( "ODTProjectWithVelocity_Out.odt" ) );
+            report.process( context, out );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

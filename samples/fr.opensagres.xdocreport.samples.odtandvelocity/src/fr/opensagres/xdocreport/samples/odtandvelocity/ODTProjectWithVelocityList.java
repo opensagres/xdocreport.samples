@@ -184,43 +184,46 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class ODTProjectWithVelocityList {
+public class ODTProjectWithVelocityList
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load ODT file by filling Velocity template engine and cache
-			// it to the registry
-			InputStream in = ODTProjectWithVelocityList.class
-					.getResourceAsStream("ODTProjectWithVelocityList.odt");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Velocity);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load ODT file by filling Velocity template engine and cache
+            // it to the registry
+            InputStream in = ODTProjectWithVelocityList.class.getResourceAsStream( "ODTProjectWithVelocityList.odt" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
 
-			// 2) Create fields metadata to manage lazy loop (#forech velocity) for table row. 
-			FieldsMetadata metadata = new FieldsMetadata();
-			metadata.addFieldAsList("developers.Name");
-			metadata.addFieldAsList("developers.LastName");
-			metadata.addFieldAsList("developers.Mail");
-			report.setFieldsMetadata(metadata);
+            // 2) Create fields metadata to manage lazy loop (#forech velocity) for table row.
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.addFieldAsList( "developers.Name" );
+            metadata.addFieldAsList( "developers.LastName" );
+            metadata.addFieldAsList( "developers.Mail" );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
-			// Register developers list
-			List<Developer> developers = new ArrayList<Developer>();
-			developers.add(new Developer("ZERR", "Angelo", "angelo.zerr@gmail.com"));
-			developers.add(new Developer("Leclercq", "Pascal", "pascal.leclercq@gmail.com"));
-			context.put("developers", developers);
-			
-			// 4) Generate report by merging Java model with the ODT
-			OutputStream out = new FileOutputStream(new File(
-					"ODTProjectWithVelocityList_Out.odt"));
-			report.process(context, out);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
+            // Register developers list
+            List<Developer> developers = new ArrayList<Developer>();
+            developers.add( new Developer( "ZERR", "Angelo", "angelo.zerr@gmail.com" ) );
+            developers.add( new Developer( "Leclercq", "Pascal", "pascal.leclercq@gmail.com" ) );
+            context.put( "developers", developers );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+            // 4) Generate report by merging Java model with the ODT
+            OutputStream out = new FileOutputStream( new File( "ODTProjectWithVelocityList_Out.odt" ) );
+            report.process( context, out );
+
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

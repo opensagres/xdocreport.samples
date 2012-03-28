@@ -203,7 +203,6 @@ public class DocxProjectWithVelocityAndFootnotes
             metadata.addFieldAsList( "developers.Name" );
             metadata.addFieldAsList( "developers.LastName" );
             metadata.addFieldAsList( "developers.Mail" );
-            //metadata.setEvaluateEngineOnlyForFields( true );
 
             // 3) Create context Java model
             IContext context = report.createContext();

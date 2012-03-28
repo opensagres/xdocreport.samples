@@ -165,61 +165,43 @@
  * permanent authorization for you to choose that version for the
  * Library.
  */
-package fr.opensagres.xdocreport.samples.odtandvelocity;
+package fr.opensagres.xdocreport.samples.docxandvelocity.model;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
-import fr.opensagres.xdocreport.core.XDocReportException;
-import fr.opensagres.xdocreport.core.document.SyntaxKind;
-import fr.opensagres.xdocreport.document.IXDocReport;
-import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
-import fr.opensagres.xdocreport.samples.odtandvelocity.model.Project;
-import fr.opensagres.xdocreport.template.IContext;
-import fr.opensagres.xdocreport.template.TemplateEngineKind;
-import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import fr.opensagres.xdocreport.samples.docxandvelocity.DocxProjectWithVelocityAndImageWithoutImageProvider;
 
-public class ODTTextStylingWithDirectiveWithVelocity
+/**
+ * POJO used to stores images content from Java Type {@link InputStream} and {@link File}.
+ */
+public class ProjectWithImage
+    extends Project
 {
 
-    public static void main( String[] args )
+    public ProjectWithImage( String name )
     {
-        try
-        {
-            // 1) Load ODT file by filling Velocity template engine and cache
-            // it to the registry
-            InputStream in = ODTProjectWithVelocity.class.getResourceAsStream( "ODTTextStylingWithVelocity.odt" );
-            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
-
-            // 2) Create fields metadata to manage text styling
-            FieldsMetadata metadata = report.createFieldsMetadata();
-            metadata.addFieldAsTextStyling( "comments_odt", SyntaxKind.NoEscape );
-            // Here addFieldAsTextStyling is called with true to use $project.Name in the HTML content "comments_html"
-            metadata.addFieldAsTextStyling( "comments_html", SyntaxKind.Html, true );
-
-            // 3) Create context Java model
-            IContext context = report.createContext();
-            Project project = new Project( "XDocReport" );
-            context.put( "project", project );
-
-            context.put( "comments_odt", "Here a " + "<text:span text:style-name=\"T2\">bold</text:span>" + " text." );
-            context.put( "comments_html", "Here the project name coming from the context : <b>$project.Name</b>." );
-
-            // 4) Generate report by merging Java model with the ODT
-            OutputStream out = new FileOutputStream( new File( "ODTTextStylingWithDirectiveWithVelocity_Out.odt" ) );
-            report.process( context, out );
-
-        }
-        catch ( IOException e )
-        {
-            e.printStackTrace();
-        }
-        catch ( XDocReportException e )
-        {
-            e.printStackTrace();
-        }
+        super( name );
     }
+
+    public InputStream getLogo()
+    {
+        return DocxProjectWithVelocityAndImageWithoutImageProvider.class.getResourceAsStream( "logo.png" );
+    }
+
+    public InputStream getNullLogo()
+    {
+        return null;
+    }
+
+    public File getLogoFile()
+    {
+        return new File( "src/fr/opensagres/xdocreport/samples/docxandvelocity/logo.png" );
+    }
+
+    public File getNullLogoFile()
+    {
+        return null;
+    }
+
 }

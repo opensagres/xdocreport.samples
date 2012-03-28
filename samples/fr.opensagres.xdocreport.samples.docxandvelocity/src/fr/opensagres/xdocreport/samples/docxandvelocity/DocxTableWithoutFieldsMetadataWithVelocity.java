@@ -183,52 +183,52 @@ import fr.opensagres.xdocreport.samples.docxandvelocity.model.Project;
 import fr.opensagres.xdocreport.samples.docxandvelocity.model.Role;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
-import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class DocxTableWithoutFieldsMetadataWithVelocity {
+public class DocxTableWithoutFieldsMetadataWithVelocity
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load Docx file by filling Velocity template engine and cache
-			// it to the registry
-			InputStream in = DocxTableWithoutFieldsMetadataWithVelocity.class
-					.getResourceAsStream("DocxTableWithoutFieldsMetadataWithVelocity.docx");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Velocity);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load Docx file by filling Velocity template engine and cache
+            // it to the registry
+            InputStream in =
+                DocxTableWithoutFieldsMetadataWithVelocity.class.getResourceAsStream( "DocxTableWithoutFieldsMetadataWithVelocity.docx" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
+            // 2) Create fields metadata to manage lazy loop (#forech velocity)
+            // for table row.
+            // FieldsMetadata metadata = report.createFieldsMetadata();
+            // metadata.addFieldAsList("developers.name");
+            // metadata.addFieldAsList("developers.lastName");
+            // metadata.addFieldAsList("developers.mail");
 
-			// 2) Create fields metadata to manage lazy loop (#forech velocity)
-			// for table row.
-			// FieldsMetadata metadata = report.createFieldsMetadata();
-			// metadata.addFieldAsList("developers.name");
-			// metadata.addFieldAsList("developers.lastName");
-			// metadata.addFieldAsList("developers.mail");
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
+            // Register developers list
+            List<Developer> developers = new ArrayList<Developer>();
+            developers.add( new Developer( "ZERR", "Angelo", "angelo.zerr@gmail.com" ).addRole( new Role( "Architecte" ) ).addRole( new Role(
+                                                                                                                                              "Developer" ) ) );
+            developers.add( new Developer( "Leclercq", "Pascal", "pascal.leclercq@gmail.com" ).addRole( new Role(
+                                                                                                                  "Architecte" ) ).addRole( new Role(
+                                                                                                                                                      "Developer" ) ) );
+            developers.add( new Developer( "Bousta", "Amine", "" ).addRole( new Role( "Developer" ) ) );
+            context.put( "developers", developers );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
-			// Register developers list
-			List<Developer> developers = new ArrayList<Developer>();
-			developers.add(new Developer("ZERR", "Angelo",
-					"angelo.zerr@gmail.com").addRole(new Role("Architecte"))
-					.addRole(new Role("Developer")));
-			developers.add(new Developer("Leclercq", "Pascal",
-					"pascal.leclercq@gmail.com")
-					.addRole(new Role("Architecte")).addRole(
-							new Role("Developer")));
-			developers.add(new Developer("Bousta", "Amine", "")
-					.addRole(new Role("Developer")));
-			context.put("developers", developers);
+            // 4) Generate report by merging Java model with the Docx
+            OutputStream out = new FileOutputStream( new File( "DocxTableWithoutFieldsMetadataWithVelocity_Out.docx" ) );
+            report.process( context, out );
 
-			// 4) Generate report by merging Java model with the Docx
-			OutputStream out = new FileOutputStream(new File(
-					"DocxTableWithoutFieldsMetadataWithVelocity_Out.docx"));
-			report.process(context, out);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }
