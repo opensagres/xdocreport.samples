@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>fr.opensagres.xdocreport.samples</groupId>
 		<artifactId>samples</artifactId>
-		<version>0.9.7</version>
+		<version>0.9.8-SNAPSHOT</version>
 	</parent>
 	<artifactId>docxandvelocity</artifactId>
 	<description>Docx document, templating based on Freemarker.</description>
