@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>fr.opensagres.xdocreport.samples</groupId>
 		<artifactId>samples</artifactId>
-		<version>0.9.7-SNAPSHOT</version>
+		<version>0.9.7</version>
 	</parent>
 	<description>ODT (Open Office) document, templating based on Velocity.</description>
 	<artifactId>odtandvelocity</artifactId>
