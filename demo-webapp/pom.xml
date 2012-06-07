@@ -70,6 +70,10 @@
       <artifactId>fr.opensagres.xdocreport.converter.odt.odfdom</artifactId>
     </dependency>
     <dependency>
+    <groupId>fr.opensagres.xdocreport</groupId>
+    <artifactId>fr.opensagres.xdocreport.remoting.resources.impl</artifactId>
+    </dependency>
+    <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
       <version>1.2.1</version>
@@ -186,14 +190,14 @@
       <artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
       <version>1.1.3</version>
     </dependency>
-    
+
 	<!-- CXF JAX-WS Implementation -->
 	<dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-frontend-jaxws</artifactId>
       <version>2.4.0</version>
     </dependency>
-    
+
   </dependencies>
 
 
