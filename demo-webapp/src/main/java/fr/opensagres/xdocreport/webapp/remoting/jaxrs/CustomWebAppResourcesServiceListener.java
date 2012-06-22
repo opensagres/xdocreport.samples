@@ -12,8 +12,9 @@ import fr.opensagres.xdocreport.core.logging.LogUtils;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.remoting.resources.domain.BinaryData;
+import fr.opensagres.xdocreport.remoting.resources.domain.LargeBinaryData;
 import fr.opensagres.xdocreport.remoting.resources.services.ResourcesException;
-import fr.opensagres.xdocreport.remoting.resources.services.web.WebAppResourcesServiceListener;
+import fr.opensagres.xdocreport.remoting.resources.services.server.web.WebAppResourcesServiceListener;
 import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportController;
 import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportRegistry;
 
@@ -152,6 +153,67 @@ public class CustomWebAppResourcesServiceListener
         }
         LOGGER.info( "*****************************************" );
         LOGGER.info( "End upload resourceId=" + resourceId + ", reportId=" + reportId );
+    }
+
+    @Override
+    public LargeBinaryData downloadLarge( String resourceId )
+        throws ResourcesException
+    {
+        LOGGER.info( "*****************************************" );
+        LOGGER.info( "Start downloadLarge resourceId=" + resourceId );
+        String reportId = getReportId( resourceId );
+        IXDocReport report = XDocReportRegistry.getRegistry().getReport( reportId );
+        if ( report != null )
+        {
+            try
+            {
+                LargeBinaryData data = new LargeBinaryData();
+                // new BinaryData( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ), reportId );
+
+                data.setContent( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ) );
+
+                data.setResourceId( resourceId );
+                LOGGER.info( "End download resourceId=" + resourceId + " loaded from IXDocReport." );
+                LOGGER.info( "*****************************************" );
+                return data;
+            }
+            catch ( IOException e )
+            {
+                LOGGER.log( Level.SEVERE, "End download error resourceId=" + resourceId + " loaded from IXDocReport.",
+                            e );
+                LOGGER.info( "*****************************************" );
+                throw new ResourcesException( e );
+            }
+        }
+        else
+        {
+            DefaultReportController controller = DefaultReportRegistry.INSTANCE.getReportController( reportId );
+            if ( controller != null )
+            {
+                try
+                {
+                    // BinaryData data = new BinaryData( controller.getSourceStream(), reportId );
+                    LargeBinaryData data = new LargeBinaryData();
+
+                    data.setContent( controller.getSourceStream() );
+                    data.setResourceId( resourceId );
+                    LOGGER.info( "End downloadLarge resourceId=" + resourceId + " loaded from controller." );
+                    LOGGER.info( "*****************************************" );
+                    return data;
+                }
+                catch ( IOException e )
+                {
+                    LOGGER.log( Level.SEVERE, "End downloadLarge error resourceId=" + resourceId
+                        + " loaded from controller.", e );
+                    LOGGER.info( "*****************************************" );
+                    throw new ResourcesException( e );
+                }
+
+            }
+        }
+        LOGGER.info( "End downloadLarge resourceId=" + resourceId + " loaded from File." );
+        LOGGER.info( "*****************************************" );
+        return super.downloadLarge( resourceId );
     }
 
     private String getReportId( String resourceId )

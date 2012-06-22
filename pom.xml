@@ -173,7 +173,7 @@
       </dependency>
       <dependency>
     <groupId>fr.opensagres.xdocreport</groupId>
-    <artifactId>fr.opensagres.xdocreport.remoting.resources.impl</artifactId>
+    <artifactId>fr.opensagres.xdocreport.remoting.resources.services.server</artifactId>
     <version>${xdocreport.version}</version>
     </dependency>
       <dependency>

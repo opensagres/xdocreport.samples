@@ -8,7 +8,7 @@ import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
 import fr.opensagres.xdocreport.remoting.resources.services.ResourcesService;
 import fr.opensagres.xdocreport.remoting.resources.services.ResourcesServicesRegistry;
-import fr.opensagres.xdocreport.remoting.resources.services.ws.server.JAXWSResourcesServiceImpl;
+import fr.opensagres.xdocreport.remoting.resources.services.server.jaxws.JAXWSResourcesServiceImpl;
 
 public class JAXWSAndJAXRSCXFNonSpringServlet
     extends CXFNonSpringJaxrsServlet

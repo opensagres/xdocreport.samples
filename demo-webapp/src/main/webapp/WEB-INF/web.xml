@@ -103,7 +103,7 @@
 		<init-param>
 			<param-name>javax.ws.rs.Application</param-name>
 			<param-value>
-				fr.opensagres.xdocreport.remoting.resources.services.rest.server.JAXRSResourcesApplication
+				fr.opensagres.xdocreport.remoting.resources.services.server.jaxrs.JAXRSResourcesApplication
 			</param-value>
 		</init-param>
 		<load-on-startup>2</load-on-startup>
