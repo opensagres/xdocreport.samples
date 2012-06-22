@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.activation.DataHandler;
-import javax.mail.util.ByteArrayDataSource;
-
 import fr.opensagres.xdocreport.core.io.IOUtils;
 import fr.opensagres.xdocreport.core.io.XDocArchive;
 import fr.opensagres.xdocreport.core.logging.LogUtils;
@@ -23,6 +20,12 @@ import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportRegistry;
 public class CustomWebAppResourcesServiceListener
     extends WebAppResourcesServiceListener
 {
+
+    public CustomWebAppResourcesServiceListener()
+    {
+        // Generate META-INF folder for each files
+        super( true );
+    }
 
     private static final Logger LOGGER = LogUtils.getLogger( CustomWebAppResourcesServiceListener.class.getName() );
 
@@ -49,12 +52,10 @@ public class CustomWebAppResourcesServiceListener
         {
             try
             {
-                BinaryData data =new BinaryData();
-//                    new BinaryData( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ), reportId );
+                BinaryData data = new BinaryData();
+                // new BinaryData( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ), reportId );
 
-
-           	 data.setContent(IOUtils.toByteArray(XDocArchive.getInputStream( report.getOriginalDocumentArchive() )));
-
+                data.setContent( IOUtils.toByteArray( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ) ) );
 
                 data.setResourceId( resourceId );
                 LOGGER.info( "End download resourceId=" + resourceId + " loaded from IXDocReport." );
@@ -76,10 +77,10 @@ public class CustomWebAppResourcesServiceListener
             {
                 try
                 {
-                 //   BinaryData data = new BinaryData( controller.getSourceStream(), reportId );
-                	BinaryData data =new BinaryData();
+                    // BinaryData data = new BinaryData( controller.getSourceStream(), reportId );
+                    BinaryData data = new BinaryData();
 
-                	 data.setContent(IOUtils.toByteArray(controller.getSourceStream()));
+                    data.setContent( IOUtils.toByteArray( controller.getSourceStream() ) );
                     data.setResourceId( resourceId );
                     LOGGER.info( "End download resourceId=" + resourceId + " loaded from controller." );
                     LOGGER.info( "*****************************************" );
@@ -118,8 +119,7 @@ public class CustomWebAppResourcesServiceListener
             try
             {
 
-
-                report.load( new ByteArrayInputStream(data.getContent() ));
+                report.load( new ByteArrayInputStream( data.getContent() ) );
                 LOGGER.info( "*****************************************" );
                 LOGGER.info( "End upload resourceId=" + resourceId + ", reportId=" + reportId + " with IXDocReport" );
             }
@@ -137,8 +137,7 @@ public class CustomWebAppResourcesServiceListener
             if ( controller != null )
             {
 
-
-					controller.setSource(  data.getContent() );
+                controller.setSource( data.getContent() );
 
                 LOGGER.info( "*****************************************" );
                 LOGGER.info( "End upload resourceId=" + resourceId + ", reportId=" + reportId + " with IXDocReport" );
