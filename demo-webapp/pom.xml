@@ -71,7 +71,7 @@
     </dependency>
     <dependency>
     <groupId>fr.opensagres.xdocreport</groupId>
-    <artifactId>fr.opensagres.xdocreport.remoting.resources.impl</artifactId>
+    <artifactId>fr.opensagres.xdocreport.remoting.resources.services.server</artifactId>
     </dependency>
     <dependency>
       <groupId>commons-fileupload</groupId>

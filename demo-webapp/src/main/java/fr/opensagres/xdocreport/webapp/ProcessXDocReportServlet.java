@@ -187,7 +187,7 @@ import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.dispatcher.IXDocReportDispatcher;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.document.web.dispatcher.ProcessDispatcherXDocReportServlet;
-import fr.opensagres.xdocreport.remoting.resources.services.web.WebAppHelper;
+import fr.opensagres.xdocreport.remoting.resources.services.server.web.WebAppHelper;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.ITemplateEngine;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
