@@ -1,6 +1,7 @@
 package fr.opensagres.xdocreport.webapp.remoting.jaxrs;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -13,8 +14,11 @@ import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.remoting.resources.domain.BinaryData;
 import fr.opensagres.xdocreport.remoting.resources.domain.LargeBinaryData;
+import fr.opensagres.xdocreport.remoting.resources.domain.ResourceFactory;
+import fr.opensagres.xdocreport.remoting.resources.domain.ResourceHelper;
 import fr.opensagres.xdocreport.remoting.resources.services.ResourcesException;
 import fr.opensagres.xdocreport.remoting.resources.services.server.web.WebAppResourcesServiceListener;
+import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportController;
 import fr.opensagres.xdocreport.webapp.defaultreport.DefaultReportRegistry;
 
@@ -48,17 +52,46 @@ public class CustomWebAppResourcesServiceListener
         LOGGER.info( "*****************************************" );
         LOGGER.info( "Start download resourceId=" + resourceId );
         String reportId = getReportId( resourceId );
+        boolean fieldsMetadata = ResourceHelper.isFieldsMetadata( resourceId );
+        if ( fieldsMetadata )
+        {
+            // Awful code to retrieve report id from fields metadata
+            reportId = reportId.substring( 0, reportId.length() - ResourceFactory.FIELDS_XML.length() );
+            String testReportId = reportId + ".docx";
+            if ( existsReport( testReportId ) )
+            {
+                reportId = testReportId;
+            }
+            else
+            {
+                testReportId = reportId + ".odt";
+                if ( existsReport( testReportId ) )
+                {
+                    reportId = testReportId;
+                }
+            }
+        }
+
         IXDocReport report = XDocReportRegistry.getRegistry().getReport( reportId );
         if ( report != null )
         {
             try
             {
                 BinaryData data = new BinaryData();
-                // new BinaryData( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ), reportId );
-
-                data.setContent( IOUtils.toByteArray( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ) ) );
-
                 data.setResourceId( resourceId );
+
+                if ( fieldsMetadata )
+                {
+                    FieldsMetadata metadata = report.getFieldsMetadata();
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    metadata.saveXML( out );
+                    data.setContent( out.toByteArray() );
+                }
+                else
+                {
+                    data.setContent( IOUtils.toByteArray( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ) ) );
+                }
+
                 LOGGER.info( "End download resourceId=" + resourceId + " loaded from IXDocReport." );
                 LOGGER.info( "*****************************************" );
                 return data;
@@ -80,9 +113,19 @@ public class CustomWebAppResourcesServiceListener
                 {
                     // BinaryData data = new BinaryData( controller.getSourceStream(), reportId );
                     BinaryData data = new BinaryData();
-
-                    data.setContent( IOUtils.toByteArray( controller.getSourceStream() ) );
                     data.setResourceId( resourceId );
+                    
+                    if ( fieldsMetadata )
+                    {
+                        FieldsMetadata metadata = controller.getFieldsMetadata();
+                        ByteArrayOutputStream out = new ByteArrayOutputStream();
+                        metadata.saveXML( out );
+                        data.setContent( out.toByteArray() );
+                    }
+                    else
+                    {
+                    data.setContent( IOUtils.toByteArray( controller.getSourceStream() ) );
+                    }
                     LOGGER.info( "End download resourceId=" + resourceId + " loaded from controller." );
                     LOGGER.info( "*****************************************" );
                     return data;
@@ -101,6 +144,15 @@ public class CustomWebAppResourcesServiceListener
         LOGGER.info( "*****************************************" );
         return super.download( resourceId );
 
+    }
+
+    private boolean existsReport( String reportId )
+    {
+        if ( XDocReportRegistry.getRegistry().existsReport( reportId ) )
+        {
+            return true;
+        }
+        return DefaultReportRegistry.INSTANCE.getReportController( reportId ) != null;
     }
 
     @Override
@@ -162,17 +214,45 @@ public class CustomWebAppResourcesServiceListener
         LOGGER.info( "*****************************************" );
         LOGGER.info( "Start downloadLarge resourceId=" + resourceId );
         String reportId = getReportId( resourceId );
+        boolean fieldsMetadata = ResourceHelper.isFieldsMetadata( resourceId );
+        if ( fieldsMetadata )
+        {
+            // Awful code to retrieve report id from fields metadata
+            reportId = reportId.substring( 0, reportId.length() - ResourceFactory.FIELDS_XML.length() );
+            String testReportId = reportId + ".docx";
+            if ( existsReport( testReportId ) )
+            {
+                reportId = testReportId;
+            }
+            else
+            {
+                testReportId = reportId + ".odt";
+                if ( existsReport( testReportId ) )
+                {
+                    reportId = testReportId;
+                }
+            }
+        }
+        
         IXDocReport report = XDocReportRegistry.getRegistry().getReport( reportId );
         if ( report != null )
         {
             try
             {
                 LargeBinaryData data = new LargeBinaryData();
-                // new BinaryData( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ), reportId );
-
-                data.setContent( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ) );
-
                 data.setResourceId( resourceId );
+                if ( fieldsMetadata )
+                {
+                    FieldsMetadata metadata = report.getFieldsMetadata();
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    metadata.saveXML( out );
+                    data.setContent( new ByteArrayInputStream( out.toByteArray()) );
+                }
+                else
+                {
+                    data.setContent( XDocArchive.getInputStream( report.getOriginalDocumentArchive() ) );
+                }
+                
                 LOGGER.info( "End download resourceId=" + resourceId + " loaded from IXDocReport." );
                 LOGGER.info( "*****************************************" );
                 return data;
@@ -192,11 +272,19 @@ public class CustomWebAppResourcesServiceListener
             {
                 try
                 {
-                    // BinaryData data = new BinaryData( controller.getSourceStream(), reportId );
                     LargeBinaryData data = new LargeBinaryData();
-
-                    data.setContent( controller.getSourceStream() );
                     data.setResourceId( resourceId );
+                    if ( fieldsMetadata )
+                    {
+                        FieldsMetadata metadata = controller.getFieldsMetadata();
+                        ByteArrayOutputStream out = new ByteArrayOutputStream();
+                        metadata.saveXML( out );
+                        data.setContent( new ByteArrayInputStream( out.toByteArray()) );
+                    }
+                    else
+                    {
+                        data.setContent( controller.getSourceStream() );
+                    }
                     LOGGER.info( "End downloadLarge resourceId=" + resourceId + " loaded from controller." );
                     LOGGER.info( "*****************************************" );
                     return data;
