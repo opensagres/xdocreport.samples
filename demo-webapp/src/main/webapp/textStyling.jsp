@@ -239,11 +239,6 @@
 		<td>
 <textarea id="editor1" name="comments_html">
 
-Here some special characters :
-&lt;ul&gt;
-	&lt;li&gt;&auml; &uuml; &eacute;&lt;/li&gt;
-&lt;/ul&gt;
-
 Here are severals styles : 
 &lt;ul&gt;
 	&lt;li&gt;&lt;strong&gt;Bold&lt;/strong&gt; style.&lt;/li&gt;
