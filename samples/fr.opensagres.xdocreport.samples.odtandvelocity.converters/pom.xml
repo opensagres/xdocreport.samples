@@ -2,7 +2,7 @@
 	<parent>
 		<artifactId>samples</artifactId>
 		<groupId>fr.opensagres.xdocreport.samples</groupId>
-		<version>0.9.9-SNAPSHOT</version>
+		<version>1.O.0-SNAPSHOT</version>
 		
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
