@@ -244,6 +244,8 @@ Here are severals styles :
 	&lt;li&gt;&lt;strong&gt;Bold&lt;/strong&gt; style.&lt;/li&gt;
 	&lt;li&gt;&lt;em&gt;Italic&lt;/em&gt; style.&lt;/li&gt;
 	&lt;li&gt;&lt;strong&gt;&lt;em&gt;BoldAndItalic&lt;/em&gt;&lt;/strong&gt; style.&lt;/li&gt;
+	&lt;li&gt;&lt;u&gt;Underline&lt;/u&gt; style.&lt;/li&gt;
+	&lt;li&gt;&lt;strike&gt;Strike&lt;/strike&gt; style.&lt;/li&gt;
 &lt;/ul&gt;
 
 Here are 3 styles : 
