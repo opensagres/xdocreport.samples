@@ -13,6 +13,7 @@
     <module>sample-assembly-descriptor</module>
     <module>demo-webapp</module>
     <module>samples</module>
+    <module>REST-Service-Converter-WebApplication</module>
   </modules>
   <build>
     <plugins>
