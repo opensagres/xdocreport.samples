@@ -7,9 +7,9 @@
 			org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet
 		</servlet-class>
 		<init-param>
-		      <param-name>jaxrs.serviceClasses</param-name>
+		      <param-name>javax.ws.rs.Application</param-name>
 		      <param-value>
-		           fr.opensagres.xdocreport.converter.ConverterService
+		           fr.opensagres.xdocreport.converter.ConverterApplication
 		      </param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

@@ -1,10 +1,6 @@
 package fr.opensagres.xdocreport.converter;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,7 +16,7 @@ import fr.opensagres.xdocreport.core.document.DocumentKind;
 @Path("generic")
 public class ConverterService {
 
-	private  int i=0;
+	private  static int i=0;
 
 
 
@@ -29,6 +25,7 @@ public class ConverterService {
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("hello")
     @Produces("text/plain")
     public String getText() {
 
@@ -40,7 +37,7 @@ public class ConverterService {
     @GET
     @Path("convertPDF")
     @Produces("application/pdf")
-    public byte[] convertPDF()  {
+    public Response convertPDF(Request request)  {
     	ByteArrayOutputStream out = new ByteArrayOutputStream();
     	// 1) Create options ODT 2 PDF to select well converter form the registry
     	Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);
@@ -51,15 +48,15 @@ public class ConverterService {
     	// 3) Convert ODT 2 PDF
 
 		try {
-			InputStream in = new FileInputStream(new File("/Users/pascalleclercq/git/xdocreport.samples/REST-Service-Converter-WebApplication/ODTCV.odt"));
-			converter.convert(in, out, options);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			converter.convert(request.getContent(), out, options);
 		} catch (XDocConverterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	return out.toByteArray();
+
+		Response response = new Response();
+		response.setContent(out);
+		response.setFilename(request.getFilename()+".pdf");
+    	return response;
     }
 }
