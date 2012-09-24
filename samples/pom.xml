@@ -58,16 +58,24 @@
 		</plugins>
 	</build>
 	<modules>
-		<!-- Samples with Velocity -->
+		<!-- Samples reporting with Velocity -->
 		<module>fr.opensagres.xdocreport.samples.docxandvelocity</module>
-		<module>fr.opensagres.xdocreport.samples.docxandvelocity.converters</module>
 		<module>fr.opensagres.xdocreport.samples.pptxandvelocity</module>
 		<module>fr.opensagres.xdocreport.samples.odtandvelocity</module>
 		<module>fr.opensagres.xdocreport.samples.odpandvelocity</module>
+		
+		<!-- Samples reporting + converter with Velocity -->
+		<module>fr.opensagres.xdocreport.samples.docxandvelocity.converters</module>				
 		<module>fr.opensagres.xdocreport.samples.odtandvelocity.converters</module>
-		<!-- Samples with Freemarker -->
+		
+		<!-- Samples reporting with Freemarker -->
 		<module>fr.opensagres.xdocreport.samples.docxandfreemarker</module>
 		<module>fr.opensagres.xdocreport.samples.odtandfreemarker</module>
+		
+		<!-- Samples docx->PDF/XHTML converter -->
+		<module>fr.opensagres.xdocreport.samples.docx.converters</module>
+		<module>fr.opensagres.xdocreport.samples.odt.converters</module>
+				
 	</modules>
 
 
