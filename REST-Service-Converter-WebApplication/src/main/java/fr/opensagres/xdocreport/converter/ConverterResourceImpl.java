@@ -14,16 +14,15 @@ import fr.opensagres.xdocreport.core.document.DocumentKind;
  * @author pleclercq
  */
 @Path("generic")
-public class ConverterService {
+public class ConverterResourceImpl implements ConverterResource {
 
 	private  static int i=0;
 
 
 
-    /**
-     * Say Hello...
-     * @return an instance of java.lang.String
-     */
+    /* (non-Javadoc)
+	 * @see fr.opensagres.xdocreport.converter.ConverterResource#getText()
+	 */
     @GET
     @Path("hello")
     @Produces("text/plain")
@@ -34,6 +33,9 @@ public class ConverterService {
     }
 
 
+    /* (non-Javadoc)
+	 * @see fr.opensagres.xdocreport.converter.ConverterResource#convertPDF(fr.opensagres.xdocreport.converter.Request)
+	 */
     @GET
     @Path("convertPDF")
     @Produces("application/pdf")

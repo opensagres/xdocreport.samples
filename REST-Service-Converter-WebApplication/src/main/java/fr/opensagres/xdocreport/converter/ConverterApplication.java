@@ -17,7 +17,7 @@ public class ConverterApplication extends Application {
 	@Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<Class<?>>();
-        classes.add(ConverterService.class);
+        classes.add(ConverterResourceImpl.class);
         return classes;
     }
 }
