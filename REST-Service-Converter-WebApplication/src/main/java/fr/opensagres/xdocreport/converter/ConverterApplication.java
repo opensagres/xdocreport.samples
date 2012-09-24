@@ -7,12 +7,7 @@ import javax.ws.rs.core.Application;
 
 public class ConverterApplication extends Application {
 
-	public Set<Object> getSingletons() {
-		Set<Object> providers = new HashSet<Object>();
-        providers.add( new RequestMessageBodyReader() );
-        providers.add( new ResponseMessageBodyWriter() );
-		return providers;
-	}
+
 
 	@Override
     public Set<Class<?>> getClasses() {
