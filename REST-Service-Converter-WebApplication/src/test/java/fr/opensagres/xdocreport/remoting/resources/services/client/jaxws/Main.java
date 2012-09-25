@@ -3,8 +3,6 @@ package fr.opensagres.xdocreport.remoting.resources.services.client.jaxws;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import javax.ws.rs.core.MediaType;
-
 import org.apache.cxf.jaxrs.client.WebClient;
 
 import fr.opensagres.xdocreport.converter.Request;
