@@ -43,19 +43,19 @@ public class JAXWSResourcesServiceClientTestCase {
 
 	}
 
-	@Test
-	public void hello() throws InterruptedException {
-		ConverterResource converterService = JAXRSClientFactory.create(
-				BASE_ADDRESS, ConverterResource.class);
-		try {
-			String name = converterService.getText();
-
-			Assert.assertEquals("Hello 0", name);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+//	@Test
+//	public void hello() throws InterruptedException {
+//		ConverterResource converterService = JAXRSClientFactory.create(
+//				BASE_ADDRESS, ConverterResource.class);
+//		try {
+//			String name = converterService.getText();
+//
+//			Assert.assertEquals("Hello 0", name);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 	@Test
 	public void convertPDF() throws Exception {

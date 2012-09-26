@@ -1,5 +1,6 @@
 package fr.opensagres.xdocreport.remoting.resources.services.client.jaxws;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -16,16 +17,17 @@ public class Main {
 	private static final String ROOT_ADDRESS = "http://localhost:" + PORT;
 
 
-	private static final String BASE_ADDRESS = ROOT_ADDRESS + "/rest/generic";
+	private static final String BASE_ADDRESS = ROOT_ADDRESS + "/rest/jaxrs/generic";
 
 	/**
 	 * @param args
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
+		String root = JAXWSResourcesServiceClientTestCase.class.getClassLoader().getResource(".").getFile();
 
 		WebClient wc=		WebClient.create(BASE_ADDRESS+"/convertPDF");
-		FileInputStream fileInputStream = new FileInputStream("ODTCV.odt");
+		FileInputStream fileInputStream = new FileInputStream(new File(root,"ODTCV.odt"));
 
 		wc.header("Content-Disposition", "attachement;filename=ODTCV.odt");
 
