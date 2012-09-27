@@ -3,6 +3,8 @@ package fr.opensagres.xdocreport.remoting.resources.services.client.jaxws;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
@@ -10,12 +12,16 @@ import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import fr.opensagres.xdocreport.converter.BinaryFile;
+import fr.opensagres.xdocreport.converter.ConverterApplication;
 import fr.opensagres.xdocreport.converter.ConverterResource;
 import fr.opensagres.xdocreport.converter.ConverterResourceImpl;
+import fr.opensagres.xdocreport.converter.LargeBinaryDataMessageBodyWriter;
 import fr.opensagres.xdocreport.converter.Request;
-import fr.opensagres.xdocreport.converter.Response;
+import fr.opensagres.xdocreport.core.io.IOUtils;
 
 public class JAXWSResourcesServiceClientTestCase {
 
@@ -36,6 +42,14 @@ public class JAXWSResourcesServiceClientTestCase {
 		sf.setResourceProvider(ConverterResource.class,
 				new SingletonResourceProvider(new ConverterResourceImpl()));
 
+		sf.setApplication(new ConverterApplication());
+
+
+//sf.setProvider(new LargeBinaryDataMessageBodyWriter());
+List<Object> providers= new ArrayList();
+providers.add(new LargeBinaryDataMessageBodyWriter());
+//
+sf.setProviders(providers);
 		sf.setAddress(ROOT_ADDRESS);
 
 		Server server = sf.create();
@@ -43,23 +57,29 @@ public class JAXWSResourcesServiceClientTestCase {
 
 	}
 
-//	@Test
-//	public void hello() throws InterruptedException {
-//		ConverterResource converterService = JAXRSClientFactory.create(
-//				BASE_ADDRESS, ConverterResource.class);
-//		try {
-//			String name = converterService.getText();
-//
-//			Assert.assertEquals("Hello 0", name);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
+	@Test
+	public void hello() throws InterruptedException {
+		ConverterResource converterService = JAXRSClientFactory.create(
+				BASE_ADDRESS, ConverterResource.class);
+		try {
+			String name = converterService.getText();
 
+			Assert.assertEquals("Hello 0", name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Ignore("No message body reader has been found for class : class fr.opensagres.xdocreport.converter.BinaryFile, ContentType : application/octet-stream")
 	@Test
 	public void convertPDF() throws Exception {
-		ConverterResource converterService = JAXRSClientFactory.create(BASE_ADDRESS, ConverterResource.class);
+
+		List<Object> providers= new ArrayList();
+		providers.add(new LargeBinaryDataMessageBodyWriter());
+
+
+		ConverterResource converterService = JAXRSClientFactory.create(BASE_ADDRESS, ConverterResource.class,providers);
 
 
 		String fileName = "ODTCV.odt";
@@ -75,12 +95,14 @@ public class JAXWSResourcesServiceClientTestCase {
 		fileInputStream.close();
 		request.setContent(bytes);
 
-		Response response = converterService.convertPDF(request);
-		Assert.assertEquals(fileName + ".pdf", response.getFilename());
+		BinaryFile response = converterService.convertPDF(request);
+		Assert.assertEquals(fileName + ".pdf", response.getFileName());
 
-		FileOutputStream out = new FileOutputStream(new File(root,response.getFilename()));
+		FileOutputStream out = new FileOutputStream(new File(root,response.getFileName()));
 
-		out.write(response.getContent());
+
+
+		IOUtils.copyLarge(response.getContent(),out);
 		out.close();
 		System.out.println(size);
 	}

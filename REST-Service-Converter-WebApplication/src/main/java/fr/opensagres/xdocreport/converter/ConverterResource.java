@@ -22,13 +22,13 @@ public interface ConverterResource {
     @Path("convertPDF")
     @Consumes(MediaType.WILDCARD)
     @Produces(MediaType.WILDCARD)
-	Response convertPDF(Request request);
+    BinaryFile convertPDF(Request request);
 
 
     @POST
-    @Consumes("multipart/form-data")
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/createMessage")
-    String createMessage(@Multipart("name") String name,@Multipart("datafile") MultipartBody file);
+    @Consumes(MediaType.WILDCARD )
+    @Produces(MediaType.WILDCARD )
+    @Path("/submitForm")
+    BinaryFile submitForm(@Multipart("datafile") MultipartBody file);
 
 }

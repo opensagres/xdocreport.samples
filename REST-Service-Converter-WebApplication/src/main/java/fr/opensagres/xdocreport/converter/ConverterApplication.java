@@ -15,4 +15,11 @@ public class ConverterApplication extends Application {
         classes.add(ConverterResourceImpl.class);
         return classes;
     }
+
+	@Override
+	public Set<Object> getSingletons() {
+		Set<Object> classes = new HashSet<Object>();
+		classes.add(new LargeBinaryDataMessageBodyWriter());
+		return classes;
+	}
 }

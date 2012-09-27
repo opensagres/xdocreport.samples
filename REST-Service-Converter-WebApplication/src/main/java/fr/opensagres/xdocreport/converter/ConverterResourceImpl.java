@@ -2,16 +2,20 @@ package fr.opensagres.xdocreport.converter;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 
 import fr.opensagres.xdocreport.core.document.DocumentKind;
+import fr.opensagres.xdocreport.core.io.IOUtils;
 
 /**
  * REST Web Service
@@ -23,51 +27,65 @@ public class ConverterResourceImpl implements ConverterResource {
 
 	private  static int i=0;
 
-
-
-    @GET
-    @Path("hello")
-    @Produces("text/plain")
     public String getText() {
         return "Hello "+i++;
     }
 
 
-    public String createMessage(String name,  MultipartBody file) {
-    	System.out.println(name);
- //   	System.out.println(datafile);
+ public    BinaryFile submitForm(MultipartBody file) {
+
+    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	// 1) Create options ODT 2 PDF to select well converter form the registry
+    	Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);
+    	List<Attachment> attachments= file.getAllAttachments();
+
+    	Attachment uploadedFile=null;;
+
+		String filename = "";
+
+    	for (Attachment attachment : attachments) {
+    		MultivaluedMap<String, String>   httpHeaders=	attachment.getHeaders();
+
+            String cd = httpHeaders.getFirst( "Content-Disposition" );
+            if ( cd != null )
+            {
+                filename = cd.replace( "attachement;filename=", "" );
+                uploadedFile=attachment;
+            }
+            //String mimetype = httpHeaders.getFirst( "Content-Type" );
+		}
+
+    	// 2) Get the converter from the registry
+    	IConverter converter = ConverterRegistry.getRegistry().getConverter(options);
+
+    	// 3) Convert ODT 2 PDF
+
+		try {
+
+			converter.convert(uploadedFile.getDataHandler().getInputStream(), out, options);
+
+		} catch (XDocConverterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 
-    	System.out.println(file);
-  List<Attachment> attachments= 	file.getAllAttachments();
+		BinaryFile output = new BinaryFile();
+		output.setFileName(filename.replace('.', '_')+".pdf");
 
+		InputStream content = new ByteArrayInputStream(out.toByteArray());
+		output.setContent(content);
+		output.setMimeType("application/pdf");
+		return output;
 
-  for (Attachment attachment : attachments) {
-	System.out.println(attachment.getContentId());
-	System.out.println(attachment.getContentType());
-	System.out.println(attachment.getHeader("Content-Disposition"));
-}
-//    	System.out.println(datafile);
-//        if(name.trim().length() > 0 ) {
-//            // Note 1: Normally you would persist the new message to a datastore
-//            // of some sort. I'm going to pretend I've done that and
-//            // use a unique id for it that obviously points to nothing in
-//            // this case.
-//            // Note 2: The way I'm returning the data should be more like the commented
-//            // out piece, I am being verbose for the sake of showing you how to
-//            // get the values and show that it was read.
-//            return javax.ws.rs.core.Response.created(URI.create("/messages/" + String.valueOf(UUID.randomUUID()))).entity(
-//                    name+ ": " + datafile ).build();
-//
-//            // This is a more real world "return"
-//            //return Response.created(URI.create("/messages/" + String.valueOf(UUID.randomUUID()))).build();
-//        }
-        return "Coucou "+name;
     }
 
 
 
-    public Response convertPDF(  Request request)  {
+    public BinaryFile convertPDF(  Request request)  {
     	ByteArrayOutputStream out = new ByteArrayOutputStream();
     	// 1) Create options ODT 2 PDF to select well converter form the registry
     	Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);
@@ -85,9 +103,11 @@ public class ConverterResourceImpl implements ConverterResource {
 			e.printStackTrace();
 		}
 
-		Response response = new Response();
-		response.setContent(out.toByteArray());
-		response.setFilename(request.getFilename()+".pdf");
+		BinaryFile response = new BinaryFile();
+
+		response.setContent(new ByteArrayInputStream(out.toByteArray()));
+		response.setFileName(request.getFilename()+".pdf");
+
     	return response;
     }
 }
