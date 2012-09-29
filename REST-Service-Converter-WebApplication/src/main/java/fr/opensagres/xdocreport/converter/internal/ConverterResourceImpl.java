@@ -37,29 +37,36 @@ public class ConverterResourceImpl implements ConverterResource {
     }
 
 
- public    BinaryFile submitForm(MultipartBody file) {
+    public  BinaryFile submitForm(MultipartBody file) {
 
     	ByteArrayOutputStream out = new ByteArrayOutputStream();
-    	// 1) Create options ODT 2 PDF to select well converter form the registry
-    	Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);
-    	List<Attachment> attachments= file.getAllAttachments();
 
-    	Attachment uploadedFile=null;;
+    	//List<Attachment> attachments= file.getAllAttachments();
+
+    	Attachment	uploadedFile = file.getAttachment("datafile");
 
 		String filename = "";
+		String mimetype ="";
 
-    	for (Attachment attachment : attachments) {
-    		MultivaluedMap<String, String>   httpHeaders=	attachment.getHeaders();
+    		MultivaluedMap<String, String>   httpHeaders=	uploadedFile.getHeaders();
 
             String cd = httpHeaders.getFirst( "Content-Disposition" );
             if ( cd != null )
             {
-                filename = cd.replace( "attachement;filename=", "" );
-                uploadedFile=attachment;
+            	int start=cd.indexOf("filename=");
+            	int length=cd.length();
+                filename = cd.substring(start+10,length-1);
             }
-            //String mimetype = httpHeaders.getFirst( "Content-Type" );
-		}
+            mimetype = httpHeaders.getFirst( "Content-Type" );
 
+
+    	Attachment	outputformat = file.getAttachment("outputformat");
+
+    	System.out.println(outputformat);
+
+    	// 1) Create options ODT 2 PDF to select well converter form the registry
+    	//DocumentKind.ODT
+    	Options options = Options.getFrom(DocumentKind.fromMimeType(mimetype)).to(ConverterTypeTo.PDF);
     	// 2) Get the converter from the registry
     	IConverter converter = ConverterRegistry.getRegistry().getConverter(options);
 
@@ -90,7 +97,7 @@ public class ConverterResourceImpl implements ConverterResource {
 
 
 
-    public BinaryFile convertPDF(  Request request)  {
+	public BinaryFile convertPDF(  Request request)  {
     	ByteArrayOutputStream out = new ByteArrayOutputStream();
     	// 1) Create options ODT 2 PDF to select well converter form the registry
     	Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);

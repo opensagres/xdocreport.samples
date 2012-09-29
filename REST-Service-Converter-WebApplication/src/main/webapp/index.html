@@ -15,9 +15,14 @@
     <form action="jaxrs/generic/submitForm" enctype="multipart/form-data" accept="multipart/form-data" method="post">
 
 	<p>
-Please specify a file, or a set of files:<br>
-<input type="file" name="datafile" size="40">
-</p>
+		Please specify a file, or a set of files:<br>
+		<input type="file" name="datafile" size="40">
+	</p>
+	<p>
+		and convert to format :<br>
+		<input type="radio" name="outputFormat" value="PDf" checked> Pdf
+		<input type="radio" name="outputFormat" value="HTML"> HTML<br>
+	</p>
       <div>
         <input type="submit" value="Send">
       </div>
