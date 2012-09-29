@@ -9,7 +9,7 @@
 		<init-param>
 		      <param-name>javax.ws.rs.Application</param-name>
 		      <param-value>
-		           fr.opensagres.xdocreport.converter.ConverterApplication
+		           fr.opensagres.xdocreport.converter.internal.ConverterApplication
 		      </param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

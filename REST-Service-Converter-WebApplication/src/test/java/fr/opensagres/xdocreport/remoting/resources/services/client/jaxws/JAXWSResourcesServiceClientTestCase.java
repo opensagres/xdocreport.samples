@@ -15,12 +15,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import fr.opensagres.xdocreport.converter.BinaryFile;
-import fr.opensagres.xdocreport.converter.ConverterApplication;
 import fr.opensagres.xdocreport.converter.ConverterResource;
-import fr.opensagres.xdocreport.converter.ConverterResourceImpl;
-import fr.opensagres.xdocreport.converter.BinaryFileMessageBodyReader;
-import fr.opensagres.xdocreport.converter.BinaryFileMessageBodyWriter;
 import fr.opensagres.xdocreport.converter.Request;
+import fr.opensagres.xdocreport.converter.internal.BinaryFileMessageBodyReader;
+import fr.opensagres.xdocreport.converter.internal.BinaryFileMessageBodyWriter;
+import fr.opensagres.xdocreport.converter.internal.ConverterApplication;
+import fr.opensagres.xdocreport.converter.internal.ConverterResourceImpl;
 import fr.opensagres.xdocreport.core.io.IOUtils;
 
 public class JAXWSResourcesServiceClientTestCase {

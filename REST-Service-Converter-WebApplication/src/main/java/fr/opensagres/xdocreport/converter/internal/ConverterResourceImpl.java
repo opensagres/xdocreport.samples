@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.converter;
+package fr.opensagres.xdocreport.converter.internal;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,6 +12,14 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 
+import fr.opensagres.xdocreport.converter.BinaryFile;
+import fr.opensagres.xdocreport.converter.ConverterRegistry;
+import fr.opensagres.xdocreport.converter.ConverterResource;
+import fr.opensagres.xdocreport.converter.ConverterTypeTo;
+import fr.opensagres.xdocreport.converter.IConverter;
+import fr.opensagres.xdocreport.converter.Options;
+import fr.opensagres.xdocreport.converter.Request;
+import fr.opensagres.xdocreport.converter.XDocConverterException;
 import fr.opensagres.xdocreport.core.document.DocumentKind;
 
 /**

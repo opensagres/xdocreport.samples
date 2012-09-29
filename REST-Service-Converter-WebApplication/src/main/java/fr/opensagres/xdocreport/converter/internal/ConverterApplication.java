@@ -1,9 +1,10 @@
-package fr.opensagres.xdocreport.converter;
+package fr.opensagres.xdocreport.converter.internal;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.ws.rs.core.Application;
+
 
 public class ConverterApplication extends Application {
 
