@@ -18,8 +18,8 @@ import fr.opensagres.xdocreport.converter.BinaryFile;
 import fr.opensagres.xdocreport.converter.ConverterApplication;
 import fr.opensagres.xdocreport.converter.ConverterResource;
 import fr.opensagres.xdocreport.converter.ConverterResourceImpl;
-import fr.opensagres.xdocreport.converter.LargeBinaryDataMessageBodyReader;
-import fr.opensagres.xdocreport.converter.LargeBinaryDataMessageBodyWriter;
+import fr.opensagres.xdocreport.converter.BinaryFileMessageBodyReader;
+import fr.opensagres.xdocreport.converter.BinaryFileMessageBodyWriter;
 import fr.opensagres.xdocreport.converter.Request;
 import fr.opensagres.xdocreport.core.io.IOUtils;
 
@@ -47,7 +47,7 @@ public class JAXWSResourcesServiceClientTestCase {
 
 //sf.setProvider(new LargeBinaryDataMessageBodyWriter());
 List<Object> providers= new ArrayList<Object>();
-providers.add(new LargeBinaryDataMessageBodyWriter());
+providers.add(new BinaryFileMessageBodyWriter());
 //
 sf.setProviders(providers);
 		sf.setAddress(ROOT_ADDRESS);
@@ -76,8 +76,8 @@ sf.setProviders(providers);
 	public void convertPDF() throws Exception {
 
 		List<Object> providers= new ArrayList<Object>();
-		providers.add(new LargeBinaryDataMessageBodyWriter());
-		providers.add(new LargeBinaryDataMessageBodyReader());
+		providers.add(new BinaryFileMessageBodyWriter());
+		providers.add(new BinaryFileMessageBodyReader());
 
 		ConverterResource converterService = JAXRSClientFactory.create(BASE_ADDRESS, ConverterResource.class,providers);
 

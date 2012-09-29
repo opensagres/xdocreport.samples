@@ -19,6 +19,11 @@ public class Request {
 	private byte[] content;
 
 
+	private String outputFormat;
+
+	private String via;
+
+
 	public String getFilename() {
 		return filename;
 	}

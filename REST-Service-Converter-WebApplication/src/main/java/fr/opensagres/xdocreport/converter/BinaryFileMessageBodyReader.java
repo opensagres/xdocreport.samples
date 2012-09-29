@@ -38,7 +38,7 @@ import javax.ws.rs.ext.Provider;
 
 
 @Provider
-public class LargeBinaryDataMessageBodyReader
+public class BinaryFileMessageBodyReader
     implements MessageBodyReader<BinaryFile>
 {
 

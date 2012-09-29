@@ -19,7 +19,7 @@ public class ConverterApplication extends Application {
 	@Override
 	public Set<Object> getSingletons() {
 		Set<Object> classes = new HashSet<Object>();
-		classes.add(new LargeBinaryDataMessageBodyWriter());
+		classes.add(new BinaryFileMessageBodyWriter());
 		return classes;
 	}
 }

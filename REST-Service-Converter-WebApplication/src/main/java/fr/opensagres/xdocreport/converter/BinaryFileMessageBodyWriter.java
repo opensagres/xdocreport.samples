@@ -36,16 +36,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
-/**
- * {@link MessageBodyWriter} that streams an {@link BinaryData} object in an Http response.
- * <p>
- * To allow streaming the binday data is directly sent inside the Http body and the other attributes are passed as http
- * header (it avoids to use MultiPart encoding)
- *
- * @author <a href="mailto:tdelprat@nuxeo.com">Tiry</a>
- */
 @Provider
-public class LargeBinaryDataMessageBodyWriter
+public class BinaryFileMessageBodyWriter
     implements MessageBodyWriter<BinaryFile>
 {
 
