@@ -12,13 +12,13 @@ import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.opensagres.xdocreport.converter.BinaryFile;
 import fr.opensagres.xdocreport.converter.ConverterApplication;
 import fr.opensagres.xdocreport.converter.ConverterResource;
 import fr.opensagres.xdocreport.converter.ConverterResourceImpl;
+import fr.opensagres.xdocreport.converter.LargeBinaryDataMessageBodyReader;
 import fr.opensagres.xdocreport.converter.LargeBinaryDataMessageBodyWriter;
 import fr.opensagres.xdocreport.converter.Request;
 import fr.opensagres.xdocreport.core.io.IOUtils;
@@ -46,7 +46,7 @@ public class JAXWSResourcesServiceClientTestCase {
 
 
 //sf.setProvider(new LargeBinaryDataMessageBodyWriter());
-List<Object> providers= new ArrayList();
+List<Object> providers= new ArrayList<Object>();
 providers.add(new LargeBinaryDataMessageBodyWriter());
 //
 sf.setProviders(providers);
@@ -71,13 +71,13 @@ sf.setProviders(providers);
 
 	}
 
-	@Ignore("No message body reader has been found for class : class fr.opensagres.xdocreport.converter.BinaryFile, ContentType : application/octet-stream")
+//	@Ignore("No message body reader has been found for class : class fr.opensagres.xdocreport.converter.BinaryFile, ContentType : application/octet-stream")
 	@Test
 	public void convertPDF() throws Exception {
 
-		List<Object> providers= new ArrayList();
+		List<Object> providers= new ArrayList<Object>();
 		providers.add(new LargeBinaryDataMessageBodyWriter());
-
+		providers.add(new LargeBinaryDataMessageBodyReader());
 
 		ConverterResource converterService = JAXRSClientFactory.create(BASE_ADDRESS, ConverterResource.class,providers);
 
