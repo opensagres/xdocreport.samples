@@ -29,51 +29,51 @@ import fr.opensagres.xdocreport.core.document.DocumentKind;
 @Path("generic")
 public class ConverterResourceImpl implements ConverterResource {
 
-	private  static int i=0;
+	private static int i = 0;
 
-    public String getText() {
-        return "Hello "+i++;
-    }
+	public String getText() {
+		return "Hello " + i++;
+	}
 
+	public BinaryFile submitForm(MultipartBody file) {
 
-    public  BinaryFile submitForm(MultipartBody file) {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+		// List<Attachment> attachments= file.getAllAttachments();
 
-    	//List<Attachment> attachments= file.getAllAttachments();
-
-    	Attachment	uploadedFile = file.getAttachment("datafile");
+		Attachment uploadedFile = file.getAttachment("datafile");
 
 		String filename = "";
-		String mimetype ="";
+		String mimetype = "";
 
-    		MultivaluedMap<String, String>   httpHeaders=	uploadedFile.getHeaders();
+		MultivaluedMap<String, String> httpHeaders = uploadedFile.getHeaders();
 
-            String cd = httpHeaders.getFirst( "Content-Disposition" );
-            if ( cd != null )
-            {
-            	int start=cd.indexOf("filename=");
-            	int length=cd.length();
-                filename = cd.substring(start+10,length-1);
-            }
-            mimetype = httpHeaders.getFirst( "Content-Type" );
+		String cd = httpHeaders.getFirst("Content-Disposition");
+		if (cd != null) {
+			int start = cd.indexOf("filename=");
+			int length = cd.length();
+			filename = cd.substring(start + 10, length - 1);
+		}
+		mimetype = httpHeaders.getFirst("Content-Type");
 
+		String value = MultipartBodyUtils.extractValue(file, "outputFormat");
 
-    	Attachment	outputformat = file.getAttachment("outputformat");
+		ConverterTypeTo to = ConverterTypeTo.valueOf(value);
+		// 1) Create options ODT 2 PDF to select well converter form the
+		// registry
+		// DocumentKind.ODT
+		Options options = Options.getFrom(DocumentKind.fromMimeType(mimetype))
+				.to(to);
+		// 2) Get the converter from the registry
+		IConverter converter = ConverterRegistry.getRegistry().getConverter(
+				options);
 
-    	System.out.println(outputformat);
-
-    	// 1) Create options ODT 2 PDF to select well converter form the registry
-    	//DocumentKind.ODT
-    	Options options = Options.getFrom(DocumentKind.fromMimeType(mimetype)).to(ConverterTypeTo.PDF);
-    	// 2) Get the converter from the registry
-    	IConverter converter = ConverterRegistry.getRegistry().getConverter(options);
-
-    	// 3) Convert ODT 2 PDF
+		// 3) Convert ODT 2 PDF
 
 		try {
 
-			converter.convert(uploadedFile.getDataHandler().getInputStream(), out, options);
+			converter.convert(uploadedFile.getDataHandler().getInputStream(),
+					out, options);
 
 		} catch (XDocConverterException e) {
 			// TODO Auto-generated catch block
@@ -83,32 +83,36 @@ public class ConverterResourceImpl implements ConverterResource {
 			e.printStackTrace();
 		}
 
-
 		BinaryFile output = new BinaryFile();
-		output.setFileName(filename.replace('.', '_')+".pdf");
+		output.setFileName(filename.replace('.', '_') + "."
+				+ to.name().toLowerCase());
 
 		InputStream content = new ByteArrayInputStream(out.toByteArray());
 		output.setContent(content);
-		output.setMimeType("application/pdf");
+		output.setMimeType(to.getMimeType());
 		return output;
 
-    }
+	}
 
 
 
-	public BinaryFile convertPDF(  Request request)  {
-    	ByteArrayOutputStream out = new ByteArrayOutputStream();
-    	// 1) Create options ODT 2 PDF to select well converter form the registry
-    	Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);
+	public BinaryFile convertPDF(Request request) {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		// 1) Create options ODT 2 PDF to select well converter form the
+		// registry
+		Options options = Options.getFrom(DocumentKind.ODT).to(
+				ConverterTypeTo.PDF);
 
-    	// 2) Get the converter from the registry
-    	IConverter converter = ConverterRegistry.getRegistry().getConverter(options);
+		// 2) Get the converter from the registry
+		IConverter converter = ConverterRegistry.getRegistry().getConverter(
+				options);
 
-    	// 3) Convert ODT 2 PDF
+		// 3) Convert ODT 2 PDF
 
 		try {
 
-			converter.convert(new ByteArrayInputStream(request.getContent()), out, options);
+			converter.convert(new ByteArrayInputStream(request.getContent()),
+					out, options);
 		} catch (XDocConverterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,8 +121,8 @@ public class ConverterResourceImpl implements ConverterResource {
 		BinaryFile response = new BinaryFile();
 
 		response.setContent(new ByteArrayInputStream(out.toByteArray()));
-		response.setFileName(request.getFilename()+".pdf");
+		response.setFileName(request.getFilename() + ".pdf");
 
-    	return response;
-    }
+		return response;
+	}
 }
