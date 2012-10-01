@@ -1,5 +1,6 @@
 package fr.opensagres.xdocreport.converter;
 
+import javax.activation.DataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -8,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
-import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 
 public interface ConverterResource {
 
@@ -25,10 +25,11 @@ public interface ConverterResource {
     BinaryFile convertPDF(Request request);
 
 
+
     @POST
     @Consumes(MediaType.WILDCARD )
     @Produces(MediaType.WILDCARD )
     @Path("/submitForm")
-    BinaryFile submitForm(@Multipart("datafile") MultipartBody file);
+    BinaryFile submitForm(@Multipart("outputFormat") String outputFormat, @Multipart("datafile") DataSource content);
 
 }
