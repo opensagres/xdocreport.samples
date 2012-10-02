@@ -100,8 +100,7 @@ public class ConverterResourceImpl implements ConverterResource {
 		}
 
 		BinaryFile output = new BinaryFile();
-		output.setFileName(filename.replace('.', '_') + "."
-				+ to.name().toLowerCase());
+		output.setFileName(filename.replace('.', '_') + "."+ to.getExtension());
 
 		InputStream result = new ByteArrayInputStream(out.toByteArray());
 		output.setContent(result);
