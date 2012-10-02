@@ -1,32 +1,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-  <head>
-    <title>
-      XDocReport converter Demo
-    </title>
+<head>
+<title>XDocReport converter Demo</title>
+<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+</head>
+<body>
 
-    <link href="css/bootstrap.min.css" type="css" rel="stylesheet">
-  </head>
-  <body>
-    <h1>
-      XDocReport converter Demo, please upload a ODT or Docx file....
-    </h1>
 
-    <form action="jaxrs/generic/submitForm" enctype="multipart/form-data" accept="multipart/form-data" method="post">
+	<form action="jaxrs/generic/submitForm" enctype="multipart/form-data"
+		 method="post" class="form-horizontal">
+		<legend>XDocReport converter Demo, please upload a ODT or Docx file....</legend>
+		<div class="control-group">
+			<label class="control-label" for="datafile">Upload a file to convert (docx or odt):</label>
+			<div class="controls">
+				<input type="file" class="file" name="datafile">
+			</div>
 
-	<p>
-		Please specify a file, or a set of files:<br>
-		<input type="file" name="datafile" size="40">
-	</p>
-	<p>
-		and convert to format :<br>
-		<input type="radio" name="outputFormat" value="PDF" checked> PDF
-		<input type="radio" name="outputFormat" value="XHTML"> XHTML<br>
-	</p>
-      <div>
-        <input type="submit" value="Send">
-      </div>
-    </form>
-    <script src="js/bootstrap.min.js" type="javascript"/>
-  </body>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="outputFormat">Select the file format  you want to convert to:</label>
+			<div class="controls">
+				 <label class="radio">
+       <input type="radio" name="outputFormat" value="PDF" checked>PDF
+      </label>
+      <label class="radio">
+       <input type="radio" name="outputFormat" value="XHTML" >XHTML
+      </label>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn">Convert !</button>
+			</div>
+		</div>
+
+	</form>
+
+</body>
 </html>
