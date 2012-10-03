@@ -30,6 +30,6 @@ public interface ConverterResource {
     @Consumes(MediaType.WILDCARD )
     @Produces(MediaType.WILDCARD )
     @Path("/submitForm")
-    BinaryFile submitForm(@Multipart("outputFormat") String outputFormat, @Multipart("datafile") DataSource content);
+    BinaryFile submitForm(@Multipart("outputFormat") String outputFormat, @Multipart("datafile") DataSource content,@Multipart("operation") String operation);
 
 }

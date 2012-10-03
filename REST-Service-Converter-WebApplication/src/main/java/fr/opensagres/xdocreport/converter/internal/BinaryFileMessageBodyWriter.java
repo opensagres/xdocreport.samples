@@ -61,7 +61,11 @@ public class BinaryFileMessageBodyWriter
         throws IOException, WebApplicationException
     {
         InputStream content = t.getContent();
-        httpHeaders.add( "Content-Disposition", "attachement;filename=" + t.getFileName() );
+        if(t.getFileName()!=null){
+        	httpHeaders.add( "Content-Disposition", "attachement;filename=" + t.getFileName() );
+        }
+
+
         httpHeaders.add( "Content-Type", t.getMimeType() );
 
         copyLarge( content, entityStream );

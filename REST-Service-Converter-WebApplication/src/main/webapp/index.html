@@ -5,36 +5,39 @@
 <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-
-
-	<form action="jaxrs/generic/submitForm" enctype="multipart/form-data"
-		 method="post" class="form-horizontal">
+	<form id="form" action="jaxrs/generic/submitForm" enctype="multipart/form-data"
+		method="post" class="form-horizontal" target="previewFrame">
 		<legend>XDocReport converter Demo, please upload a ODT or Docx file....</legend>
 		<div class="control-group">
 			<label class="control-label" for="datafile">Upload a file to convert (docx or odt):</label>
 			<div class="controls">
 				<input type="file" class="file" name="datafile">
 			</div>
-
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="outputFormat">Select the file format  you want to convert to:</label>
+			<label class="control-label" for="outputFormat">Select the file format you want to convert to:</label>
 			<div class="controls">
-				 <label class="radio">
-       <input type="radio" name="outputFormat" value="PDF" checked>PDF
-      </label>
-      <label class="radio">
-       <input type="radio" name="outputFormat" value="XHTML" >XHTML
-      </label>
+				<label class="radio">
+				 <input type="radio" name="outputFormat" value="PDF" checked>PDF
+				</label> <label class="radio">
+				 <input type="radio" name="outputFormat" value="XHTML">XHTML
+				</label>
 			</div>
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<button type="submit" class="btn">Convert !</button>
+				<button type="submit" name="operation"  value="download" class="btn">Download</button>
+				<button type="submit" name="operation" value="preview" class="btn">Preview</button>
 			</div>
 		</div>
-
 	</form>
+	<fieldset>
+		<legend>Report preview</legend>
+		<iframe id="previewFrame" width="100%" height="400px" frameborder="1">
+			<p>Your browser does not support iframes.</p>
+		</iframe>
+	</fieldset>
+
 
 </body>
 </html>

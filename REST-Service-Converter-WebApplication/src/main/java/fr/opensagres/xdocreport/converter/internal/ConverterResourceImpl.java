@@ -62,17 +62,12 @@ public class ConverterResourceImpl implements ConverterResource {
 		return response;
 	}
 
-	public BinaryFile submitForm(String outputFormat, DataSource content) {
+	public BinaryFile submitForm(String outputFormat, DataSource content,String operation) {
 
+		System.out.println(operation);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-		// List<Attachment> attachments= file.getAllAttachments();
-
-
 		String filename = content.getName();
 		String mimetype = content.getContentType();
-
-
 
 		ConverterTypeTo to = ConverterTypeTo.valueOf(outputFormat);
 		// 1) Create options ODT 2 PDF to select well converter form the
@@ -85,22 +80,19 @@ public class ConverterResourceImpl implements ConverterResource {
 				options);
 
 		// 3) Convert ODT 2 PDF
-
 		try {
-
-			converter.convert(content.getInputStream(),
-					out, options);
+			converter.convert(content.getInputStream(),out, options);
 
 		} catch (XDocConverterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		BinaryFile output = new BinaryFile();
-		output.setFileName(filename.replace('.', '_') + "."+ to.getExtension());
+		if("download".equals(operation)){
+			output.setFileName(filename.replace('.', '_') + "."+ to.getExtension());
+		}
 
 		InputStream result = new ByteArrayInputStream(out.toByteArray());
 		output.setContent(result);
