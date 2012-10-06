@@ -197,6 +197,11 @@
         <artifactId>fr.opensagres.xdocreport.remoting.resources</artifactId>
         <version>${xdocreport.version}</version>
       </dependency>
+      <dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.remoting.converter</artifactId>
+			<version>${xdocreport.version}</version>
+		</dependency>
     </dependencies>
 
   </dependencyManagement>

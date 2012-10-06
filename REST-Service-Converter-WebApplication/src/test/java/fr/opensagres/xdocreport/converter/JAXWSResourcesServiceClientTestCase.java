@@ -13,8 +13,6 @@ import org.apache.cxf.attachment.ByteDataSource;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
-import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.jaxrs.ext.multipart.InputStreamDataSource;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -47,23 +45,6 @@ public class JAXWSResourcesServiceClientTestCase
         System.out.println( server.getEndpoint() );
     }
 
-    @Test
-    public void hello()
-        throws InterruptedException
-    {
-        ConverterResource converterService = JAXRSClientFactory.create( BASE_ADDRESS, ConverterResource.class );
-        try
-        {
-            String name = converterService.getText();
-
-            Assert.assertEquals( "Hello 0", name );
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace();
-        }
-
-    }
 
     @Test
     public void convertPDF_OLD()
