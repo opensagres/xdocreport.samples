@@ -10,23 +10,19 @@
 		method="post" class="form-horizontal" target="previewFrame">
 		<legend>XDocReport converter Demo, please upload a ODT or Docx file....</legend>
 		<div class="control-group">
-			<label class="control-label" for="datafile">Upload a file to convert (docx or odt):</label>
+			<label class="control-label" for="datafile">Upload a file:</label>
 			<div class="controls">
 				<input type="file" class="file" name="datafile">
 			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="framework">Select the framework you want to use::</label>
+			<label class="control-label" for="via">Select a framework:</label>
 			<div class="controls">
 				<label class="radio">
-				 <input type="radio" name="framework" value="XDocReport" checked>XDocReport
+				 <input type="radio" name="via" value="ITEXT" checked>XDocReport (ODT or Docx)
 				</label> <label class="radio">
-				<input type="radio" name="framework" value="Docx4j">Docx4j
+				<input type="radio" name="via" value="DOCX4J">Docx4j (Docx only)
 				</label>
 			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="outputFormat">Select the file format you want to convert to:</label>
+			<label class="control-label" for="outputFormat">Select the output format:</label>
 			<div class="controls">
 				<label class="radio">
 				 <input type="radio" name="outputFormat" value="PDF" checked>PDF
@@ -34,20 +30,17 @@
 				<input type="radio" name="outputFormat" value="XHTML">XHTML
 				</label>
 			</div>
-		</div>
-		<div class="control-group">
 			<div class="controls">
 				<button type="submit" name="operation"  value="download" class="btn">Download</button>
 				<button type="submit" name="operation" value="preview" class="btn">Preview</button>
 			</div>
 		</div>
 	</form>
-	<fieldset>
-		<legend>Report preview</legend>
-		<iframe id="previewFrame" name="previewFrame" width="100%" height="400px" frameborder="1">
+	<legend>Report preview</legend>
+	<iframe id="previewFrame" name="previewFrame" width="100%" height="400px" frameborder="1">
 			<p>Your browser does not support iframes.</p>
-		</iframe>
-	</fieldset>
+	</iframe>
+
 
 
 </body>
