@@ -4,22 +4,32 @@
 <title>XDocReport converter Demo</title>
 <link rel="icon" href="img/xdocreport.png" sizes="32x32">
 <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<link href="js/bootstrap.min.js" type="text/javascript">
+<script type="text/javascript">
+
+function activate(){
+
+document.forms[0].operation[0].disabled=false;
+document.forms[0].operation[1].disabled=false;
+}
+
+</script>
 </head>
 <body>
 	<form id="form" action="jaxrs/convert" enctype="multipart/form-data"
 		method="post" class="form-horizontal" target="previewFrame">
 		<legend>XDocReport converter Demo, please upload a ODT or Docx file....</legend>
 		<div class="control-group">
-			<label class="control-label" for="datafile">Upload a file:</label>
+			<label class="control-label" for="datafile">Upload a file (Required):</label>
 			<div class="controls">
-				<input type="file" class="file" name="datafile">
+				<input type="file" class="file" name="datafile" onchange="activate();">
 			</div>
 			<label class="control-label" for="via">Select a framework:</label>
 			<div class="controls">
 				<label class="radio">
 				 <input type="radio" name="via" value="XWPF" checked>XDocReport (ODT or Docx)
 				</label> <label class="radio">
-				<input type="radio" name="via" value="DOCX4J" onclick="window.alert('Not available for the moment because of OutOfMemory problem with docx4j');return false;" >Docx4j (Docx only)
+				<input type="radio" name="via" value="DOCX4J">Docx4j (Docx only)
 				</label>
 			</div>
 			<label class="control-label" for="outputFormat">Select the output format:</label>
@@ -31,8 +41,8 @@
 				</label>
 			</div>
 			<div class="controls">
-				<button type="submit" name="operation"  value="download" class="btn">Download</button>
-				<button type="submit" name="operation" value="preview" class="btn">Preview</button>
+				<button type="submit" name="operation"  value="download" class="btn"  disabled="yes">Download</button>
+				<button type="submit" name="operation" value="preview" class="btn" disabled="yes">Preview</button>
 			</div>
 		</div>
 	</form>
