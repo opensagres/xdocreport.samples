@@ -232,7 +232,7 @@ public class ODTTableWithoutFieldsMetadataWithVelocity2PDF {
 					"ODTTableWithoutFieldsMetadataWithVelocity_Out.pdf"));
 			// report.process(context, out);
 			Options options = Options.getTo(ConverterTypeTo.PDF).via(
-					ConverterTypeVia.ITEXT);
+					ConverterTypeVia.ODFDOM);
 			report.convert(context, options, out);
 
 		} catch (IOException e) {

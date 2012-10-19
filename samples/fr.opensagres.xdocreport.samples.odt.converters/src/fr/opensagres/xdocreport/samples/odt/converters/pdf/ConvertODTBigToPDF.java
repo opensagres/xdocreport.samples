@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.odftoolkit.odfdom.converter.itext.ODF2PDFViaITextConverter;
-import org.odftoolkit.odfdom.converter.itext.PDFViaITextOptions;
+import org.odftoolkit.odfdom.converter.pdf.PdfConverter;
+import org.odftoolkit.odfdom.converter.pdf.PdfOptions;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
 
 import fr.opensagres.xdocreport.samples.odt.converters.Data;
@@ -27,8 +27,8 @@ public class ConvertODTBigToPDF
             outFile.getParentFile().mkdirs();
 
             OutputStream out = new FileOutputStream( outFile );
-            PDFViaITextOptions options = PDFViaITextOptions.create().fontEncoding( "windows-1250" );
-            ODF2PDFViaITextConverter.getInstance().convert( document, out, options );
+            PdfOptions options = PdfOptions.create().fontEncoding( "windows-1250" );
+            PdfConverter.getInstance().convert( document, out, options );
         }
         catch ( Throwable e )
         {

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.apache.poi.xwpf.converter.xhtml.XWPF2XHTMLConverter;
+import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import fr.opensagres.xdocreport.samples.docx.converters.Data;
@@ -26,7 +26,7 @@ public class ConvertOoxmlToXHTML
             outFile.getParentFile().mkdirs();
 
             OutputStream out = new FileOutputStream( outFile );
-            XWPF2XHTMLConverter.getInstance().convert( document, out, null );
+            XHTMLConverter.getInstance().convert( document, out, null );
         }
         catch ( Throwable e )
         {
