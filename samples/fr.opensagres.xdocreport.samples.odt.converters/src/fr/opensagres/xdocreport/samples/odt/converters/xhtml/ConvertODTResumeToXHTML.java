@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.odftoolkit.odfdom.converter.xhtml.ODF2XHTMLConverter;
+import org.odftoolkit.odfdom.converter.xhtml.XHTMLConverter;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
 
 import fr.opensagres.xdocreport.samples.odt.converters.Data;
@@ -26,7 +26,7 @@ public class ConvertODTResumeToXHTML
             outFile.getParentFile().mkdirs();
 
             OutputStream out = new FileOutputStream( outFile );
-            ODF2XHTMLConverter.getInstance().convert( document, out, null );
+            XHTMLConverter.getInstance().convert( document, out, null );
         }
         catch ( Throwable e )
         {

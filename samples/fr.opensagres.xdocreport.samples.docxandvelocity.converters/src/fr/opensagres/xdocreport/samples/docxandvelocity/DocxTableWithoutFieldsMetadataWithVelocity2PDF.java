@@ -227,7 +227,7 @@ public class DocxTableWithoutFieldsMetadataWithVelocity2PDF {
 			OutputStream out = new FileOutputStream(new File(
 					"DocxTableWithoutFieldsMetadataWithVelocity_Out.pdf"));
 			Options options = Options.getTo(ConverterTypeTo.PDF).via(
-					ConverterTypeVia.ITEXT);
+					ConverterTypeVia.XWPF);
 			report.convert(context, options, out);
 
 		} catch (IOException e) {

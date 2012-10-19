@@ -204,7 +204,7 @@ public class DocxProjectWithVelocity2PDF {
 					"DocxProjectWithVelocity_Out.pdf"));
 			// report.process(context, out);
 			Options options = Options.getTo(ConverterTypeTo.PDF).via(
-					ConverterTypeVia.ITEXT);
+					ConverterTypeVia.XWPF);
 			report.convert(context, options, out);
 
 		} catch (IOException e) {

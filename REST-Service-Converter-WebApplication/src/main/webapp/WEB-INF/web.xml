@@ -9,7 +9,7 @@
 		<init-param>
 		      <param-name>jaxrs.serviceClasses</param-name>
 		      <param-value>
-		           fr.opensagres.xdocreport.converter.internal.ConverterResourceImpl
+		           fr.opensagres.xdocreport.remoting.converter.server.ConverterResourceImpl
 		      </param-value>
 		</init-param>
 	</servlet>

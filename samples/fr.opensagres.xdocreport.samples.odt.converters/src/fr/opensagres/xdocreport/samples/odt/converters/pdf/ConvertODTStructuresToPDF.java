@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.odftoolkit.odfdom.converter.itext.ODF2PDFViaITextConverter;
-import org.odftoolkit.odfdom.converter.itext.PDFViaITextOptions;
+import org.odftoolkit.odfdom.converter.pdf.PdfConverter;
+import org.odftoolkit.odfdom.converter.pdf.PdfOptions;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
 
 import fr.opensagres.xdocreport.samples.odt.converters.Data;
@@ -20,15 +20,16 @@ public class ConvertODTStructuresToPDF
         try
         {
             // 1) Load odt with ODFDOM
-            OdfTextDocument document = OdfTextDocument.loadDocument( Data.class.getResourceAsStream( "ODTStructures.odt" ) );
+            OdfTextDocument document =
+                OdfTextDocument.loadDocument( Data.class.getResourceAsStream( "ODTStructures.odt" ) );
 
             // 2) Convert ODFDOM OdfTextDocument 2 PDF with iText
             File outFile = new File( "target/ODTStructures.pdf" );
             outFile.getParentFile().mkdirs();
 
             OutputStream out = new FileOutputStream( outFile );
-            PDFViaITextOptions options = null;//PDFViaITextOptions.create().fontEncoding( "windows-1250" );
-            ODF2PDFViaITextConverter.getInstance().convert( document, out, options );
+            PdfOptions options = null;// PDFViaITextOptions.create().fontEncoding( "windows-1250" );
+            PdfConverter.getInstance().convert( document, out, options );
         }
         catch ( Throwable e )
         {
