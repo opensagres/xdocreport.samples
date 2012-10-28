@@ -10,7 +10,7 @@
 		method="post" class="form-horizontal" target="previewFrame">
 		<legend>XDocReport converter Demo, please upload a ODT or Docx file....</legend>
 		<div class="control-group">
-			<label class="control-label" for="datafile">Upload a file:</label>
+			<label class="control-label" for="datafile">Upload a file (Required):</label>
 			<div class="controls">
 				<input type="file" class="file" name="datafile">
 			</div>
@@ -19,7 +19,7 @@
 				<label class="radio">
 				 <input type="radio" name="via" value="XWPF" checked>XDocReport (ODT or Docx)
 				</label> <label class="radio">
-				<input type="radio" name="via" value="DOCX4J" onclick="window.alert('Not available for the moment because of OutOfMemory problem with docx4j');return false;" >Docx4j (Docx only)
+				<input type="radio" name="via" value="DOCX4J">Docx4j (Docx only)
 				</label>
 			</div>
 			<label class="control-label" for="outputFormat">Select the output format:</label>
