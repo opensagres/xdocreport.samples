@@ -10,9 +10,9 @@
 		method="post" class="form-horizontal" target="previewFrame">
 		<legend>XDocReport converter Demo, please upload a ODT or Docx file....</legend>
 		<div class="control-group">
-			<label class="control-label" for="datafile">Upload a file (Required):</label>
+			<label class="control-label" for="document">Upload a file (Required):</label>
 			<div class="controls">
-				<input type="file" class="file" name="datafile">
+				<input type="file" class="file" name="document">
 			</div>
 			<label class="control-label" for="via">Select a framework:</label>
 			<div class="controls">
@@ -35,8 +35,8 @@
 				</label>
 			</div>
 			<div class="controls">
-				<button type="submit" name="operation"  value="download" class="btn">Download</button>
-				<button type="submit" name="operation" value="preview" class="btn">Preview</button>
+				<button type="submit" name="download"  value="true" class="btn">Download</button>
+				<button type="submit" name="download" value="false" class="btn">Preview</button>
 			</div>
 		</div>
 	</form>
