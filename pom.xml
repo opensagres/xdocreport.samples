@@ -15,6 +15,7 @@
 		<module>demo-webapp</module>
 		<module>samples</module>
 		<module>REST-Service-Converter-WebApplication</module>
+		<module>REST-Service-Reporting-WebApplication</module>
 	</modules>
 	<build>
 		<plugins>
