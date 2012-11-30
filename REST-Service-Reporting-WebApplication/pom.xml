@@ -51,7 +51,11 @@
 			<groupId>fr.opensagres.xdocreport</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
 		</dependency>
-				
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.converter.docx.docx4j</artifactId>
+		</dependency>
+						
 		<!-- Jetty is extremely convenient for testing REST and WS -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
