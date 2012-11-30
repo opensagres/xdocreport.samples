@@ -4,6 +4,22 @@
 <title>REST XDocReport Reporting Demo</title>
 <link rel="icon" href="img/xdocreport.png" sizes="32x32">
 <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+<script>
+  function updateOut(inFileName) {
+    var index = inFileName.lastIndexOf('/');
+    if (index ==-1) {
+    	index= inFileName.lastIndexOf('\\');
+    }
+    var outFileName = inFileName;
+    if (index != -1) {
+    	outFileName = outFileName.substring(index+1, outFileName.length);
+    }
+    outFileName = 'Out_' + outFileName; 
+  	document.getElementById('outFileName').value = outFileName;
+  }
+</script>
+
 </head>
 <body>
 	<form id="form" action="jaxrs/report" enctype="multipart/form-data"
@@ -12,8 +28,25 @@
 		<div class="control-group">
 			<label class="control-label" for="document">Upload a file (Required):</label>
 			<div class="controls">
-				<input type="file" class="file" name="templateDocument">
+				<input type="file" class="file" name="templateDocument" onchange="updateOut(this.value);" >
 			</div>	
+			<label class="control-label" for="templateEngineKind">Template Engine:</label>
+			<div class="controls">
+				 <select name="templateEngineKind" >
+				 	<option name="Velocity" >Velocity</option>
+				 	<option name="Freemarker" >Freemarker</option>
+				 </select>	 
+			</div>	
+			<label class="control-label" for="metadata">XML Fields metadata:</label>
+			<div class="controls">
+				 <textarea name="metadata" rows="10" cols="50">
+&lt;fields&gt;
+	&lt;field name="project.Name" list="false" imageName="" syntaxKind="" /&gt;
+	&lt;field name="developers.Name" list="true" imageName="" syntaxKind="" /&gt;
+	&lt;field name="developers.NastName" list="true" imageName="" syntaxKind="" /&gt;
+&lt;/fields&gt;
+				 </textarea>
+			</div>								
 			<label class="control-label" for="dataType">Data type:</label>
 			<div class="controls">
 				 <select name="dataType" >
@@ -24,7 +57,7 @@
 			<div class="controls">
 				 <textarea name="data" rows="10" cols="50">
 {
- "project": {"Name": "XDocReport"},
+ "project": {"Name": "XDocReport", "URL": "http://code.google.com/p/xdocreport/"},
  "developers": [
   {
    "Name": "ZERR",
@@ -39,26 +72,15 @@
  ]
 }
 				 </textarea>
-			</div>
-			<label class="control-label" for="templateEngineKind">Template Engine:</label>
+			</div>		
+			<label class="control-label" for="outFileName">Output File Name:</label>
 			<div class="controls">
-				 <select name="templateEngineKind" >
-				 	<option name="Velocity" >Velocity</option>
-				 	<option name="Freemarker" >Freemarker</option>
-				 </select>	 
-			</div>			
+				<input type="text" name="outFileName" id="outFileName" />
+			</div>
 			<div class="controls">
 				<button type="submit" name="download"  value="true" class="btn">Download</button>
-				<button type="submit" name="download" value="false" class="btn">Preview</button>
-			</div>
+			</div>			
 		</div>
 	</form>
-	<legend>Report preview</legend>
-	<iframe id="previewFrame" name="previewFrame" width="100%" height="400px" frameborder="1">
-			<p>Your browser does not support iframes.</p>
-	</iframe>
-
-
-
 </body>
 </html>
