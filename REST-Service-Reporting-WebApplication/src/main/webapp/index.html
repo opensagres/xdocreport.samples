@@ -6,7 +6,8 @@
 <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
 
 <script>
-  function updateOut(inFileName) {
+  function updateOut(outputFormat) {
+    var inFileName = document.getElementById('templateDocument').value;
     var index = inFileName.lastIndexOf('/');
     if (index ==-1) {
     	index= inFileName.lastIndexOf('\\');
@@ -16,6 +17,21 @@
     	outFileName = outFileName.substring(index+1, outFileName.length);
     }
     outFileName = 'Out_' + outFileName; 
+    if (outputFormat && outputFormat != '') 
+    {
+    	index= outFileName.lastIndexOf('.');
+    	if (index!=-1) {
+    		outFileName = outFileName.substring(0, index);
+    	}
+    	if (outputFormat == 'PDF') 
+    	{
+    		outputFormat = 'pdf';
+    	} else if (outputFormat == 'XHTML') 
+    	{
+    		outputFormat = 'htm';
+    	}
+    	outFileName = outFileName + '.' + outputFormat;
+    }    
   	document.getElementById('outFileName').value = outFileName;
   }
 </script>
@@ -28,7 +44,7 @@
 		<div class="control-group">
 			<label class="control-label" for="document">Upload a file (Required):</label>
 			<div class="controls">
-				<input type="file" class="file" name="templateDocument" onchange="updateOut(this.value);" >
+				<input type="file" class="file" name="templateDocument" id="templateDocument" onchange="updateOut();" >
 			</div>	
 			<label class="control-label" for="templateEngineKind">Template Engine:</label>
 			<div class="controls">
@@ -78,6 +94,33 @@
 			<div class="controls">
 				<input type="text" name="outFileName" id="outFileName" />
 			</div>
+			<label class="control-label" for="outFormat">Select the output format:</label>
+			<div class="controls">
+				<label class="radio">
+				 <input type="radio" name="outFormat" value="" checked onchange="updateOut(this.value);" >None
+				</label>			
+				<label class="radio">
+				 <input type="radio" name="outFormat" value="PDF" onchange="updateOut(this.value);">PDF
+				</label>
+				<label class="radio">
+				<input type="radio" name="outFormat" value="XHTML" onchange="updateOut(this.value);" >XHTML
+				</label>
+			</div>
+			<label class="control-label" for="via">Convert with framework:</label>
+			<div class="controls">
+				<label class="radio">
+				 <input type="radio" name="via" value="" checked >None
+				</label>			
+				<label class="radio">
+				 <input type="radio" name="via" value="XWPF" >XDocReport (Docx)
+				</label>
+				<label class="radio">
+				 <input type="radio" name="via" value="ODFDOM" >XDocReport (ODT)
+				</label> 				 
+				<label class="radio">
+				<input type="radio" name="via" value="DOCX4J">Docx4j (Docx only)
+				</label>
+			</div>						
 			<div class="controls">
 				<button type="submit" name="download"  value="true" class="btn">Download</button>
 			</div>			
