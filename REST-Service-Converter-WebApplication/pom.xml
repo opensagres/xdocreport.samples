@@ -8,7 +8,16 @@
 	</parent>
 	<artifactId>rest-service-converter</artifactId>
 	<packaging>war</packaging>
-
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<skipAssembly>true</skipAssembly>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
@@ -19,7 +28,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.1</version>
 		</dependency>
-		<!--  theses deps are optionals -->
+		<!-- theses deps are optionals -->
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
