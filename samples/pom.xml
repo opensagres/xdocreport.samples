@@ -18,12 +18,12 @@
 				<dependencies>
 					<dependency>
 						<groupId>fr.opensagres.xdocreport.samples</groupId>
-						<version>0.9.3-SNAPSHOT</version>
+						<version>0.9.8</version>
 						<artifactId>sample-assembly-descriptor</artifactId>
 					</dependency>
 				</dependencies>
 
-				<!-- uncomment to bind to the "package" phase on invoke mvn assembly:single 
+				<!-- uncomment to bind to the "package" phase on invoke mvn assembly:single
 					on xdocreport/samples folder -->
 				<!-- <executions>
 					<execution>
@@ -63,21 +63,21 @@
 		<module>fr.opensagres.xdocreport.samples.pptxandvelocity</module>
 		<module>fr.opensagres.xdocreport.samples.odtandvelocity</module>
 		<module>fr.opensagres.xdocreport.samples.odpandvelocity</module>
-		
+
 		<!-- Samples reporting + converter with Velocity -->
-		<module>fr.opensagres.xdocreport.samples.docxandvelocity.converters</module>				
+		<module>fr.opensagres.xdocreport.samples.docxandvelocity.converters</module>
 		<module>fr.opensagres.xdocreport.samples.odtandvelocity.converters</module>
-		
+
 		<!-- Samples reporting with Freemarker -->
 		<module>fr.opensagres.xdocreport.samples.docxandfreemarker</module>
 		<module>fr.opensagres.xdocreport.samples.odtandfreemarker</module>
-		
+
 		<!-- Samples docx->PDF/XHTML converter -->
 		<module>fr.opensagres.xdocreport.samples.docx.converters</module>
 
 		<!-- Samples odt->PDF/XHTML converter -->
 		<module>fr.opensagres.xdocreport.samples.odt.converters</module>
-				
+
 	</modules>
 
 
