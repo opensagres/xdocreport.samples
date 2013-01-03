@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>xdocreport-samples</artifactId>
+		<groupId>fr.opensagres.xdocreport.samples</groupId>
+		<version>1.0.1-SNAPSHOT</version>
+	</parent>
+
+	<!-- The Basics -->
+	<groupId>fr.opensagres.xdocreport.samples</groupId>
+	<artifactId>xdocreport-gae-demo</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>xdocreport-gae</name>
+
+	<dependencies>
+
+		
+
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.remoting.converter.server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<!-- theses deps are optionals -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<artifactId>org.apache.poi.xwpf.converter.pdf-gae</artifactId>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.converter.odt.odfdom</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.odftoolkit.odfdom.converter.pdf</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<artifactId>org.odftoolkit.odfdom.converter.pdf-gae</artifactId>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.converter.docx.docx4j</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1-beta-1</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>**/appengine-web.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+			<!-- The actual maven-gae-plugin. Type "mvn gae:run" to run project, "mvn 
+				gae:deploy" to upload to GAE. -->
+			<plugin>
+				<groupId>net.kindleit</groupId>
+				<artifactId>maven-gae-plugin</artifactId>
+				<version>0.9.5</version>
+			</plugin>
+
+			<!-- Upload application to the appspot automatically, during release:perform 
+				<plugin> <artifactId>maven-release-plugin</artifactId> <configuration> <goals>gae:deploy</goals> 
+				</configuration> </plugin> -->
+			<!-- Java compiler version -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- Specify hard-coded project properties here -->
+	<properties>
+
+		<!-- Sets the project's default encoding. http://docs.codehaus.org/display/MAVENUSER/POM+Element+for+Source+File+Encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- This is just for "eclipse:eclipse" goal to always attempt downloading 
+			sources -->
+		<downloadSources>true</downloadSources>
+
+		<!-- Specify AppEngine version for your project. It should match SDK version 
+			pointed to by ${gae.home} property (Typically, one used by your Eclipse plug-in) -->
+		<gae.version>1.7.4</gae.version>
+
+		<!-- Upload to http://test.latest.<applicationName>.appspot.com by default -->
+		<gae.application.version>1</gae.application.version>
+
+
+	</properties>
+
+	<profiles>
+		<!-- We can configure our integration server to activate this profile and 
+			perform gae:deploy, thus uploading latest snapshot to the http://1.latest.<applicationName>.appspot.com 
+			automatically -->
+		<profile>
+			<id>integration-build</id>
+			<properties>
+				<gae.application.version>stage</gae.application.version>
+			</properties>
+		</profile>
+
+		<!-- This profile will activate automatically during release and upload 
+			application to the http://2.latest.<applicationName>.appspot.com (We might 
+			want to set the 2nd version as our applications Default version to be accessible 
+			at http://<applicationName>.appspot.com) -->
+		<profile>
+			<id>release-build</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+
+			<properties>
+				<!-- During release, set application version in appengine-web.xml to 
+					2 -->
+				<gae.application.version>release</gae.application.version>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>

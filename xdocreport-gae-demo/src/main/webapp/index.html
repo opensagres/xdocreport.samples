@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>XDocReport converter Demo</title>
+<link rel="icon" href="img/xdocreport.png" sizes="32x32">
+<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<form id="form" action="jaxrs/convert" enctype="multipart/form-data"
+		method="post" class="form-horizontal" target="previewFrame">
+		<legend>XDocReport converter Demo, please upload a ODT or Docx file....</legend>
+		<div class="control-group">
+			<label class="control-label" for="document">Upload a file (Required):</label>
+			<div class="controls">
+				<input type="file" class="file" name="document">
+			</div>
+			<label class="control-label" for="via">Select a framework:</label>
+			<div class="controls">
+				<label class="radio">
+				 <input type="radio" name="via" value="XWPF" checked>XDocReport (Docx)
+				</label>
+				<label class="radio">
+				 <input type="radio" name="via" value="ODFDOM" >XDocReport (ODT)
+				</label> 				 
+				<label class="radio">
+				<input type="radio" name="via" value="DOCX4J">Docx4j (Docx only)
+				</label>
+			</div>
+			<label class="control-label" for="outputFormat">Select the output format:</label>
+			<div class="controls">
+				<label class="radio">
+				 <input type="radio" name="outputFormat" value="PDF" checked>PDF
+				</label> <label class="radio">
+				<input type="radio" name="outputFormat" value="XHTML">XHTML
+				</label>
+			</div>
+			<div class="controls">
+				<button type="submit" name="download"  value="true" class="btn">Download</button>
+				<button type="submit" name="download" value="false" class="btn">Preview</button>
+			</div>
+		</div>
+	</form>
+	<legend>Report preview</legend>
+	<iframe id="previewFrame" name="previewFrame" width="100%" height="400px" frameborder="1">
+			<p>Your browser does not support iframes.</p>
+	</iframe>
+
+
+
+</body>
+</html>
