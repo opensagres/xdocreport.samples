@@ -38,6 +38,12 @@
 					<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
 					<groupId>fr.opensagres.xdocreport</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>
+						org.apache.poi.xwpf.converter.core
+					</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -60,12 +66,18 @@
 			<artifactId>org.odftoolkit.odfdom.converter.pdf-gae</artifactId>
 			<groupId>fr.opensagres.xdocreport</groupId>
 			<version>1.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.odftoolkit.odfdom.converter.core</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.docx.docx4j</artifactId>
 		</dependency>
-
+ 	-->
 	</dependencies>
 
 	<build>
@@ -88,22 +100,11 @@
 				</configuration>
 			</plugin>
 
-			<!-- The actual maven-gae-plugin. Type "mvn gae:run" to run project, "mvn 
-				gae:deploy" to upload to GAE. -->
-			<plugin>
-				<groupId>net.kindleit</groupId>
-				<artifactId>maven-gae-plugin</artifactId>
-				<version>0.9.5</version>
-			</plugin>
-
-			<!-- Upload application to the appspot automatically, during release:perform 
-				<plugin> <artifactId>maven-release-plugin</artifactId> <configuration> <goals>gae:deploy</goals> 
-				</configuration> </plugin> -->
-			<!-- Java compiler version -->
+						<!-- Java compiler version -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0</version>
+				<version>2.4</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
