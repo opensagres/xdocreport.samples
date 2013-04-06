@@ -194,6 +194,7 @@ public class DefaultReportRegistry
         register( new DocxCV() );
         register( new DocxStructures() );
         register( new DocxBig() );
+        register( new DocxTextStylingWithFreemarker() );
         register( new ODTHelloWorldWithVelocity() );
         register( new ODTHelloWorldWithFreemarker() );
         register( new ODTProjectWithVelocity() );

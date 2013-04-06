@@ -173,11 +173,11 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 
-public class ODTTextStylingWithFreemarker extends DefaultReportController {
+public class DocxTextStylingWithFreemarker extends DefaultReportController {
 
-    public ODTTextStylingWithFreemarker()
+    public DocxTextStylingWithFreemarker()
     {
-        super( "ODTTextStylingWithFreemarker.odt", TemplateEngineKind.Freemarker, DocumentKind.ODT );
+        super( "DocxTextStylingWithFreemarker.docx", TemplateEngineKind.Freemarker, DocumentKind.DOCX );
     }
 
 	@Override
