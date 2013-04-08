@@ -551,3 +551,5 @@ div.messageAjax {
    -moz-opacity: 0;
    border:solid 1px #0066ff;
 }
+
+.CodeMirror-activeline-background {background: #e8f2ff !important;}

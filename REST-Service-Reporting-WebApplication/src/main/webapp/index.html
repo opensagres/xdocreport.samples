@@ -5,39 +5,30 @@
 <link rel="icon" href="img/xdocreport.png" sizes="32x32">
 <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
 
-<script>
-  function updateOut(outputFormat) {
-    var inFileName = document.getElementById('templateDocument').value;
-    var index = inFileName.lastIndexOf('/');
-    if (index ==-1) {
-    	index= inFileName.lastIndexOf('\\');
-    }
-    var outFileName = inFileName;
-    if (index != -1) {
-    	outFileName = outFileName.substring(index+1, outFileName.length);
-    }
-    outFileName = 'Out_' + outFileName; 
-    if (outputFormat && outputFormat != '') 
-    {
-    	index= outFileName.lastIndexOf('.');
-    	if (index!=-1) {
-    		outFileName = outFileName.substring(0, index);
-    	}
-    	if (outputFormat == 'PDF') 
-    	{
-    		outputFormat = 'pdf';
-    	} else if (outputFormat == 'XHTML') 
-    	{
-    		outputFormat = 'htm';
-    	}
-    	outFileName = outFileName + '.' + outputFormat;
-    }    
-  	document.getElementById('outFileName').value = outFileName;
-  }
-</script>
+<script type="text/javascript" src="js/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" src="js/codemirror/addon/selection/active-line.js"></script>
+<link href="js/codemirror/lib/codemirror.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="js/codemirror/doc/docs.css">
+<script type="text/javascript" src="js/codemirror/addon/lint/lint.js"></script>
+<link href="js/codemirror/addon/lint/lint.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="js/jsonlint.js"></script>
+<script type="text/javascript" src="js/codemirror/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="js/codemirror/addon/lint/json-lint.js"></script>
+
+<script type="text/javascript" src="js/codemirror/mode/xml/xml.js"></script>
+<script type="text/javascript" src="js/codemirror/addon/edit/closetag.js"></script>
+ 
+<script type="text/javascript" src="js/xdocreport.js"></script>
+
+    <style type="text/css">
+      .CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black; height: 200px;}
+      .CodeMirror-activeline-background {background: #e8f2ff !important;}
+    </style>
+
 
 </head>
-<body>
+<body onload="javascript:bindWithCodeMirror()" >
 	<form id="form" action="jaxrs/report" enctype="multipart/form-data"
 		method="post" class="form-horizontal" target="previewFrame">
 		<legend>REST XDocReport Reporting Demo, please upload a ODT or Docx file....</legend>
@@ -55,7 +46,7 @@
 			</div>	
 			<label class="control-label" for="metadata">XML Fields metadata:</label>
 			<div class="controls">
-				 <textarea name="metadata" rows="10" cols="50">
+				 <textarea name="metadata" id="metadata" rows="10" cols="50">
 &lt;fields&gt;
 	&lt;field name="project.Name" list="false" imageName="" syntaxKind="" /&gt;
 	&lt;field name="developers.Name" list="true" imageName="" syntaxKind="" /&gt;
@@ -72,7 +63,7 @@
 			</div>			
 			<label class="control-label" for="data">JSON data:</label>
 			<div class="controls">
-				 <textarea name="data" rows="10" cols="50">
+				 <textarea name="data" id="data" rows="10" cols="50">
 {
  "project": {"Name": "XDocReport", "URL": "http://code.google.com/p/xdocreport/"},
  "developers": [
