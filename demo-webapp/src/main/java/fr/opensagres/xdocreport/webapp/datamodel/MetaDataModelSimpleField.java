@@ -172,6 +172,7 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fr.opensagres.xdocreport.core.document.SyntaxKind;
 import fr.opensagres.xdocreport.core.utils.StringUtils;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.webapp.utils.StringEscapeUtils;
@@ -216,13 +217,17 @@ public class MetaDataModelSimpleField
     {
         if ( showLabel )
         {
-            writer.write( "<td>" );
+            writer.write( "<td valign=\"top\" >" );
             writer.write( label );
             writer.write( "</td>" );
         }
-        writer.write( "<td>" );
+        writer.write( "<td valign=\"top\" >" );
+        String id = "field_" + super.getName();
         writer.write( "<textarea  name=\"" );
         writer.write( super.getName() );
+        writer.write( "\"" );
+        writer.write( " id=\"" );
+        writer.write( id );
         writer.write( "\"" );
         String value = useDefaultValue ? defaultValue : request.getParameter( super.getName() );
         if ( StringUtils.isEmpty( value ) )
@@ -230,10 +235,10 @@ public class MetaDataModelSimpleField
             value = defaultValue;
         }
 
+        String reportId = getReportId( request );
         String converter = getConverter( request );
         if ( preview && StringUtils.isNotEmpty( converter ) )
         {
-            String reportId = getReportId( request );
             writer.write( " onkeyup=\"javascript:processReport('" );
             writeBaseURL( writer, request, reportId, converter );
             writer.write( "', this);\" " );
@@ -244,7 +249,21 @@ public class MetaDataModelSimpleField
 
         writer.write( ">" );
         writer.write( value );
-        writer.write( "</textarea></td>" );
+        writer.write( "</textarea>" );
+
+        if ( SyntaxKind.Html.equals( super.getSyntaxKind() ) )
+        {
+            // Wrap the textarea with CodeMirror by using HTML mode
+            writer.write( "<script>" );
+            writer.write( "bindWithCodeMirror('" );
+            writeBaseURL( writer, request, reportId, converter );
+            writer.write( "','" );
+            writer.write( id );
+            writer.write( "');" );
+            writer.write( "</script>" );
+        }
+
+        writer.write( "</td>" );
 
     }
 

@@ -172,6 +172,7 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fr.opensagres.xdocreport.core.document.SyntaxKind;
 import fr.opensagres.xdocreport.template.FieldsExtractor;
 import fr.opensagres.xdocreport.template.IContext;
 
@@ -197,13 +198,21 @@ public class MetaDataModel
 
     public MetaDataModelSimpleField addSimpleField( String fieldName, String defaultValue, String fieldLabel )
     {
+        return addSimpleField( fieldName, defaultValue, fieldLabel, null );
+    }
+
+    public MetaDataModelSimpleField addSimpleField( String fieldName, String defaultValue, String fieldLabel,
+                                                    SyntaxKind syntaxKind )
+    {
         MetaDataModelField field = super.addFieldName( fieldName, false );
         if ( field != null )
         {
             field.setLabel( fieldLabel );
             field.setDefaultValue( defaultValue );
+            field.setSyntaxKind( syntaxKind );
         }
         return (MetaDataModelSimpleField) field;
+
     }
 
     public void populateContext( IContext context, HttpServletRequest request )
@@ -217,7 +226,7 @@ public class MetaDataModel
     @Override
     protected MetaDataModelField createField( String fieldName, boolean list )
     {
-        if ( fieldName.startsWith( "___" ) || fieldName.startsWith( "{___" ) || fieldName.startsWith(  "imageRegistry" ) )
+        if ( fieldName.startsWith( "___" ) || fieldName.startsWith( "{___" ) || fieldName.startsWith( "imageRegistry" ) )
         {
             return null;
         }
@@ -251,4 +260,5 @@ public class MetaDataModel
         super.getFields().add( list );
         return list;
     }
+
 }

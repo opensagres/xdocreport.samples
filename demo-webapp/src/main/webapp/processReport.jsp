@@ -194,6 +194,13 @@
 <title>XDocReport - Process/Convert report</title>
 <link href="styles/xdocreport.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="scripts/xdocreport.js"></script>
+
+<script type="text/javascript" src="scripts/codemirror/lib/codemirror.js"></script>
+<link href="scripts/codemirror/lib/codemirror.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="scripts/codemirror/mode/xml/xml.js"></script>
+<script type="text/javascript" src="scripts/codemirror/addon/selection/active-line.js"></script>
+<script type="text/javascript" src="scripts/codemirror/addon/edit/closetag.js"></script>
+
 </head>
 <body>
 <center>

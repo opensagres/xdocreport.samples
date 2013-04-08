@@ -172,6 +172,7 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fr.opensagres.xdocreport.core.document.SyntaxKind;
 import fr.opensagres.xdocreport.template.FieldExtractor;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.webapp.utils.HTMLUtils;
@@ -184,6 +185,8 @@ public abstract class MetaDataModelField
     private String defaultValue;
 
     private String label;
+
+    private SyntaxKind syntaxKind;
 
     public MetaDataModelField( String name, boolean list )
     {
@@ -208,6 +211,16 @@ public abstract class MetaDataModelField
     public void setLabel( String label )
     {
         this.label = label;
+    }
+
+    public SyntaxKind getSyntaxKind()
+    {
+        return syntaxKind;
+    }
+
+    public void setSyntaxKind( SyntaxKind syntaxKind )
+    {
+        this.syntaxKind = syntaxKind;
     }
 
     protected void writeBaseURL( Writer writer, HttpServletRequest request, String reportId, String converter )

@@ -167,55 +167,40 @@
  */
 package fr.opensagres.xdocreport.webapp.defaultreport;
 
+import java.io.IOException;
+
 import fr.opensagres.xdocreport.core.document.DocumentKind;
 import fr.opensagres.xdocreport.core.document.SyntaxKind;
+import fr.opensagres.xdocreport.core.io.IOUtils;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
 
-public class ODTTextStylingWithFreemarker extends DefaultReportController {
+public class ODTTextStylingWithFreemarker
+    extends DefaultReportController
+{
 
     public ODTTextStylingWithFreemarker()
     {
         super( "ODTTextStylingWithFreemarker.odt", TemplateEngineKind.Freemarker, DocumentKind.ODT );
     }
 
-	@Override
-	protected MetaDataModel createMetaDataModel() {
-		MetaDataModel model = new MetaDataModel();
-		model.addSimpleField("comments", "<h1>title 1+ </h1>"
-+ "<h2>title 1.1</h2>"
-+ "<ul>"
-  + "<li>item 1</li>"
-  + "<li>item 2"
-    + "<ul>"
-      + "<li>item 2.1</li>"
-      + "<li>item 2.2</li>"
-    + "</ul>"
-  + "</li>"
-  + "<li>item </li>"
-+ "</ul>"
-
-
-+ "<ol>"
-  + "<li>Nitem 1</li>"
-  + "<li>Nitem 2"
-    + "<ol>"
-      + "<li>Nitem 2.1</li>"
-      + "<li>Nitem 2.2</li>"
-    + "</ol>"
-  + "</li>"
-  + "<li>Nitem 3</li>"
-+ "</ol>"
-    
-+ "<b>bold text</b>"
-+ "<i>italic text</i>"
-
-+ "<a href=\"http://code.google.com/p/xdocreport\" >XDocReport</a>"
-+ "<p style=\"text-align:center;\" >center</p>"
-+ "<p style=\"text-align:right;\" >right</p>");
-		return model;
-	}
+    @Override
+    protected MetaDataModel createMetaDataModel()
+    {
+        MetaDataModel model = new MetaDataModel();
+        try
+        {
+            model.addSimpleField( "comments",
+                                  IOUtils.toString( DefaultReportController.class.getResourceAsStream( "HTMLTextStyling.htm" ) ),
+                                  "comments", SyntaxKind.Html );
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        return model;
+    }
 
     @Override
     protected FieldsMetadata createFieldsMetadata()
