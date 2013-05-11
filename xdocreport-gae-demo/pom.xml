@@ -49,7 +49,6 @@
 		<dependency>
 			<artifactId>org.apache.poi.xwpf.converter.pdf-gae</artifactId>
 			<groupId>fr.opensagres.xdocreport</groupId>
-			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
@@ -65,7 +64,6 @@
 		<dependency>
 			<artifactId>org.odftoolkit.odfdom.converter.pdf-gae</artifactId>
 			<groupId>fr.opensagres.xdocreport</groupId>
-			<version>1.0.1-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>org.odftoolkit.odfdom.converter.core</artifactId>
@@ -73,11 +71,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	<!-- 	<dependency>
-			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>fr.opensagres.xdocreport.converter.docx.docx4j</artifactId>
-		</dependency>
- 	-->
 	</dependencies>
 
 	<build>
