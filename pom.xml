@@ -8,7 +8,7 @@
 	<url>https://xdocreport.googlecode.com/files</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<xdocreport.version>1.0.1-SNAPSHOT</xdocreport.version>
+		<xdocreport.version>1.0.1</xdocreport.version>
 	</properties>
 	<modules>
 		<module>sample-assembly-descriptor</module>
