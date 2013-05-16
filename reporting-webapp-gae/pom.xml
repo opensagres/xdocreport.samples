@@ -7,7 +7,7 @@
 		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>reporting-webapp</artifactId>
+	<artifactId>reporting-webapp-gae</artifactId>
 
 	<packaging>war</packaging>
 	<build>
@@ -41,10 +41,26 @@
 			<artifactId>fr.opensagres.xdocreport.document.odt</artifactId>
 		</dependency>
 
-		<!-- Converter ODT -->
+		<!-- Converter ODT GAE -->
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.odt.odfdom</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.odftoolkit.odfdom.converter.pdf</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<artifactId>org.odftoolkit.odfdom.converter.pdf-gae</artifactId>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.odftoolkit.odfdom.converter.core</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Document DOCX -->
@@ -53,10 +69,26 @@
 			<artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
 		</dependency>
 
-		<!-- Converter DOCX -->
+		<!-- Converter DOCX GAE -->
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
 			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>
+					org.apache.poi.xwpf.converter.core
+				</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<artifactId>org.apache.poi.xwpf.converter.pdf-gae</artifactId>
+			<groupId>fr.opensagres.xdocreport</groupId>
 		</dependency>
 
 		<!-- Velocity Template -->

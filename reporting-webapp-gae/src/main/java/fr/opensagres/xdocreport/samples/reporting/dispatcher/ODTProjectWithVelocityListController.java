@@ -165,102 +165,71 @@
  * permanent authorization for you to choose that version for the
  * Library.
  */
-package fr.opensagres.xdocreport.samples.reporting;
+package fr.opensagres.xdocreport.samples.reporting.dispatcher;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import fr.opensagres.xdocreport.core.XDocReportException;
-import fr.opensagres.xdocreport.core.XDocReportNotFoundException;
-import fr.opensagres.xdocreport.document.web.AbstractProcessXDocReportServlet;
+import fr.opensagres.xdocreport.core.document.DocumentKind;
+import fr.opensagres.xdocreport.document.IXDocReport;
+import fr.opensagres.xdocreport.document.web.dispatcher.AbstractXDocReportWEBController;
+import fr.opensagres.xdocreport.samples.reporting.Data;
 import fr.opensagres.xdocreport.samples.reporting.model.Developer;
 import fr.opensagres.xdocreport.samples.reporting.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class MyReportServlet
-    extends AbstractProcessXDocReportServlet
+public class ODTProjectWithVelocityListController
+    extends AbstractXDocReportWEBController
 {
 
-    private static final long serialVersionUID = 3993221341284875152L;
+    public static final String REPORT_ID = "ODTProjectWithVelocityList";
 
-    private static final String ODT_PROJECT_WITH_VELOCITY_LIST = "ODTProjectWithVelocityList";
-
-    private static final String DOCX_PROJECT_WITH_VELOCITY_LIST = "DocxProjectWithVelocityList";
-
-    @Override
-    protected InputStream getSourceStream( String reportId, HttpServletRequest request )
-        throws IOException, XDocReportException
+    public ODTProjectWithVelocityListController()
     {
-        if ( ODT_PROJECT_WITH_VELOCITY_LIST.equals( reportId ) )
-        {
-            return Data.class.getResourceAsStream( "ODTProjectWithVelocityList.odt" );
-        }
-        if ( DOCX_PROJECT_WITH_VELOCITY_LIST.equals( reportId ) )
-        {
-            return Data.class.getResourceAsStream( "DocxProjectWithVelocityList.docx" );
-        }
-        throw new XDocReportNotFoundException( reportId );
+        super( TemplateEngineKind.Velocity, DocumentKind.ODT );
+    }
+
+    public InputStream getSourceStream()
+    {
+        return Data.class.getResourceAsStream( "ODTProjectWithVelocityList.odt" );
     }
 
     @Override
-    protected void populateContext( IContext context, String reportId, HttpServletRequest request )
-        throws XDocReportException
+    protected FieldsMetadata createFieldsMetadata()
     {
-        if ( ODT_PROJECT_WITH_VELOCITY_LIST.equals( reportId ) || DOCX_PROJECT_WITH_VELOCITY_LIST.equals( reportId ) )
-        {
-            String name = request.getParameter( "name" );
-            Project project = new Project( name );
-            context.put( "project", project );
-
-            int nbDevelopers = 0;
-            try
-            {
-                nbDevelopers = Integer.parseInt( request.getParameter( "nbDevelopers" ) );
-            }
-            catch ( Throwable e )
-            {
-
-            }
-            List<Developer> developers = new ArrayList<Developer>( nbDevelopers );
-            for ( int i = 0; i < nbDevelopers; i++ )
-            {
-                developers.add( new Developer( "Name" + i, "LastName" + i, "Mail" + i ) );
-            }
-            context.put( "developers", developers );
-        }
-        else
-        {
-            throw new XDocReportNotFoundException( reportId );
-        }
+        FieldsMetadata metadata = new FieldsMetadata();
+        metadata.addFieldAsList( "developers.Name" );
+        metadata.addFieldAsList( "developers.LastName" );
+        metadata.addFieldAsList( "developers.Mail" );
+        return metadata;
     }
 
-    @Override
-    protected String getTemplateEngineKind( String reportId, HttpServletRequest request )
+    public void populateContext( IContext context, IXDocReport report, HttpServletRequest request )
     {
-        if ( ODT_PROJECT_WITH_VELOCITY_LIST.equals( reportId ) || DOCX_PROJECT_WITH_VELOCITY_LIST.equals( reportId ) )
+        String name = request.getParameter( "name" );
+        Project project = new Project( name );
+        context.put( "project", project );
+
+        int nbDevelopers = 0;
+        try
         {
-            return TemplateEngineKind.Velocity.name();
+            nbDevelopers = Integer.parseInt( request.getParameter( "nbDevelopers" ) );
         }
-        return super.getTemplateEngineKind( reportId, request );
+        catch ( Throwable e )
+        {
+
+        }
+        List<Developer> developers = new ArrayList<Developer>( nbDevelopers );
+        for ( int i = 0; i < nbDevelopers; i++ )
+        {
+            developers.add( new Developer( "Name" + i, "LastName" + i, "Mail" + i ) );
+        }
+        context.put( "developers", developers );
     }
 
-    @Override
-    protected FieldsMetadata getFieldsMetadata( String reportId, HttpServletRequest request )
-    {
-        if ( ODT_PROJECT_WITH_VELOCITY_LIST.equals( reportId ) || DOCX_PROJECT_WITH_VELOCITY_LIST.equals( reportId ) )
-        {
-            FieldsMetadata metadata = new FieldsMetadata();
-            metadata.addFieldAsList( "developers.Name" );
-            metadata.addFieldAsList( "developers.LastName" );
-            metadata.addFieldAsList( "developers.Mail" );
-            return metadata;
-        }
-        return super.getFieldsMetadata( reportId, request );
-    }
 }

@@ -203,7 +203,7 @@ public class MyReportServlet
         }
         if ( DOCX_PROJECT_WITH_VELOCITY_LIST.equals( reportId ) )
         {
-            return Data.class.getResourceAsStream( "DocxProjectWithVelocityList.docx" );
+            return Data.class.getResourceAsStream("DocxProjectWithVelocityList.docx" );
         }
         throw new XDocReportNotFoundException( reportId );
     }

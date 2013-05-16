@@ -19,6 +19,7 @@
 		<module>REST-Service-Reporting-WebApplication</module>
 		<module>xdocreport-gae-demo</module>
 		<module>reporting-webapp</module>
+		<module>reporting-webapp-gae</module>
 	</modules>
 	<build>
 		<plugins>
