@@ -18,6 +18,7 @@
 		<module>REST-Service-Converter-WebApplication</module>
 		<module>REST-Service-Reporting-WebApplication</module>
 		<module>xdocreport-gae-demo</module>
+		<module>reporting-webapp</module>
 	</modules>
 	<build>
 		<plugins>
