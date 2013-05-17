@@ -9,7 +9,7 @@
 	<url>https://xdocreport.googlecode.com/files</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<xdocreport.version>1.0.2-SNAPSHOT</xdocreport.version>
+		<xdocreport.version>1.0.2</xdocreport.version>
 	</properties>
 	<modules>
 		<module>sample-assembly-descriptor</module>
@@ -256,6 +256,11 @@
 			<dependency>
 				<groupId>fr.opensagres.xdocreport</groupId>
 				<artifactId>org.apache.poi.xwpf.converter.xhtml-gae</artifactId>
+				<version>${xdocreport.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>fr.opensagres.xdocreport</groupId>
+				<artifactId>org.odftoolkit.odfdom.converter.core</artifactId>
 				<version>${xdocreport.version}</version>
 			</dependency>
 		</dependencies>

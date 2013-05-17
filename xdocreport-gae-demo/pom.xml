@@ -39,8 +39,12 @@
 					<groupId>fr.opensagres.xdocreport</groupId>
 				</exclusion>
 				<exclusion>
+					<artifactId>org.apache.poi.xwpf.converter.core</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+				<exclusion>
 					<artifactId>
-						org.apache.poi.xwpf.converter.core
+						org.apache.poi.xwpf.converter.xhtml
 					</artifactId>
 					<groupId>fr.opensagres.xdocreport</groupId>
 				</exclusion>
@@ -71,9 +75,18 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>org.apache.poi.xwpf.converter.xhtml-gae</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>org.odftoolkit.odfdom.converter.core</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
+	<finalName>${project.artifactId}</finalName>
 		<plugins>
 
 			<plugin>
