@@ -204,17 +204,25 @@ public class ODTProjectWithFreemarkerAndImageWithoutImageProvider
             // 2) Create fields metadata to manage image
             FieldsMetadata metadata = report.createFieldsMetadata();
             // Image from InputStream (can works too with byte[])
-            metadata.addFieldAsImage( "project.logo" );
-            metadata.addFieldAsImage( "imageNotExistsAndRemoveImageTemplate", "project.nullLogo",
+            // Old API
+            /*
+             * metadata.addFieldAsImage( "logo", "project.logo" );
+             * metadata.addFieldAsImage( "imageNotExistsAndRemoveImageTemplate", "project.nullLogo",
                                       NullImageBehaviour.RemoveImageTemplate );
+            
             metadata.addFieldAsImage( "imageNotExistsAndKeepImageTemplate", "project.nullLogo",
                                       NullImageBehaviour.KeepImageTemplate );
             // Image from File
-            metadata.addFieldAsImage(  "project.logoFile" );
+            metadata.addFieldAsImage( "logoFile", "project.logoFile" );
+            
             metadata.addFieldAsImage( "fileImageNotExistsAndRemoveImageTemplate", "project.nullLogoFile",
                                       NullImageBehaviour.RemoveImageTemplate );
+            
             metadata.addFieldAsImage( "fileImageNotExistsAndKeepImageTemplate", "project.nullLogoFile",
                                       NullImageBehaviour.KeepImageTemplate );
+             */
+            // NEW API which use @FieldMetadata
+            metadata.load( "project", ProjectWithImage.class);
 
             // 3) Create context Java model
             IContext context = report.createContext();

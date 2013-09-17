@@ -184,45 +184,50 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class DocxProjectWithFreemarkerList {
+public class DocxProjectWithFreemarkerList
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load Docx file by filling Freemarker template engine and cache
-			// it to the registry
-			InputStream in = DocxProjectWithFreemarker.class
-					.getResourceAsStream("DocxProjectWithFreemarkerList.docx");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Freemarker);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load Docx file by filling Freemarker template engine and cache
+            // it to the registry
+            InputStream in = DocxProjectWithFreemarker.class.getResourceAsStream( "DocxProjectWithFreemarkerList.docx" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Freemarker );
 
-			// 2) Create fields metadata to manage lazy loop (#forech velocity)
-			// for table row.
-			FieldsMetadata metadata = report.createFieldsMetadata();
-			metadata.addFieldAsList("developers.name");
-			metadata.addFieldAsList("developers.lastName");
-			metadata.addFieldAsList("developers.mail");
+            // 2) Create fields metadata to manage lazy loop ([#list Freemarker) for foot notes.
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            // Old API
+            /*
+             * metadata.addFieldAsList("developers.name"); metadata.addFieldAsList("developers.lastName");
+             * metadata.addFieldAsList("developers.mail"); metadata.addFieldAsList("developers.photo");
+             */
+            // NEW API
+            metadata.load( "developers", Developer.class, true );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
-			// Register developers list
-			List<Developer> developers = new ArrayList<Developer>();
-			developers.add(new Developer("ZERR", "Angelo",
-					"angelo.zerr@gmail.com"));
-			developers.add(new Developer("Leclercq", "Pascal",
-					"pascal.leclercq@gmail.com"));
-			context.put("developers", developers);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
+            // Register developers list
+            List<Developer> developers = new ArrayList<Developer>();
+            developers.add( new Developer( "ZERR", "Angelo", "angelo.zerr@gmail.com" ) );
+            developers.add( new Developer( "Leclercq", "Pascal", "pascal.leclercq@gmail.com" ) );
+            context.put( "developers", developers );
 
-			// 4) Generate report by merging Java model with the Docx
-			OutputStream out = new FileOutputStream(new File(
-					"DocxProjectWithFreemarkerList_Out.docx"));
-			report.process(context, out);
+            // 4) Generate report by merging Java model with the Docx
+            OutputStream out = new FileOutputStream( new File( "DocxProjectWithFreemarkerList_Out.docx" ) );
+            report.process( context, out );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

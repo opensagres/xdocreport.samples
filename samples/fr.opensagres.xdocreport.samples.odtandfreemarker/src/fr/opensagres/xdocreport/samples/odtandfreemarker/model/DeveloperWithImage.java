@@ -169,18 +169,21 @@ package fr.opensagres.xdocreport.samples.odtandfreemarker.model;
 
 import fr.opensagres.xdocreport.document.images.IImageProvider;
 
-public class DeveloperWithImage extends Developer {
+public class DeveloperWithImage
+    extends Developer
+{
 
-	private final IImageProvider photo;
+    private final IImageProvider photo;
 
-	public DeveloperWithImage(String name, String lastName, String mail,
-			IImageProvider photo) {
-		super(name, lastName, mail);
-		this.photo = photo;
-	}
+    public DeveloperWithImage( String name, String lastName, String mail, IImageProvider photo )
+    {
+        super( name, lastName, mail );
+        this.photo = photo;
+    }
 
-	public IImageProvider getPhoto() {
-		return photo;
-	}
+    public IImageProvider getPhoto()
+    {
+        return photo;
+    }
 
 }

@@ -171,6 +171,9 @@ import java.io.File;
 import java.io.InputStream;
 
 import fr.opensagres.xdocreport.samples.docxandvelocity.DocxProjectWithVelocityAndImageWithoutImageProvider;
+import fr.opensagres.xdocreport.template.annotations.FieldMetadata;
+import fr.opensagres.xdocreport.template.annotations.ImageMetadata;
+import fr.opensagres.xdocreport.template.formatter.NullImageBehaviour;
 
 /**
  * POJO used to stores images content from Java Type {@link InputStream} and {@link File}.
@@ -184,21 +187,31 @@ public class ProjectWithImage
         super( name );
     }
 
+    // as docx cannot support bookmark name, with dot, we force the name of this field to "logo" and we use "logo" as
+    // bookmark name which wraps the "template image".
+    @FieldMetadata( images = { @ImageMetadata( name = "logo" ) } )
     public InputStream getLogo()
     {
         return DocxProjectWithVelocityAndImageWithoutImageProvider.class.getResourceAsStream( "logo.png" );
     }
 
+    @FieldMetadata( images = {
+        @ImageMetadata( name = "imageNotExistsAndRemoveImageTemplate", behaviour = NullImageBehaviour.RemoveImageTemplate ),
+        @ImageMetadata( name = "imageNotExistsAndKeepImageTemplate", behaviour = NullImageBehaviour.KeepImageTemplate ) } )
     public InputStream getNullLogo()
     {
         return null;
     }
 
+    @FieldMetadata( images = { @ImageMetadata( name = "logoFile" ) } )
     public File getLogoFile()
     {
         return new File( "src/fr/opensagres/xdocreport/samples/docxandvelocity/logo.png" );
     }
 
+    @FieldMetadata( images = {
+        @ImageMetadata( name = "fileImageNotExistsAndRemoveImageTemplate", behaviour = NullImageBehaviour.RemoveImageTemplate ),
+        @ImageMetadata( name = "fileImageNotExistsAndKeepImageTemplate", behaviour = NullImageBehaviour.KeepImageTemplate ) } )
     public File getNullLogoFile()
     {
         return null;

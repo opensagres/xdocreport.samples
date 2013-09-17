@@ -197,13 +197,15 @@ public class DocxProjectWithFreemarkerAndFootnotes
                 DocxProjectWithFreemarker.class.getResourceAsStream( "DocxProjectWithFreemarkerAndFootnotes.docx" );
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Freemarker );
 
-            // 2) Create fields metadata to manage lazy loop (#forech velocity)
-            // for table row.
+            // 2) Create fields metadata to manage lazy loop ([#list Freemarker) for foot notes.
             FieldsMetadata metadata = report.createFieldsMetadata();
-            metadata.addFieldAsList( "developers.Name" );
-            metadata.addFieldAsList( "developers.LastName" );
-            metadata.addFieldAsList( "developers.Mail" );
-            //metadata.setEvaluateEngineOnlyForFields( true );
+            // Old API
+            /*
+             * metadata.addFieldAsList("developers.name"); metadata.addFieldAsList("developers.lastName");
+             * metadata.addFieldAsList("developers.mail"); metadata.addFieldAsList("developers.photo");
+             */
+            // NEW API
+            metadata.load( "developers", Developer.class, true );
 
             // 3) Create context Java model
             IContext context = report.createContext();

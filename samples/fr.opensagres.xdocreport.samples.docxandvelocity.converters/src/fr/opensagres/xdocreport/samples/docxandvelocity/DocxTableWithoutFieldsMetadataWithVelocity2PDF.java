@@ -198,7 +198,7 @@ public class DocxTableWithoutFieldsMetadataWithVelocity2PDF {
 			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
 					in, TemplateEngineKind.Velocity);
 
-			// 2) Create fields metadata to manage lazy loop (#forech velocity)
+			// 2) Create fields metadata to manage lazy loop (#foreach velocity)
 			// for table row.
 			// FieldsMetadata metadata = new FieldsMetadata();
 			// metadata.addFieldAsList("developers.name");

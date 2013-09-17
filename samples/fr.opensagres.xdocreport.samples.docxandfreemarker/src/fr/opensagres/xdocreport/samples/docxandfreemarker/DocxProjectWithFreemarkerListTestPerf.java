@@ -184,60 +184,62 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class DocxProjectWithFreemarkerListTestPerf {
+public class DocxProjectWithFreemarkerListTestPerf
+{
 
-	public static void main(String[] args) {
-		try {
-			String reportId = "MyId";
-			
-			// 1) Load Docx file by filling Freemarker template engine and cache
-			// it to the registry
-			InputStream in = DocxProjectWithFreemarker.class
-					.getResourceAsStream("DocxProjectWithFreemarkerList.docx");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, reportId, TemplateEngineKind.Freemarker);
+    public static void main( String[] args )
+    {
+        try
+        {
+            String reportId = "MyId";
 
-			// 2) Create fields metadata to manage lazy loop (#forech velocity)
-			// for table row.
-			FieldsMetadata metadata = report.createFieldsMetadata();
-			metadata.addFieldAsList("developers.name");
-			metadata.addFieldAsList("developers.lastName");
-			metadata.addFieldAsList("developers.mail");
+            // 1) Load Docx file by filling Freemarker template engine and cache
+            // it to the registry
+            InputStream in = DocxProjectWithFreemarker.class.getResourceAsStream( "DocxProjectWithFreemarkerList.docx" );
+            IXDocReport report =
+                XDocReportRegistry.getRegistry().loadReport( in, reportId, TemplateEngineKind.Freemarker );
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			context.put("project", project);
-			// Register developers list
-			List<Developer> developers = new ArrayList<Developer>();
-			developers.add(new Developer("ZERR", "Angelo",
-					"angelo.zerr@gmail.com"));
-			developers.add(new Developer("Leclercq", "Pascal",
-					"pascal.leclercq@gmail.com"));
-			context.put("developers", developers);
+            // 2) Create fields metadata to manage lazy loop ([#list Freemarker) for foot notes.
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            // Old API
+            /*
+             * metadata.addFieldAsList("developers.name"); metadata.addFieldAsList("developers.lastName");
+             * metadata.addFieldAsList("developers.mail"); metadata.addFieldAsList("developers.photo");
+             */
+            // NEW API
+            metadata.load( "developers", Developer.class, true );
 
-			// 4) Generate report by merging Java model with the Docx
-			OutputStream out = new FileOutputStream(new File(
-					"DocxProjectWithFreemarkerList_Out.docx"));
-			long start = System.currentTimeMillis();
-			report.process(context, out);
-			System.out.println("Report processed in "
-					+ (System.currentTimeMillis() - start) + " ms");
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            context.put( "project", project );
+            // Register developers list
+            List<Developer> developers = new ArrayList<Developer>();
+            developers.add( new Developer( "ZERR", "Angelo", "angelo.zerr@gmail.com" ) );
+            developers.add( new Developer( "Leclercq", "Pascal", "pascal.leclercq@gmail.com" ) );
+            context.put( "developers", developers );
 
-			// 4) Regenerate report
-			IXDocReport report2 = XDocReportRegistry.getRegistry().getReport(
-					reportId);
-			out = new FileOutputStream(new File(
-					"DocxProjectWithFreemarker_Out.docx"));
-			start = System.currentTimeMillis();
-			report2.process(context, out);
-			System.out.println("Report processed in "
-					+ (System.currentTimeMillis() - start) + " ms");
+            // 4) Generate report by merging Java model with the Docx
+            OutputStream out = new FileOutputStream( new File( "DocxProjectWithFreemarkerList_Out.docx" ) );
+            long start = System.currentTimeMillis();
+            report.process( context, out );
+            System.out.println( "Report processed in " + ( System.currentTimeMillis() - start ) + " ms" );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+            // 4) Regenerate report
+            IXDocReport report2 = XDocReportRegistry.getRegistry().getReport( reportId );
+            out = new FileOutputStream( new File( "DocxProjectWithFreemarker_Out.docx" ) );
+            start = System.currentTimeMillis();
+            report2.process( context, out );
+            System.out.println( "Report processed in " + ( System.currentTimeMillis() - start ) + " ms" );
+
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

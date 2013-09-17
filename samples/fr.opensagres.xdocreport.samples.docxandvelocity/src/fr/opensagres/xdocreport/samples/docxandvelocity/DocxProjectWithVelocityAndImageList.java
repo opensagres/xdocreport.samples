@@ -199,17 +199,21 @@ public class DocxProjectWithVelocityAndImageList
                 DocxProjectWithVelocity.class.getResourceAsStream( "DocxProjectWithVelocityAndImageList.docx" );
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Velocity );
 
-            // 2) Create fields metadata to manage lazy loop (#foreach velocity)
-            // for table row and manage dynamic image
+            // 2) Create fields metadata to manage lazy loop ([#foreach velocity) for table row and manage dynamic image
             FieldsMetadata metadata = report.createFieldsMetadata();
-            // list
-            metadata.addFieldAsList( "developers.Name" );
-            metadata.addFieldAsList( "developers.LastName" );
-            metadata.addFieldAsList( "developers.Mail" );
-            metadata.addFieldAsList( "developers.Photo" );
+            // Old API
+            /*
+             * metadata.addFieldAsList("developers.name"); metadata.addFieldAsList("developers.lastName");
+             * metadata.addFieldAsList("developers.mail"); metadata.addFieldAsList("developers.photo");
+             */
+            // NEW API
+            metadata.load( "developers", DeveloperWithImage.class, true );
+
             // image
             metadata.addFieldAsImage( "logo" );
-            metadata.addFieldAsImage( "photo", "developers.Photo" );
+            // the following code is managed with @FieldMetadata( images = { @ImageMetadata( name = "photo" ) } )
+            // in the DeveloperWithImage.
+            // metadata.addFieldAsImage("photo", "developers.photo");
 
             // 3) Create context Java model
             IContext context = report.createContext();

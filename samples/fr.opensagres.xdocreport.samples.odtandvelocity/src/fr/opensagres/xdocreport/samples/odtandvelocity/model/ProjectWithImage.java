@@ -171,6 +171,9 @@ import java.io.File;
 import java.io.InputStream;
 
 import fr.opensagres.xdocreport.samples.odtandvelocity.ODTProjectWithVelocityAndImageWithoutImageProvider;
+import fr.opensagres.xdocreport.template.annotations.FieldMetadata;
+import fr.opensagres.xdocreport.template.annotations.ImageMetadata;
+import fr.opensagres.xdocreport.template.formatter.NullImageBehaviour;
 
 /**
  * POJO used to stores images content from Java Type {@link InputStream} and {@link File}.
@@ -189,6 +192,9 @@ public class ProjectWithImage
         return ODTProjectWithVelocityAndImageWithoutImageProvider.class.getResourceAsStream( "logo.png" );
     }
 
+    @FieldMetadata( images = {
+        @ImageMetadata( name = "imageNotExistsAndRemoveImageTemplate", behaviour = NullImageBehaviour.RemoveImageTemplate ),
+        @ImageMetadata( name = "imageNotExistsAndKeepImageTemplate", behaviour = NullImageBehaviour.KeepImageTemplate ) } )
     public InputStream getNullLogo()
     {
         return null;
@@ -199,6 +205,9 @@ public class ProjectWithImage
         return new File( "src/fr/opensagres/xdocreport/samples/odtandvelocity/logo.png" );
     }
 
+    @FieldMetadata( images = {
+        @ImageMetadata( name = "fileImageNotExistsAndRemoveImageTemplate", behaviour = NullImageBehaviour.RemoveImageTemplate ),
+        @ImageMetadata( name = "fileImageNotExistsAndKeepImageTemplate", behaviour = NullImageBehaviour.KeepImageTemplate ) } )
     public File getNullLogoFile()
     {
         return null;

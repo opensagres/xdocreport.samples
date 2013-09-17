@@ -199,17 +199,19 @@ public class ODTProjectWithFreemarkerAndImageList
                 ODTProjectWithFreemarkerAndImageList.class.getResourceAsStream( "ODTProjectWithFreemarkerAndImageList.odt" );
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Freemarker );
 
-            // 2) Create fields metadata to manage lazy loop (#foreach velocity)
-            // for table row and manage dynamic image
+            // 2) Create fields metadata to manage lazy loop ([#list Freemarker) for table row and manage dynamic image
             FieldsMetadata metadata = report.createFieldsMetadata();
-            // list
-            metadata.addFieldAsList( "developers.name" );
-            metadata.addFieldAsList( "developers.lastName" );
-            metadata.addFieldAsList( "developers.mail" );
-            metadata.addFieldAsList( "developers.photo" );
+            // Old API
+            /*
+             * metadata.addFieldAsList("developers.name"); metadata.addFieldAsList("developers.lastName");
+             * metadata.addFieldAsList("developers.mail"); metadata.addFieldAsList("developers.photo");
+             */
+            // NEW API
+            metadata.load( "developers", DeveloperWithImage.class, true );
+
             // image
             metadata.addFieldAsImage( "logo" );
-            metadata.addFieldAsImage( "developers.photo" );
+            // metadata.addFieldAsImage("photo");
 
             // 3) Create context Java model
             IContext context = report.createContext();

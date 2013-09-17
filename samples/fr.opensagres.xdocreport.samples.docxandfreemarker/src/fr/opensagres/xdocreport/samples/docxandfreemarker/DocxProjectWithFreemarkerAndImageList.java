@@ -184,62 +184,77 @@ import fr.opensagres.xdocreport.samples.docxandfreemarker.model.DeveloperWithIma
 import fr.opensagres.xdocreport.samples.docxandfreemarker.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import fr.opensagres.xdocreport.template.annotations.FieldMetadata;
+import fr.opensagres.xdocreport.template.annotations.ImageMetadata;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class DocxProjectWithFreemarkerAndImageList {
+public class DocxProjectWithFreemarkerAndImageList
+{
 
-	public static void main(String[] args) {
-		try {
-			// 1) Load Docx file by filling Freemarker template engine and cache
-			// it to the registry
-			InputStream in = DocxProjectWithFreemarkerAndImageList.class
-					.getResourceAsStream("DocxProjectWithFreemarkerAndImageList.docx");
-			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
-					in, TemplateEngineKind.Freemarker);
+    public static void main( String[] args )
+    {
+        try
+        {
+            // 1) Load Docx file by filling Freemarker template engine and cache
+            // it to the registry
+            InputStream in =
+                DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream( "DocxProjectWithFreemarkerAndImageList.docx" );
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Freemarker );
 
-			// 2) Create fields metadata to manage lazy loop (#foreach velocity)
-			// for table row and manage dynamic image
-			FieldsMetadata metadata = report.createFieldsMetadata();
-			// list
-			metadata.addFieldAsList("developers.name");
-			metadata.addFieldAsList("developers.lastName");
-			metadata.addFieldAsList("developers.mail");
-			metadata.addFieldAsList("developers.photo");
+            // 2) Create fields metadata to manage lazy loop ([#list Freemarker) for table row.
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            // Old API
+            /*
+             * metadata.addFieldAsList("developers.name"); metadata.addFieldAsList("developers.lastName");
+             * metadata.addFieldAsList("developers.mail"); metadata.addFieldAsList("developers.photo");
+             */
+            // NEW API
+            metadata.load( "developers", DeveloperWithImage.class, true );
 
-			// image
-			metadata.addFieldAsImage("logo");
-			metadata.addFieldAsImage("photo", "developers.photo");
+            // image
+            metadata.addFieldAsImage( "logo" );
+            // the following code is managed with @FieldMetadata( images = { @ImageMetadata( name = "photo" ) } )
+            // in the DeveloperWithImage.
+            // metadata.addFieldAsImage("photo", "developers.photo");
 
-			// 3) Create context Java model
-			IContext context = report.createContext();
-			Project project = new Project("XDocReport");
-			project.setURL("http://code.google.com/p/xdocreport/");
-			context.put("project", project);
-			IImageProvider logo = new ClassPathImageProvider(
-					DocxProjectWithFreemarkerAndImageList.class, "logo.png");
-			context.put("logo", logo);
+            // 3) Create context Java model
+            IContext context = report.createContext();
+            Project project = new Project( "XDocReport" );
+            project.setURL( "http://code.google.com/p/xdocreport/" );
+            context.put( "project", project );
+            IImageProvider logo = new ClassPathImageProvider( DocxProjectWithFreemarkerAndImageList.class, "logo.png" );
+            context.put( "logo", logo );
 
-			// Register developers list
-			List<DeveloperWithImage> developers = new ArrayList<DeveloperWithImage>();
-			developers.add(new DeveloperWithImage("ZERR", "Angelo",
-					"angelo.zerr@gmail.com", new ClassPathImageProvider(
-							DocxProjectWithFreemarkerAndImageList.class,
-							"AngeloZERR.jpg")));
-			developers.add(new DeveloperWithImage("Leclercq", "Pascal",
-					"pascal.leclercq@gmail.com", new ClassPathImageProvider(
-							DocxProjectWithFreemarkerAndImageList.class,
-							"PascalLeclercq.jpg")));
-			context.put("developers", developers);
+            // Register developers list
+            List<DeveloperWithImage> developers = new ArrayList<DeveloperWithImage>();
+            developers.add( new DeveloperWithImage(
+                                                    "ZERR",
+                                                    "Angelo",
+                                                    "angelo.zerr@gmail.com",
+                                                    new ClassPathImageProvider(
+                                                                                DocxProjectWithFreemarkerAndImageList.class,
+                                                                                "AngeloZERR.jpg" ) ) );
+            developers.add( new DeveloperWithImage(
+                                                    "Leclercq",
+                                                    "Pascal",
+                                                    "pascal.leclercq@gmail.com",
+                                                    new ClassPathImageProvider(
+                                                                                DocxProjectWithFreemarkerAndImageList.class,
+                                                                                "PascalLeclercq.jpg" ) ) );
+            context.put( "developers", developers );
 
-			// 4) Generate report by merging Java model with the Docx
-			OutputStream out = new FileOutputStream(new File(
-					"DocxProjectWithFreemarkerAndImageList_Out.docx"));
-			report.process(context, out);
+            // 4) Generate report by merging Java model with the Docx
+            OutputStream out = new FileOutputStream( new File( "DocxProjectWithFreemarkerAndImageList_Out.docx" ) );
+            report.process( context, out );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XDocReportException e) {
-			e.printStackTrace();
-		}
-	}
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
+        }
+        catch ( XDocReportException e )
+        {
+            e.printStackTrace();
+        }
+    }
 }

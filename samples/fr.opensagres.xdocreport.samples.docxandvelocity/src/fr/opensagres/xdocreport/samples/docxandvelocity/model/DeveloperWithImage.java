@@ -168,19 +168,27 @@
 package fr.opensagres.xdocreport.samples.docxandvelocity.model;
 
 import fr.opensagres.xdocreport.document.images.IImageProvider;
+import fr.opensagres.xdocreport.template.annotations.FieldMetadata;
+import fr.opensagres.xdocreport.template.annotations.ImageMetadata;
 
-public class DeveloperWithImage extends Developer {
+public class DeveloperWithImage
+    extends Developer
+{
 
-	private final IImageProvider photo;
+    private final IImageProvider photo;
 
-	public DeveloperWithImage(String name, String lastName, String mail,
-			IImageProvider photo) {
-		super(name, lastName, mail);
-		this.photo = photo;
-	}
+    public DeveloperWithImage( String name, String lastName, String mail, IImageProvider photo )
+    {
+        super( name, lastName, mail );
+        this.photo = photo;
+    }
 
-	public IImageProvider getPhoto() {
-		return photo;
-	}
+    // as docx cannot support bookmark name, with dot, we force the name of this field to "photo" and we use "photo" as
+    // bookmark name which wraps the "template image".
+    @FieldMetadata( images = { @ImageMetadata( name = "photo" ) }, description="Photo of developer"  )
+    public IImageProvider getPhoto()
+    {
+        return photo;
+    }
 
 }

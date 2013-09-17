@@ -198,13 +198,17 @@ public class DocxProjectWithVelocityList2PDF {
 			IXDocReport report = XDocReportRegistry.getRegistry().loadReport(
 					in, TemplateEngineKind.Velocity);
 
-			// 2) Create fields metadata to manage lazy loop (#forech velocity) for table row. 
-			FieldsMetadata metadata = new FieldsMetadata();
-			metadata.addFieldAsList("developers.Name");
+			// 2) Create fields metadata to manage lazy loop (#foreach velocity) for table row.
+	        FieldsMetadata metadata = report.createFieldsMetadata();
+			// Old API 
+	        /*
+	        metadata.addFieldAsList("developers.Name");
 			metadata.addFieldAsList("developers.LastName");
 			metadata.addFieldAsList("developers.Mail");
-			report.setFieldsMetadata(metadata);
-
+			*/
+	        // NEW API
+			metadata.load( "developers", Developer.class, true );
+			
 			// 3) Create context Java model
 			IContext context = report.createContext();
 			// Register project

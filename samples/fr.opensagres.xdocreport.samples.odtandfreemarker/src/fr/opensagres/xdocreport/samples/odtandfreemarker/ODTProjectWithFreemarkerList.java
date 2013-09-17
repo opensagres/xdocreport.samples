@@ -179,6 +179,7 @@ import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.samples.odtandfreemarker.model.Developer;
+import fr.opensagres.xdocreport.samples.odtandfreemarker.model.DeveloperWithImage;
 import fr.opensagres.xdocreport.samples.odtandfreemarker.model.Project;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
@@ -197,11 +198,15 @@ public class ODTProjectWithFreemarkerList
                 ODTProjectWithFreemarkerList.class.getResourceAsStream( "ODTProjectWithFreemarkerList.odt" );
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport( in, TemplateEngineKind.Freemarker );
 
-            // 2) Create fields metadata to manage lazy loop (#forech velocity) for table row.
+            // 2) Create fields metadata to manage lazy loop ([#list Freemarker) for table row and manage dynamic image
             FieldsMetadata metadata = report.createFieldsMetadata();
-            metadata.addFieldAsList( "developers.name" );
-            metadata.addFieldAsList( "developers.lastName" );
-            metadata.addFieldAsList( "developers.mail" );
+            // Old API
+            /*
+             * metadata.addFieldAsList("developers.name"); metadata.addFieldAsList("developers.lastName");
+             * metadata.addFieldAsList("developers.mail");
+             */
+            // NEW API
+            metadata.load( "developers", DeveloperWithImage.class, true );
 
             // 3) Create context Java model
             IContext context = report.createContext();
