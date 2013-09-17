@@ -271,6 +271,28 @@ Some text...
 &lt;h3&gt;Title 3&lt;/h3&gt;
 Some text...
 
+&lt;table border="1" cellpadding="1" cellspacing="1" style="width: 500px;"&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				A&lt;/td&gt;
+			&lt;td&gt;
+				B&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				C&lt;/td&gt;
+			&lt;td&gt;
+				D&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				E&lt;/td&gt;
+			&lt;td&gt;
+				F&lt;/td&gt;
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
 </textarea>
 		</td>
 	</tr>

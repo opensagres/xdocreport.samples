@@ -189,11 +189,17 @@ public class TextStylingReportServlet
     protected InputStream getSourceStream( String reportId, HttpServletRequest request )
         throws IOException, XDocReportException
     {
-        if ( "odt".equalsIgnoreCase( getReportId( request )) )
+        if ( getReportId( request ).toLowerCase().endsWith( "odt" ) )
         {
             return TextStylingReportServlet.class.getResourceAsStream( "TextStyling.odt" );
         }
         return TextStylingReportServlet.class.getResourceAsStream( "TextStyling.docx" );
+    }
+
+    @Override
+    protected String getReportId( HttpServletRequest request )
+    {
+        return "TextStyling." + super.getReportId( request );
     }
 
     @Override
@@ -204,7 +210,7 @@ public class TextStylingReportServlet
         context.put( "project", project );
         String url = req.getParameter( "url" );
         context.put( "url", url );
-        
+
         String comments_html = req.getParameter( "comments_html" );
         context.put( "comments_html", comments_html );
         String comments_gwiki = req.getParameter( "comments_gwiki" );
