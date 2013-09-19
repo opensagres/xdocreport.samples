@@ -28,8 +28,8 @@ public class RegisterFontFactorytListener implements ServletContextListener {
 //		System.out.println("------------------------------");
 //		System.out.println(FontFactory.getFont("times-roman").hashCode());
 		String fontFolder = event.getServletContext().getRealPath("font");
-		
-		FontFactory.register(fontFolder+"/GandhiSans-Regular.otf","calibri");
+		FontFactory.registerDirectory(fontFolder);
+		//FontFactory.register(fontFolder+"/GandhiSans-Regular.otf","calibri");
 //		FontFactory.register(fontFolder+"/Aller_BdIt.ttf","times-bolditalic");
 //		FontFactory.register(fontFolder+"/Aller_Bd.ttf","times-bold");
 //		FontFactory.register(fontFolder+"/Aller_It.ttf","times-italic");
