@@ -267,7 +267,20 @@
 											}
 									%>
 								</select> <%
- 	}
+								
+ %>								<br/>Dump as : <select name="dumper" >
+ 									<%
+										HTMLUtils.generateHTMLOption("", "-- No dump --",
+													request, out, "dumper");
+										HTMLUtils.generateHTMLOption("JavaMain", "Java Main",
+													request, out, "dumper");
+										HTMLUtils.generateHTMLOption("EclipseProject", "Eclipse Project",
+													request, out, "dumper");
+										HTMLUtils.generateHTMLOption("MavenProject", "Maven Project",
+													request, out, "dumper");													
+									%>
+ 								</select>								
+ 	<%}
  %>
 								</td>
 							</tr>
