@@ -184,6 +184,7 @@
 	import="fr.opensagres.xdocreport.document.registry.XDocReportRegistry"%>
 <%@page
 	import="fr.opensagres.xdocreport.template.discovery.ITemplateEngineDiscovery"%>
+<%@page import="fr.opensagres.xdocreport.core.Platform"%>	
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -191,7 +192,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>XDocReport - Process/Convert report</title>
+<title>XDocReport <%=Platform.getVersion() %> - Process/Convert report</title>
 <link href="styles/xdocreport.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="scripts/xdocreport.js"></script>
 

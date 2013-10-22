@@ -189,10 +189,12 @@
 <%@page
 	import="fr.opensagres.xdocreport.document.discovery.IXDocReportFactoryDiscovery"%>
 <%@page
-	import="fr.opensagres.xdocreport.template.discovery.ITemplateEngineDiscovery"%><html>
+	import="fr.opensagres.xdocreport.template.discovery.ITemplateEngineDiscovery"%>
+	<%@page import="fr.opensagres.xdocreport.core.Platform"%>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>XDocReport - Administration</title>
+<title>XDocReport <%=Platform.getVersion() %> - Administration</title>
 <link href="styles/xdocreport.css" rel="stylesheet" type="text/css" />
 </head>
 

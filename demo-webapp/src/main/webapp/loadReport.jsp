@@ -188,14 +188,14 @@
 	import="fr.opensagres.xdocreport.document.registry.XDocReportRegistry"%>
 <%@page
 	import="fr.opensagres.xdocreport.template.discovery.ITemplateEngineDiscovery"%>
+<%@page import="fr.opensagres.xdocreport.core.Platform"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>XDocReport - Load report</title>
+<title>XDocReport <%=Platform.getVersion() %> - Load report</title>
 <link href="styles/xdocreport.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="scripts/xdocreport.js"></script>
 </head>
