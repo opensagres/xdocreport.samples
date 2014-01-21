@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<!-- 
+	Here we declared two resolvers. The lower numbered order takes higher precedence.
+	This means the XmlViewResolver will be used first by Spring to check if there's 
+	a matching view. If not, it uses InternalResourceViewResolver instead.
+	
+	If we set InternalResourceViewResolver's order to 0, all references to our view reports
+	will be classified as JSP pages instead. This is not what we want. So we put ordering.
+	 -->
+	<!-- 
+	Resolves view names based on the their literal names. These names are then matched
+	inside the /WEB-INF/jsp/ folder. If a match is found, the JSP page is served.
+	Take note of the ordering of this ViewResolver.
+	-->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+    		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" p:order="1" />
+
+	<!--  
+	Resolves view names based on the names declared on the declared xml location
+	All our XDocReport views are declared inside the specified xml location.
+	Take note of the ordering of this ViewResolver.
+	 -->
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver"
+			p:location="/WEB-INF/xdocreport-views.xml"  p:order="0" />
+</beans>

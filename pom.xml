@@ -19,6 +19,7 @@
 		<module>xdocreport-gae-demo</module>
 		<module>reporting-webapp</module>
 		<module>reporting-webapp-gae</module>
+		<module>reporting-webapp-springmvc</module>		
 	</modules>
 	<build>
 		<plugins>
@@ -259,9 +260,9 @@
 			</dependency>
 			<dependency>
 				<groupId>fr.opensagres.xdocreport</groupId>
-				<artifactId>org.odftoolkit.odfdom.converter.core</artifactId>
+				<artifactId>org.springframework.web.servlet.view.xdocreport</artifactId>
 				<version>${xdocreport.version}</version>
-			</dependency>
+			</dependency>			
 		</dependencies>
 
 	</dependencyManagement>
