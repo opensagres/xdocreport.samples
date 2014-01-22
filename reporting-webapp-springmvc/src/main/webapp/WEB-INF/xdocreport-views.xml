@@ -14,7 +14,7 @@
 			* xlsReport is for Excel format reports
 			* htmlReport is for HTML reports
 			* csvReport is for CSV reports
-	-->
+	--> 
 	<!-- 
 		id: the name to be used as a reference in the controller
 		url: the path where the docx file template is located.
