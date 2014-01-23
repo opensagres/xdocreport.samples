@@ -376,27 +376,6 @@ public class ProcessXDocReportServlet
         }
     }
 
-    // @Override
-    // protected void populateContext(IContext context, String reportId,
-    // HttpServletRequest request) throws IOException, XDocReportException {
-    // IXDocReport report = super.getRegistry(request).getReport(reportId);
-    // if (report != null) {
-    // MetaDataModel dataModelForm = report.getData(DATA_MODEL_REPORT_KEY);
-    // if (dataModelForm == null) {
-    // // If report was not already loaded (default report) , create
-    // // default data model
-    // dataModelForm = getMetaDataModel(reportId);
-    // if (dataModelForm != null) {
-    // // It's a default report, store the data model in the report
-    // report.setData(DATA_MODEL_REPORT_KEY, dataModelForm);
-    // }
-    // }
-    // if (dataModelForm != null) {
-    // dataModelForm.populateContext(context, request);
-    // }
-    // }
-    // }
-
     private String getConverterTypeFrom( IXDocReport report, String reportId, HttpServletRequest request )
         throws IOException, XDocReportException
     {
