@@ -1,0 +1,120 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>fr.opensagres.xdocreport.samples</groupId>
+    <artifactId>xdocreport-samples</artifactId>
+    <version>1.0.4-SNAPSHOT</version>
+  </parent>
+  <artifactId>reporting-webapp-springmvc-gae</artifactId>
+  
+	
+	<packaging>war</packaging>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<skipAssembly>true</skipAssembly>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- XDocSupport for Spring MVC -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>org.springframework.web.servlet.view.xdocreport</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>0.9.29</version>
+		</dependency>
+
+		<!-- Document ODT -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.document.odt</artifactId>
+		</dependency>
+
+		<!-- Converter ODT GAE -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.converter.odt.odfdom</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.odftoolkit.odfdom.converter.pdf</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<artifactId>org.odftoolkit.odfdom.converter.pdf-gae</artifactId>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.odftoolkit.odfdom.converter.core</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Document DOCX -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
+		</dependency>
+
+		<!-- Converter DOCX GAE -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.apache.poi.xwpf.converter.core</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
+					<groupId>fr.opensagres.xdocreport</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>org.apache.poi.xwpf.converter.xhtml-gae</artifactId>
+		</dependency>
+		<dependency>
+			<artifactId>org.apache.poi.xwpf.converter.pdf-gae</artifactId>
+			<groupId>fr.opensagres.xdocreport</groupId>
+		</dependency>
+
+		<!-- Velocity Template -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
+		</dependency>
+		
+		<!-- Spring MVC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.2.6.RELEASE</version>
+		</dependency>
+	</dependencies>
+  
+</project>

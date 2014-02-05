@@ -19,7 +19,8 @@
 		<module>xdocreport-gae-demo</module>
 		<module>reporting-webapp</module>
 		<module>reporting-webapp-gae</module>
-		<module>reporting-webapp-springmvc</module>		
+		<module>reporting-webapp-springmvc</module>
+		<module>reporting-webapp-springmvc-gae</module>
 	</modules>
 	<build>
 		<plugins>
