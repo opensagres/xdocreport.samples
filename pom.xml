@@ -271,24 +271,5 @@
 				<version>${xdocreport.version}</version>
 			</dependency>			
 		</dependencies>
-
 	</dependencyManagement>
-
-
-	<dependencies>
-		<dependency>
-			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>
-				fr.opensagres.xdocreport.converter.odt.odfdom
-			</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>
-						org.odftoolkit.odfdom.converter.pdf
-					</artifactId>
-					<groupId>fr.opensagres.xdocreport</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-	</dependencies>
 </project>

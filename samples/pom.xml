@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>samples</artifactId>
@@ -11,6 +12,11 @@
 	<packaging>pom</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -23,16 +29,10 @@
 					</dependency>
 				</dependencies>
 
-				<!-- uncomment to bind to the "package" phase on invoke mvn assembly:single
+				<!-- uncomment to bind to the "package" phase on invoke mvn assembly:single 
 					on xdocreport/samples folder -->
-				<!-- <executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions> -->
+				<!-- <executions> <execution> <phase>package</phase> <goals> <goal>single</goal> 
+					</goals> </execution> </executions> -->
 				<configuration>
 					<skipAssembly>false</skipAssembly>
 					<descriptorRefs>
@@ -78,6 +78,9 @@
 		<!-- Samples odt->PDF/XHTML converter -->
 		<module>fr.opensagres.xdocreport.samples.odt.converters</module>
 
+		<module>
+			fr.opensagres.xdocreport.samples.docxandvelocity.converters.itext5
+		</module>
 	</modules>
 
 

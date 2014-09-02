@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>fr.opensagres.xdocreport.samples</groupId>
+		<artifactId>samples</artifactId>
+		<version>1.0.5-SNAPSHOT</version>
+	</parent>
+	<artifactId>docxandvelocity.converters.itext5</artifactId>
+	<description>Docx document, templating based on Velocity, convert to PDF/HTML.</description>
+	<dependencies>
+
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>fr.opensagres.xdocreport</groupId>
+					<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>org.apache.poi.xwpf.converter.pdf.itext5</artifactId>
+			<version>1.0.5-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.4.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
