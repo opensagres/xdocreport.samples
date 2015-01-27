@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>fr.opensagres.xdocreport.samples</groupId>
 		<artifactId>samples</artifactId>
-		<version>1.0.5-SNAPSHOT</version>
+		<version>1.0.5</version>
 	</parent>
 	<artifactId>docxandvelocity.converters.itext5</artifactId>
 	<description>Docx document, templating based on Velocity, convert to PDF/HTML.</description>
