@@ -4,13 +4,13 @@
 	<parent>
 		<artifactId>xdocreport-samples</artifactId>
 		<groupId>fr.opensagres.xdocreport.samples</groupId>
-		<version>1.0.6-SNAPSHOT</version>
+		<version>1.0.5-SNAPSHOT</version>
 	</parent>
 
 	<!-- The Basics -->
 	<groupId>fr.opensagres.xdocreport.samples</groupId>
 	<artifactId>xdocreport-gae-demo</artifactId>
-	<version>1.0.6-SNAPSHOT</version>
+	<version>1.0.5-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>xdocreport-gae</name>
