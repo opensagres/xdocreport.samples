@@ -8,6 +8,7 @@
 	<artifactId>rest-service-converter-itext5</artifactId>
 	<packaging>war</packaging>
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
