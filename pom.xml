@@ -123,7 +123,7 @@
 		</developer>
 	</developers>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>snapshot</id>
 			<snapshots>
@@ -132,7 +132,7 @@
 			<name>OSS</name>
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</repository>
-	</repositories>
+	</repositories> -->
 	<scm>
 		<developerConnection>scm:git:https://github.com/opensagres/xdocreport.samples.git</developerConnection>
 		<connection>https://github.com/opensagres/xdocreport.samples.git</connection>
