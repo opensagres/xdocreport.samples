@@ -223,13 +223,13 @@ public class ProcessXDocReportServlet
         super.init( config );
         LOGGER.info( "*****************************************" );
         super.registerDispatcher( DefaultReportRegistry.INSTANCE );
-        String resourcesFolder0 = config.getServletContext().getRealPath(".");
-        LOGGER.info( "resourcesFolder0 "+resourcesFolder0 );
-        String resourcesFolder1 = config.getServletContext().getRealPath("resources");
-        LOGGER.info( "resourcesFolder1 "+resourcesFolder1 );
-        String resourcesFolder = config.getServletContext().getRealPath("resources/Opensagres");
-        LOGGER.info( "resourcesFolder "+resourcesFolder );
-        DefaultReportRegistry.INSTANCE.setResourcesFolder( new File(resourcesFolder) );
+//        String resourcesFolder0 = config.getServletContext().getRealPath(".");
+//        LOGGER.info( "resourcesFolder0 "+resourcesFolder0 );
+//        String resourcesFolder1 = config.getServletContext().getRealPath("resources");
+//        LOGGER.info( "resourcesFolder1 "+resourcesFolder1 );
+//        String resourcesFolder = config.getServletContext().getRealPath("resources/Opensagres");
+//        LOGGER.info( "resourcesFolder "+resourcesFolder );
+//        DefaultReportRegistry.INSTANCE.setResourcesFolder( new File(resourcesFolder) );
     }
 
     @Override

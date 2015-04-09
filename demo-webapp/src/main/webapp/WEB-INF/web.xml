@@ -13,6 +13,10 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>xdocreport-webapp</display-name>
 
+	<listener>
+		<listener-class>fr.opensagres.xdocreport.webapp.ProcessXDocReporContextListener</listener-class>
+	</listener>
+	
 	<!-- Servlet used to generate report with ODTHelloWorldWithVelocity.odt -->
 	<servlet>
 		<servlet-name>HelloWorldReportServlet</servlet-name>
