@@ -187,7 +187,6 @@ import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.dispatcher.IXDocReportDispatcher;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.document.web.dispatcher.ProcessDispatcherXDocReportServlet;
-import fr.opensagres.xdocreport.remoting.resources.services.server.web.WebAppHelper;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.ITemplateEngine;
 import fr.opensagres.xdocreport.webapp.datamodel.MetaDataModel;
@@ -224,6 +223,10 @@ public class ProcessXDocReportServlet
         super.init( config );
         LOGGER.info( "*****************************************" );
         super.registerDispatcher( DefaultReportRegistry.INSTANCE );
+        String resourcesFolder0 = config.getServletContext().getRealPath(".");
+        LOGGER.info( "resourcesFolder0 "+resourcesFolder0 );
+        String resourcesFolder1 = config.getServletContext().getRealPath("resources");
+        LOGGER.info( "resourcesFolder1 "+resourcesFolder1 );
         String resourcesFolder = config.getServletContext().getRealPath("resources/Opensagres");
         LOGGER.info( "resourcesFolder "+resourcesFolder );
         DefaultReportRegistry.INSTANCE.setResourcesFolder( new File(resourcesFolder) );
