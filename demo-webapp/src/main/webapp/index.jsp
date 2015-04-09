@@ -185,7 +185,7 @@
 <table width="700px" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-		<p>Welcome to <a href="http://code.google.com/p/xdocreport/">XDocReport</a>
+		<p>Welcome to <a href="https://github.com/opensagres/xdocreport">XDocReport</a>
 		WEB Application. This application give you the capability to upload
 		odt, docx... document which use <a
 			href="http://freemarker.sourceforge.net/">Freemarker</a>, <a
@@ -222,7 +222,7 @@
 			</li>							
 		</ul>
 		</p>
-		<p>Please visit <a href="http://code.google.com/p/xdocreport/">http://code.google.com/p/xdocreport/</a>
+		<p>Please visit <a href="https://github.com/opensagres/xdocreport">https://github.com/opensagres/xdocreport</a>
 		for more information.</p>
 		</td>
 	</tr>
