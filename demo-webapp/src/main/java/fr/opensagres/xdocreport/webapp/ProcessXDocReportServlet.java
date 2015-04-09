@@ -224,7 +224,7 @@ public class ProcessXDocReportServlet
         super.init( config );
         LOGGER.info( "*****************************************" );
         super.registerDispatcher( DefaultReportRegistry.INSTANCE );
-        String resourcesFolder = config.getServletContext().getRealPath("resources");
+        String resourcesFolder = config.getServletContext().getRealPath("resources/Opensagres");
         LOGGER.info( "resourcesFolder "+resourcesFolder );
         DefaultReportRegistry.INSTANCE.setResourcesFolder( new File(resourcesFolder) );
     }
