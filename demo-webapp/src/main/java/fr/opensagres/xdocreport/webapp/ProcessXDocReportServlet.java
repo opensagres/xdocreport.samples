@@ -224,9 +224,9 @@ public class ProcessXDocReportServlet
         super.init( config );
         LOGGER.info( "*****************************************" );
         super.registerDispatcher( DefaultReportRegistry.INSTANCE );
-        DefaultReportRegistry.INSTANCE.setResourcesFolder( new File(
-                                                                     WebAppHelper.getWebAppFolder( config.getServletContext() ),
-                                                                     "resources" ) );
+        String resourcesFolder = config.getServletContext().getRealPath("resources");
+        LOGGER.info( "resourcesFolder "+resourcesFolder );
+        DefaultReportRegistry.INSTANCE.setResourcesFolder( new File(resourcesFolder) );
     }
 
     @Override
