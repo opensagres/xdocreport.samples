@@ -221,12 +221,12 @@ public class ProcessXDocReportServlet
     public void init( ServletConfig config )
         throws ServletException
     {
+        super.init( config );
         LOGGER.info( "*****************************************" );
         super.registerDispatcher( DefaultReportRegistry.INSTANCE );
         DefaultReportRegistry.INSTANCE.setResourcesFolder( new File(
                                                                      WebAppHelper.getWebAppFolder( config.getServletContext() ),
                                                                      "resources" ) );
-        super.init( config );
     }
 
     @Override
