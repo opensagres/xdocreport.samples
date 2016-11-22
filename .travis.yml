@@ -1,6 +1,6 @@
 language: java
 
-script: mvn clean install -Dxdocreport.version=1.0.5
+script: mvn -Dxdocreport.version=1.0.5 clean install 
 
 notifications:
   email: true
