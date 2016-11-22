@@ -283,4 +283,12 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<profiles>
+		<profile>
+			<id>latest_release</id>
+			<properties>
+				<xdocreport.version>1.0.5</xdocreport.version>
+			</properties>
+		</profile>
+	</profiles>
 </project>

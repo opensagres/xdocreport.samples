@@ -1,6 +1,6 @@
 language: java
 
-script: mvn -Dxdocreport.version=1.0.5 clean install 
+script: mvn clean install -Platest_release 
 
 notifications:
   email: true
