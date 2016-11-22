@@ -288,7 +288,7 @@
 				</property>
 			</activation>
 			<properties>
-				<xdocreport.version>1.0.5</xdocreport.version>
+				<xdocreport.version>[1.0,)</xdocreport.version>
 			</properties>
 		</profile>
 	</profiles>
