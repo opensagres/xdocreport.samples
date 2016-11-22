@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.opensagres.xdocreport.samples</groupId>
 	<artifactId>xdocreport-samples</artifactId>
@@ -123,16 +124,9 @@
 		</developer>
 	</developers>
 
-	<!-- <repositories>
-		<repository>
-			<id>snapshot</id>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<name>OSS</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-	</repositories> -->
+	<!-- <repositories> <repository> <id>snapshot</id> <snapshots> <enabled>true</enabled> 
+		</snapshots> <name>OSS</name> <url>https://oss.sonatype.org/content/repositories/snapshots/</url> 
+		</repository> </repositories> -->
 	<scm>
 		<developerConnection>scm:git:https://github.com/opensagres/xdocreport.samples.git</developerConnection>
 		<connection>https://github.com/opensagres/xdocreport.samples.git</connection>
@@ -289,8 +283,8 @@
 			<activation>
 				<!-- probably travis_ci... -->
 				<property>
-					<name>DEBIAN_FRONTEND</name>
-					<value>noninteractive</value>
+					<name>skipTests</name>
+					<value>true</value>
 				</property>
 			</activation>
 			<properties>
