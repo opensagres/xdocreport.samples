@@ -285,7 +285,14 @@
 	</dependencyManagement>
 	<profiles>
 		<profile>
-			<id>latest_release</id>
+			<id>travis_ci</id>
+			<activation>
+				<!-- probably travis_ci... -->
+				<property>
+					<name>DEBIAN_FRONTEND</name>
+					<value>noninteractive</value>
+				</property>
+			</activation>
 			<properties>
 				<xdocreport.version>1.0.5</xdocreport.version>
 			</properties>
