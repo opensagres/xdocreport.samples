@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>fr.opensagres.xdocreport.samples</groupId>
 		<artifactId>samples</artifactId>
-		<version>2.0.0</version>
+		<version>2.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>odt.converters</artifactId>
 	<description>Samples with Java ODT 2 PDF/XHTML converter based on ODFDOM+iText.</description>
