@@ -10,11 +10,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+			<artifactId>fr.opensagres.poi.xwpf.converter.pdf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
+			<artifactId>fr.opensagres.poi.xwpf.converter.xhtml</artifactId>
 		</dependency>
 	</dependencies>
 </project>

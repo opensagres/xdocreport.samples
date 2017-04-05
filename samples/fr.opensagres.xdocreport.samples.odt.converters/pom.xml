@@ -10,11 +10,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>org.odftoolkit.odfdom.converter.pdf</artifactId>
+			<artifactId>fr.opensagres.odfdom.converter.pdf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>org.odftoolkit.odfdom.converter.xhtml</artifactId>
+			<artifactId>fr.opensagres.odfdom.converter.xhtml</artifactId>
 		</dependency>
 	</dependencies>
 </project>

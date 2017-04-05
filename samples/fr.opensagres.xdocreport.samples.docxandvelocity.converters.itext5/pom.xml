@@ -46,14 +46,14 @@
 			<exclusions>
 				<exclusion>
 					<groupId>fr.opensagres.xdocreport</groupId>
-					<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+					<artifactId>fr.opensagres.poi.xwpf.converter.pdf</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>org.apache.poi.xwpf.converter.pdf.itext5</artifactId>
+			<artifactId>fr.opensagres.poi.xwpf.converter.pdf.itext5</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf</groupId>

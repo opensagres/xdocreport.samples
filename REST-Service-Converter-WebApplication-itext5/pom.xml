@@ -52,7 +52,7 @@
 			<exclusions>
 				<exclusion>
 					<groupId>fr.opensagres.xdocreport</groupId>
-					<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+					<artifactId>fr.opensagres.poi.xwpf.converter.pdf</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -62,18 +62,18 @@
 			<exclusions>
 				<exclusion>
 					<groupId>fr.opensagres.xdocreport</groupId>
-					<artifactId>org.odftoolkit.odfdom.converter.pdf</artifactId>
+					<artifactId>fr.opensagres.odfdom.converter.pdf</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>org.apache.poi.xwpf.converter.pdf.itext5</artifactId>
+			<artifactId>fr.opensagres.poi.xwpf.converter.pdf.itext5</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>org.odftoolkit.odfdom.converter.pdf.itext5</artifactId>
+			<artifactId>fr.opensagres.odfdom.converter.pdf.itext5</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
