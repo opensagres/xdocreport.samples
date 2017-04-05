@@ -1,7 +1,6 @@
 package fr.opensagres.xdocreport.samples.reporting.springmvc.report;
 
-import org.springframework.web.servlet.view.xdocreport.IXDocReportConfiguration;
-
+import fr.opensagres.web.servlet.view.xdocreport.IXDocReportConfiguration;
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.samples.reporting.springmvc.model.Developer;

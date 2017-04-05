@@ -171,9 +171,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.odftoolkit.odfdom.converter.xhtml.XHTMLConverter;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
 
+import fr.opensagres.odfdom.converter.xhtml.XHTMLConverter;
 import fr.opensagres.xdocreport.samples.odt.converters.Data;
 
 public class ConvertODTStructuresToXHTML

@@ -171,9 +171,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLConverter;
 import fr.opensagres.xdocreport.samples.docx.converters.Data;
 
 public class ConvertDocxLettreRelanceToXHTML
